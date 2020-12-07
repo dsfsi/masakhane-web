@@ -1,4 +1,3 @@
-mit-808-starter
 ==============================
 
 A short description of the project.
