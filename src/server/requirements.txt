@@ -1,0 +1,11 @@
+Flask==1.0.3
+Flask-RESTful==0.3.7
+httpie==1.0.3
+gdown
+polyglot
+# pyicu
+# pyter
+pycld2
+morfessor
+pyter3
+joeynmt
