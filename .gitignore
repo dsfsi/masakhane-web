@@ -88,5 +88,8 @@ target/
 # Mypy cache
 .mypy_cache/
 
+<<<<<<< HEAD
 src/back-end/joeynmt/models/
+=======
+>>>>>>> 6e6a58d6b3bded9e28e185adb41a97e1aaa1037e
 models/joeynmt/
