@@ -89,3 +89,4 @@ target/
 .mypy_cache/
 
 src/back-end/joeynmt/models/
+models/joeynmt/
