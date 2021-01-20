@@ -1,8 +1,7 @@
 from flask import Flask
-from flask import request,render_template
-
-
-import ipdb
+from flask import request, render_template
+# this is only for debug purpose
+# import ipdb
 import os
 from flask_restful import Api
 

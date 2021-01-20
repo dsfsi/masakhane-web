@@ -21,7 +21,7 @@ from joeynmt.helpers import load_config
 class MasakhaneModelLoader():
 
   def __init__(self, available_models_file):
-    self._model_dir_prefix = 'joeynmt/models/'
+    self._model_dir_prefix = '../../models/joeynmt/'
     self._src_language = ''
     self.models = self.load_available_models(available_models_file)
   
@@ -144,11 +144,6 @@ class MasakhaneModelLoader():
         self._download_github_file(url, destination)
     except:
       print("Download failed, didn't recognize url {}.".format(url))
-
-# import ipywidgets as widgets
-# print('Please select a target language.')
-# lang_picker = widgets.Dropdown(options=model_loader.models.keys(), value='yo')
-# lang_picker
 
 # if __name__=='__main__':
 #     available_models_file = '../data/available_models.tsv'

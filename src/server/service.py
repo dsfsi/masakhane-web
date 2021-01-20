@@ -30,7 +30,7 @@ def sentiment():
 
 
     if request.method =='POST':
-        sentence = request.form['feedback']
+        sentence = request.form['message']
         # sentence = "Hello \t me"
 
         sentiment = Predicter().predict_translation(sentence, model_dir, lc)

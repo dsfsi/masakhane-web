@@ -15,21 +15,31 @@ class Predicter():
     def predict_translation(self, source, model_dir, lc):
         new_config_path = os.path.join(model_dir, 'config.yaml')
 
+        # joenmt takes as input a file, so for the moment 
+        # I made the code to write the input into a file, ...
+        
+        path_to_temp = "../../data/temps/"
+
+        if not os.path.exists(path_to_temp):
+              os.mkdir(path_to_temp)
+              
+
         src_input_file = 'src_input.bpe.txt'
         src_bpe_path = os.path.join(model_dir, 'src.bpe.model')
         
         # ted_link = 'https://raw.githubusercontent.com/juliakreutzer/masakhane-eval/master/data/multitarget-ted-filt.en.tsv'
-        os.system(f'echo {source} > input.tsv')
-        src_data = SourceData('input.tsv', lc, bpe_path=src_bpe_path, out_file=src_input_file)
+        os.system(f'echo {source} > {path_to_temp}input.tsv')
+        src_data = SourceData(path_to_temp+'input.tsv', lc, \
+                                    bpe_path=src_bpe_path, out_file=path_to_temp+src_input_file)
         sources = src_data.get_sources()
         ted_df = src_data.get_df()
         
-        os.system(f"sed 's/@@ //g' {src_input_file} > src_input.txt")
+        os.system(f"sed 's/@@ //g' {path_to_temp}{src_input_file} > {path_to_temp}src_input.txt")
 
         # os.system(f'echo {source} > input.txt')        
-        os.system(f'python -m joeynmt translate {new_config_path} < src_input.txt > trg_output_file')
+        os.system(f'python -m joeynmt translate {new_config_path} < {path_to_temp}src_input.txt > {path_to_temp}trg_output_file')
 
-        targets = post_process('trg_output_file', lc)
+        targets = post_process(path_to_temp+'trg_output_file', lc)
 # 
         # with open('output.txt', 'r') as file:
         #     output = file.read().replace('\n', '')
