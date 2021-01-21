@@ -4,10 +4,17 @@ from http import HTTPStatus
 from utils import model_load
 from models.predict import Predicter
 
+import os
+import sqlite3
+
 from models.translation import Translation
+
 import json
 
 class TranslateResource(Resource):
+    def __init__(self) -> None:
+        super().__init__()
+        self.selected_models_file = '../../data/external/selected_models.tsv'
 
     def post(self):
         """
@@ -16,10 +23,9 @@ class TranslateResource(Resource):
 
         data = request.get_json()
 
-        available_models_file = '../../data/external/available_models.tsv'
 
         model_loader = model_load.MasakhaneModelLoader(
-                            available_models_file=available_models_file)
+                            available_models_file=self.selected_models_file)
 
         if data['target'] not in model_loader.models.keys():
             return {'message' :'language not found'}, HTTPStatus.NOT_FOUND
@@ -33,15 +39,31 @@ class TranslateResource(Resource):
                                     input=data['input'],
                                     output=translation_result)
         
+        cur_dir = os.path.dirname(__file__)
+        db = os.path.join(cur_dir, 'masakhane.sqlite')
 
+        def sqlite_entry(path, source, target, 
+                                original_text, translation_suggested, stars):
+            conn = sqlite3.connect(path)
+            c = conn.cursor()
+            c.execute("INSERT INTO masakhane (Date, Source, Target,  \
+                                    OriginalText, TranslationSuggested, Stars)"\
+            " VALUES (DATETIME('now'), ?, ?,  ?, ?, ?)", (source, target, \
+                                        original_text, translation_suggested, stars))
+            conn.commit()
+            conn.close()
+
+        # if (int(data['review'])>=4) :
+        sqlite_entry(db, data['source'], data['target'], \
+                        data['input'], data['review'], data['stars'])
+            
         return trans.data, HTTPStatus.CREATED
 
     
     def get(self):
-        available_models_file = '../../data/external/available_models.tsv'
 
         model_loader = model_load.MasakhaneModelLoader(
-                            available_models_file=available_models_file)
+                            available_models_file=self.selected_models_file)
         
         path_to_json = '../../data/external/languages.json'
 

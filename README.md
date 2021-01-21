@@ -53,4 +53,42 @@ Project Organization
 
 --------
 
+
+
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+## Create a database
+
+Run Python at your terminal
+
+```sh
+python3
+```
+Inside Python run the following command
+
+```sh
+>>> import sqlite3,os
+>>> conn = sqlite3.connect("masakhane.sqlite")
+>>> c = conn.cursor()
+>>> c.execute('DROP TABLE IF EXISTS masakhane')
+<sqlite3.Cursor object at 0x7f0fff6c2f10>
+>>> c.execute('CREATE TABLE masakhane'\
+...           '(date TEXT, OriginalText TEXT, translationSuggested TEXT, stars TEXT)')
+<sqlite3.Cursor object at 0x7f0fff6c2f10>
+>>> conn.commit()
+>>> conn.close()
+>>> exit()
+ ```
+To view each contribution run the following command
+
+```sh
+import sqlite3,os
+conn = sqlite3.connect("masakhane.sqlite")
+c = conn.cursor()
+for row in c.execute('SELECT * FROM masakhane'):
+    print(row)
+
+```
+
+cp masakhane.sqlite src/server/resources/

@@ -5,6 +5,7 @@ class Translation:
         self.target = target
         self.input = input
         self.output = output
+        self.review = None
 
     @property
     def data(self):
