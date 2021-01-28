@@ -98,7 +98,36 @@ class MasakhaneModelLoader():
         self._download(model_files['trg_bpe'], trg_bpe_path)
 
     print('Downloaded model for {}-{}.'.format(self._src_language, trg_language))
+    # return model_dir, config, self._is_lc(src_vocab_path)
+    # return 
+
+
+  def load_model(self, trg_language):
+    """ Load model for given trg language. """
+    model_dir = "{}-{}".format(self._model_dir_prefix, trg_language)
+
+    # Load the checkpoint.
+    ckpt_path = os.path.join(model_dir, 'model.ckpt')
+        
+    # Load the vocabularies.
+    src_vocab_path = os.path.join(model_dir, 'src_vocab.txt')
+
+    trg_vocab_path = os.path.join(model_dir, 'trg_vocab.txt')
+    
+    # Load the config.
+    config_path = os.path.join(model_dir, 'config_orig.yaml')
+
+    # Adjust config.
+    config = load_config(config_path)
+    new_config_file = os.path.join(model_dir, 'config.yaml')
+    config = self._update_config(config, src_vocab_path, trg_vocab_path,
+                                 model_dir, ckpt_path)
+    with open(new_config_file, 'w') as cfile:
+      yaml.dump(config, cfile)
+
+    print('Loaded model for {}-{}.'.format(self._src_language, trg_language))
     return model_dir, config, self._is_lc(src_vocab_path)
+
 
   def _update_config(self, config, new_src_vocab_path, new_trg_vocab_path,
                      new_model_dir, new_ckpt_path):

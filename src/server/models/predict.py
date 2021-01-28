@@ -10,8 +10,6 @@ class Predicter():
     def __init__(self):
         pass
         
-
-
     def predict_translation(self, source, model_dir, lc):
         new_config_path = os.path.join(model_dir, 'config.yaml')
 
