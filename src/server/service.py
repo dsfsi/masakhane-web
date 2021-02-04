@@ -24,17 +24,23 @@ def sentiment():
 
     model_loader = model_load.MasakhaneModelLoader(available_models_file=available_models_file)
 
-    model_dir, config, lc = model_loader.download_model('tw')
+    model_dir, config, lc = model_loader.download_model('sw')
     # model_dir, config, lc = model_loader.download_model('ln')
 
     print(request)
 
     if request.method =='POST':
         # sentence = request.form['message']
-        sentence = "Hello \t me"
+        #sentence = "How are you?"
+
+        data = request.data
+        
+
+        sentence = (json.loads(data)).get('text')
 
         sentiment = Predicter().predict_translation(sentence, model_dir, lc)
 
+        print(json_response(sentiment))
         return json_response(sentiment)
 
     #     return render_template('index.html',feedback=sentiment,sentiment_value=sentiment, predict=True)
