@@ -46,25 +46,7 @@ class TranslateResource(Resource):
                                         input=data['input'],
                                         output=translation_result)
             
-            cur_dir = os.path.dirname(__file__)
-            db = os.path.join(cur_dir, 'masakhane.sqlite')
-
-            def sqlite_entry(path, source, target, 
-                                    original_text, translation_suggested, stars):
-                conn = sqlite3.connect(path)
-                c = conn.cursor()
-                c.execute("INSERT INTO masakhane (Date, Source, Target,  \
-                                        OriginalText, TranslationSuggested, Stars)"\
-                " VALUES (DATETIME('now'), ?, ?,  ?, ?, ?)", (source, target, \
-                                            original_text, translation_suggested, stars))
-                conn.commit()
-                conn.close()
-
-            # TODO: Need to work on when to save the feedback
-
-            # if (int(data['review'])>=4) :
-            # sqlite_entry(db, data['source'], data['target'], \
-            #                 data['input'], data['review'], data['stars'])
+            
                 
             return trans.data, HTTPStatus.CREATED
 
@@ -119,15 +101,55 @@ class AddResource(Resource):
 
         model_loader.download_model(data['target'])
 
-        
-        # available_json = {}
-        # temp_dict = {}
-
-        # with open(self.path_to_json, 'r') as f:
-        #     distros_dict = json.load(f)
-
-        # for distro in distros_dict:
-        #     temp_dict[distro['language_short']] = distro['language_en']
-
 
         return {'message' :f"language {data['target']} downloaded"}, HTTPStatus.CREATED       
+
+class SaveResource(Resource):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def post(self):
+        """
+        Save into the database
+
+        params:
+        -------
+            - data['source']    : The source language 
+            - data['target']    : The target language
+            - data['input']     : The input setence
+            - data['review']    : The suggested translation correction
+            - data['stars']     : The confidence of the suggested translation
+            - data['token']     : User authorisation to collect data token
+        """
+
+        data = request.get_json()
+
+        cur_dir = os.path.dirname(__file__)
+            
+        db = os.path.join(cur_dir, 'masakhane.sqlite')
+
+        def sqlite_entry(path, source, target, 
+                                original_text, translation_suggested, stars, token):
+            conn = sqlite3.connect(path)
+            c = conn.cursor()
+            c.execute("INSERT INTO masakhane (Date, Source, Target,  \
+                                    OriginalText, TranslationSuggested, Stars, token)"\
+            " VALUES (DATETIME('now'), ?, ?,  ?, ?, ?, ?)", (source, target, \
+                                        original_text, translation_suggested, stars, token))
+            conn.commit()
+            conn.close()
+
+        # TODO: Need to work on when to save the feedback
+        sqlite_entry(db, data['source'], data['target'], \
+                        data['input'], data['review'], data['stars'], data['token'])
+
+
+        return {'message' :"Review saved"}, HTTPStatus.OK       
+
+class Home(Resource):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def get(self):
+        return {'message': "welcome Masakhane Web"}, HTTPStatus.OK
+        

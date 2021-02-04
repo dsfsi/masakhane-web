@@ -21,3 +21,7 @@ c = conn.cursor()
 for row in c.execute('SELECT * FROM masakhane'):
     print(row)
 ```
+
+## Testing 
+
+`py.test -v`
