@@ -1,6 +1,7 @@
-# Back End
+==============================
 
-## Flask RESTApi
+# RESTApi 
+This is the RestApi of the Masakhane web App.
 
 API for [Masakhane-MT](https://github.com/masakhane-io/masakhane-mt) machine translation models for African languages to translate
 
@@ -22,6 +23,14 @@ for row in c.execute('SELECT * FROM masakhane'):
     print(row)
 ```
 
-## Testing 
+## Endpoints 
+
+- Get all the available languages : `http GET http://127.0.0.1:5000/translate`
+- Get a translation given a source and target language : 
+
+    ```http POST http://127.0.0.1:5000/translate  source="en" target="ln" input="I am speaking with cate"```
+    
+    
+ ## Testing 
 
 `py.test -v`

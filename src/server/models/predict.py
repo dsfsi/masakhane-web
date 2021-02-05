@@ -18,6 +18,10 @@ class Predicter():
         
         path_to_temp = "../../data/temps/"
 
+        if not os.path.exists(path_to_temp):
+              os.mkdir(path_to_temp)
+              
+
         src_input_file = 'src_input.bpe.txt'
         src_bpe_path = os.path.join(model_dir, 'src.bpe.model')
         
