@@ -40,8 +40,27 @@ export default function TranslateCard() {
         setLanguage2(e.target.value);
     };
 
-    const handleTranslate = () => {
-        setTranslation('Translated text test...');
+    const handleTranslate = (e) => {
+        console.log('translating ..')
+        e.preventDefault()
+    
+        fetch( 
+            'http://0.0.0.0:5000/translate', 
+            {
+                method: 'post', 
+                // mode: 'no-cors',
+                body: JSON.stringify({text}),
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                // credentials: 'same-origin',
+            })
+          .then(res => res.json())
+          .then(data => {
+              console.log({ data })
+            // do something here
+            setTranslation(data)
+          })
     };
 
     const submitFeedBack = (formData) => {
@@ -87,7 +106,7 @@ export default function TranslateCard() {
                 `}
             </style>
 
-            <Modal show={show} onHide={handleClose} centered>
+            <Modal scrollable={true} show={show} onHide={handleClose} centered style={{ maxHeight: '700px' }}>
                 <Modal.Header closeButton>
                 {/*<Modal.Title>Modal heading</Modal.Title>*/}
                 <Col style={{textAlign: 'center'}}>

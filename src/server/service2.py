@@ -1,7 +1,6 @@
-from flask import Flask
+from flask import Flask, json, request
 from flask import jsonify
 from flask import request,render_template
-import json as json
 
 
 from utils import model_load
@@ -28,13 +27,24 @@ def sentiment():
     model_dir, config, lc = model_loader.download_model('sw')
     # model_dir, config, lc = model_loader.download_model('ln')
 
+    print(request)
 
     if request.method =='POST':
-        sentence = request.form['feedback']
-        # sentence = "Hello \t me"
+        # sentence = request.form['message']
+        # sentence = "How are you?"
+
+        data = request.data
+        
+
+        sentence = (json.loads(data)).get('text')
 
         sentiment = Predicter().predict_translation(sentence, model_dir, lc)
 
-        return render_template('index.html',feedback=sentiment,sentiment_value=sentiment, predict=True)
+        print(json_response(sentiment))
+        return json_response(sentiment)
 
-    return render_template('index.html', predict=False)
+    #     return render_template('index.html',feedback=sentiment,sentiment_value=sentiment, predict=True)
+
+    # return render_template('index.html', predict=False)
+def json_response(payload, status=200):
+    return (json.dumps(payload), status, {'content-type': 'application/json'})

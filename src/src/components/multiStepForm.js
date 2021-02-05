@@ -1,10 +1,12 @@
 import { useForm, useStep } from "react-hooks-helper";
 
+import Terms from "./terms";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
 
 const steps = [
+    { id: "terms" },
     { id: "step1" },
     { id: "step2" },
     { id: "step3" },
@@ -31,6 +33,8 @@ const MultiStepForm = ({ language1, language2, text, translation, setShow, submi
     const props = { language1, language2, text, translation, setShow, formData, setForm, navigation, handleSubmitFeedback };
 
     switch (id) {
+        case "terms":
+            return <Terms {...props} />;
         case "step1":
             return <Step1 {...props} />;
         case "step2":

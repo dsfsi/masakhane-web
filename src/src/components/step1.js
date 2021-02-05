@@ -8,7 +8,7 @@ const Step1 = ({ language1, language2, setForm, formData, navigation, handleSubm
     const { next, go } = navigation;
 
     const handleNext= () => {
-        if(know_language1 === "none" || know_language2 === "none") {
+        if(know_language1 === "none" && know_language2 === "none") {
             // submit feedback
             handleSubmitFeedback();
             // then skip next step
