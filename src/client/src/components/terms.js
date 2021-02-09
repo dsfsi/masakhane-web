@@ -25,7 +25,7 @@ const Terms = ({ setShow, navigation }) => {
         <div>
             <Card style={{ width: '100%' }}>
                 <Card.Body>
-                    <Card.Title>Terms & Conditions</Card.Title>
+                    <Card.Title>Consent Letter</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Dear Sir/Madam,</Card.Subtitle>
                     <div>
                         <Card.Text style={{ fontSize: 12, color: 'gray' }}>
