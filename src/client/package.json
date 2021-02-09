@@ -48,5 +48,5 @@
     "eslint": "^7.18.0",
     "eslint-plugin-testing-library": "^3.10.1"
   },
-  "proxy": "http://localhost:5000/translate"
+  "proxy": "http://localhost:5000"
 }
