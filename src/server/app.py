@@ -3,7 +3,7 @@ from flask import request, render_template
 
 from flask_migrate import Migrate
 from extensions import db
-from db import Config
+from db.config import Config
 
 
 # this is only for debug purpose
@@ -20,9 +20,13 @@ def create_app():
     env = os.environ.get('ENV', 'Development')
 
     if env == 'Production':
-        config_str = Config.ProductionConfig
+        config_str = 'config.ProductionConfig'
+    
+    elif env == 'Staging':
+        config_str = 'config.StagingConfig'
+    
     else:
-        config_str = Config.DevelopmentConfig 
+        config_str = 'config.DevelopmentConfig' 
 
     app = Flask(__name__)
     app.config.from_object(config_str)
@@ -44,6 +48,5 @@ def register_resources(app):
 
 
 if __name__=='__main__':
-    # masakhane.run(port=5000, debug=True)
-    masakhane = create_app()
-    masakhane.run(port=5000, debug=True)
+    app = create_app()
+    app.run()

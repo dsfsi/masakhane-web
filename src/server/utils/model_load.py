@@ -8,8 +8,9 @@ import numpy as np
 import pandas as pd
 import functools
 import pyter
+from db.config import Config
 
-import ipdb
+# import ipdb
 # import ipywidgets as widgets
 # from IPython.display import display
 # from polyglot.text import Text
@@ -21,6 +22,21 @@ from joeynmt.helpers import load_config
 class MasakhaneModelLoader():
 
   def __init__(self, available_models_file):
+    env = os.environ.get('ENV', 'Development')
+
+    
+    if env == 'Production':
+        config_str = 'config.ProductionConfig'
+
+    elif env == 'Staging':
+        config_str = 'config.StagingConfig'
+    
+    else:
+        print(env)
+        config_str = 'config.DevelopmentConfig '
+
+    print(os.environ["ENV"])
+    # self._model_dir_prefix = config_str['ENV']
     self._model_dir_prefix = '../../models/joeynmt/'
     self._src_language = ''
     self.models = self.load_available_models(available_models_file)
