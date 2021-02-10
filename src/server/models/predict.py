@@ -43,7 +43,7 @@ class Predicter():
 
         # return output
 
-        return targets[0] if len(targets)>0 else ""
+        return targets[0] if len(targets)>0 else "Nothing"
 
 
 class SourceData():

@@ -3,6 +3,8 @@ from flask_restful import Resource
 from http import HTTPStatus
 from utils import model_load
 from models.predict import Predicter
+from models.feedback import Feedback
+
 
 import os
 import sqlite3
@@ -39,6 +41,7 @@ class TranslateResource(Resource):
 
             model_dir, config, lc = model_loader.load_model(data['target'])
 
+            print(data['input'])
             translation_result = Predicter().predict_translation(data['input'], model_dir, lc)
             
             trans = Translation(source=data['source'],
@@ -114,35 +117,22 @@ class SaveResource(Resource):
 
         params:
         -------
-            - data['source']    : The source language 
-            - data['target']    : The target language
+            - data['src_lang']    : The source language 
+            - data['tgt_lang']    : The target language
             - data['input']     : The input setence
             - data['review']    : The suggested translation correction
             - data['stars']     : The confidence of the suggested translation
-            - data['token']     : User authorisation to collect data token
+            - data['token'] : User authorisation to collect data token (Boolean value)
         """
 
         data = request.get_json()
 
-        cur_dir = os.path.dirname(__file__)
-            
-        db = os.path.join(cur_dir, 'masakhane.sqlite')
+        feedback = Feedback(
+            src_lang = data['src_lang'], tgt_lang = data['tgt_lang'], 
+            input = data['input'], review = data['review'], 
+            stars = data['stars'], token = data['token'])
 
-        def sqlite_entry(path, source, target, 
-                                original_text, translation_suggested, stars, token):
-            conn = sqlite3.connect(path)
-            c = conn.cursor()
-            c.execute("INSERT INTO masakhane (Date, Source, Target,  \
-                                    OriginalText, TranslationSuggested, Stars, token)"\
-            " VALUES (DATETIME('now'), ?, ?,  ?, ?, ?, ?)", (source, target, \
-                                        original_text, translation_suggested, stars, token))
-            conn.commit()
-            conn.close()
-
-        # TODO: Need to work on when to save the feedback
-        sqlite_entry(db, data['source'], data['target'], \
-                        data['input'], data['review'], data['stars'], data['token'])
-
+        feedback.save()
 
         return {'message' :"Review saved"}, HTTPStatus.OK       
 
