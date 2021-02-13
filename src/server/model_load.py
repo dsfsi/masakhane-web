@@ -1,43 +1,15 @@
 #@title Imports
-
 import os
-import re
 import yaml
-import sacrebleu
-import numpy as np
-import pandas as pd
-import functools
-import pyter
-from db.config import Config
-
-# import ipdb
-# import ipywidgets as widgets
-# from IPython.display import display
-# from polyglot.text import Text
-# from subword_nmt import apply_bpe
-# #@title Target language selection
-
+from flask import current_app 
 from joeynmt.helpers import load_config
+# from utils.upload_download import 
 
 class MasakhaneModelLoader():
 
   def __init__(self, available_models_file):
-    env = os.environ.get('ENV', 'Development')
-
-    
-    if env == 'Production':
-        config_str = 'config.ProductionConfig'
-
-    elif env == 'Staging':
-        config_str = 'config.StagingConfig'
-    
-    else:
-        print(env)
-        config_str = 'config.DevelopmentConfig '
-
-    print(os.environ["ENV"])
-    # self._model_dir_prefix = config_str['ENV']
-    self._model_dir_prefix = '../../models/joeynmt/'
+    self._model_dir_prefix = current_app.config['MODEL']
+    # self._model_dir_prefix = current_app.config['MODEL']
     self._src_language = ''
     self.models = self.load_available_models(available_models_file)
   

@@ -24,4 +24,11 @@ for row in c.execute('SELECT * FROM masakhane'):
 
 ## Testing 
 
-`py.test -v`
+`py.test -v --ignore=lib`
+
+## Create and Migrate database
+```bash
+flask db init
+flask db migrate
+flask db upgrade 
+```

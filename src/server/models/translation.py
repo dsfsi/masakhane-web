@@ -1,17 +1,16 @@
 class Translation:
-    def __init__(self, source, target, input, output) -> None:
+    def __init__(self, src_lang, tgt_lang, input, output) -> None:
         super().__init__()
-        self.source = source
-        self.target = target
+        self.src_lang = src_lang
+        self.tgt_lang = tgt_lang
         self.input = input
         self.output = output
-        self.review = None
 
     @property
     def data(self):
         return {
-            'source': self.source,
-            'target': self.target,
+            'src_lang': self.src_lang,
+            'tgt_lang': self.tgt_lang,
             'input': self.input,
             'output': self.output
         }

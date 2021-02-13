@@ -13,16 +13,16 @@ class Feedback(db.Model):
     review = db.Column(db.String(800), nullable=False, unique=False)
     stars = db.Column(db.Integer, nullable=True, unique=False)    
     token = db.Column(db.String(20), nullable=False)
-    # is_active = db.Column(db.Boolean(), default=False)
 
     created_at = db.Column(db.DateTime(), nullable=False,\
                                 server_default=db.func.now())
     update_at = db.Column(db.DateTime(), nullable=False,\
                                 server_default=db.func.now(), onupdate=db.func.now())
 
-    __table_args__ = (
-        # this can be db.PrimaryKeyConstraint if you want it to be a primary key
-        db.UniqueConstraint('input', 'review', 'stars'),)
+    # TODO We need to decide how we deal with duplicate on the review saving
+    # __table_args__ = (
+    #     # this can be db.PrimaryKeyConstraint if you want it to be a primary key
+    #     db.UniqueConstraint('input', 'review', 'stars'),)
       
 
     def save(self):

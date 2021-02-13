@@ -5,10 +5,12 @@ import pandas as pd
 from subword_nmt import apply_bpe
 from polyglot.text import Text
 import re
+from flask import current_app 
+
 
 class Predicter():
-    def __init__(self):
-        pass
+    # def __init__(self):
+    #     pass
         
     def predict_translation(self, source, model_dir, lc):
         new_config_path = os.path.join(model_dir, 'config.yaml')
@@ -16,7 +18,14 @@ class Predicter():
         # joenmt takes as input a file, so for the moment 
         # I made the code to write the input into a file, ...
         
-        path_to_temp = "../../data/temps/"
+        if not os.path.exists(current_app.config['TEMP']):
+          os.mkdir(current_app.config['TEMP'])
+
+        path_to_temp = current_app.config['TEMP']
+
+        # if not os.path.exists("../../data/temps/"):
+        #       os.mkdir("../../data/temps/")
+        # path_to_temp = "../../data/temps/"
 
         src_input_file = 'src_input.bpe.txt'
         src_bpe_path = os.path.join(model_dir, 'src.bpe.model')
@@ -43,7 +52,7 @@ class Predicter():
 
         # return output
 
-        return targets[0] if len(targets)>0 else "Nothing"
+        return targets[0] if len(targets)>0 else ""
 
 
 class SourceData():
