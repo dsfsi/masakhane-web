@@ -59,7 +59,7 @@ export default function TranslateCard() {
           .then(data => {
               console.log({ data })
             // do something here
-            setTranslation(data)
+            setTranslation(data.output)
           })
     };
 
