@@ -1,7 +1,7 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import RadioButton from './common/radioButton';
 
-const Step1 = ({ language1, language2, setForm, formData, navigation, handleSubmitFeedback }) => {
+const Step1 = ({ src_lang, tgt_lang, setForm, formData, navigation, handleSubmitFeedback }) => {
 
     const { know_language1, know_language2 } = formData;
     
@@ -26,7 +26,7 @@ const Step1 = ({ language1, language2, setForm, formData, navigation, handleSubm
             </div>
 
             <div style={{textAlign: 'center'}}>
-                <p style={{ fontSize: 13, fontWeight: 'bold' }}>How well do you know {language1}?</p>
+                <p style={{ fontSize: 13, fontWeight: 'bold' }}>How well do you know {src_lang}?</p>
                 <Form>
                     <Row>
                         <Col>
@@ -74,7 +74,7 @@ const Step1 = ({ language1, language2, setForm, formData, navigation, handleSubm
             <br />
 
             <div style={{textAlign: 'center'}}>
-                <p style={{ fontSize: 13, fontWeight: 'bold' }}>How well do you know {language2}?</p>
+                <p style={{ fontSize: 13, fontWeight: 'bold' }}>How well do you know {src_lang}?</p>
                 <Form>
                     <Row>
                         <Col>

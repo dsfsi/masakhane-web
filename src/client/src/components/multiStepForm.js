@@ -20,7 +20,7 @@ const defaultData = {
     own_translation: "",
 };
 
-const MultiStepForm = ({ language1, language2, text, translation, setShow, submitFeedBack}) => {
+const MultiStepForm = ({ src_lang, tgt_lang, text, translation, setShow, submitFeedBack}) => {
     const [formData, setForm] = useForm(defaultData);
     const { step, navigation } = useStep({ initialStep: 0, steps });
     const { id } = step;
@@ -30,7 +30,7 @@ const MultiStepForm = ({ language1, language2, text, translation, setShow, submi
         submitFeedBack(formData);
     }
 
-    const props = { language1, language2, text, translation, setShow, formData, setForm, navigation, handleSubmitFeedback };
+    const props = { src_lang, tgt_lang, text, translation, setShow, formData, setForm, navigation, handleSubmitFeedback };
 
     switch (id) {
         case "terms":

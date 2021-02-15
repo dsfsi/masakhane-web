@@ -1,7 +1,7 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import RadioButton from './common/radioButton';
 
-const Step2 = ({ language1, language2, text, translation, setForm, formData, navigation, handleSubmitFeedback }) => {
+const Step2 = ({ src_lang, tgt_lang, text, translation, setForm, formData, navigation, handleSubmitFeedback }) => {
 
     const { understand_translation, accurate_translation, own_translation } = formData;
     const { next } = navigation;
@@ -21,12 +21,12 @@ const Step2 = ({ language1, language2, text, translation, setForm, formData, nav
             <div style={{textAlign: 'center'}}>
                 <Row>
                     <Col>
-                        <p style={{ color: 'gray', fontSize: 11 }}>{!!language1 && language1.toUpperCase()}</p>
+                        <p style={{ color: 'gray', fontSize: 11 }}>{!!src_lang && src_lang.toUpperCase()}</p>
                         <p style={{ fontSize: 11 }}>{text}</p>
                     </Col>
                     <Col><i className="fa fa-arrow-right"></i></Col>
                     <Col>
-                        <p style={{ color: 'gray', fontSize: 11 }}>{!!language2 && language2.toUpperCase()}</p>
+                        <p style={{ color: 'gray', fontSize: 11 }}>{!!tgt_lang && tgt_lang.toUpperCase()}</p>
                         <p style={{ fontSize: 11 }}>{!!translation && translation}</p>
                     </Col>
                 </Row>

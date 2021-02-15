@@ -4,8 +4,8 @@ import Step1 from './step1';
 describe('Step1', () => {
   test('renders Step1 component', () => {
     const props = { 
-      language1: "none", 
-      language2: "none", 
+      src_lang: "none", 
+      tgt_lang: "none", 
       setForm: () => {}, 
       formData: {}, 
       navigation: {}, 

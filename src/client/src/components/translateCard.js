@@ -13,11 +13,11 @@ const languages = [
 ];
 
 export default function TranslateCard() {
-    const [text, setText] = useState("");
+    const [input, setText] = useState("");
     const [translation, setTranslation] = useState("Translation");
     const [show, setShow] = useState(false);
-    const [language1, setLanguage1] = useState('English');
-    const [language2, setLanguage2] = useState('Swahili');
+    const [src_lang, setLanguage1] = useState('English');
+    const [tgt_lang, setLanguage2] = useState('Swahili');
     const [feedBackForm, setFeedBackForm] = useState({});
 
     const textAreaRef = useRef(null);
@@ -49,7 +49,7 @@ export default function TranslateCard() {
             {
                 method: 'post', 
                 // mode: 'no-cors',
-                body: JSON.stringify({text}),
+                body: JSON.stringify({input, src_lang, tgt_lang}),
                 headers: {
                     'Content-Type': 'application/json'
                   },
@@ -116,9 +116,9 @@ export default function TranslateCard() {
                 </Modal.Header>
                 <Modal.Body>
                     <MultiStepForm 
-                        language1={language1} 
-                        language2={language2} 
-                        text={text} 
+                        src_lang={src_lang} 
+                        tgt={tgt_lang} 
+                        text={input} 
                         translation={translation} 
                         setShow={setShow}
                         submitFeedBack={submitFeedBack}
@@ -133,7 +133,7 @@ export default function TranslateCard() {
                             <Form inline>
                                 <Form.Group controlId="fromform">
                                 <Form.Label>From: </Form.Label>
-                                    <Form.Control value={language1} className="form-control" as="select" size="md" custom onChange={handleChangeLanguage1}>
+                                    <Form.Control value={src_lang} className="form-control" as="select" size="md" custom onChange={handleChangeLanguage1}>
                                     {
                                         languages.map((option, index) => {
                                         return (<option key={index} value={option.name}>{option.name}</option>)
@@ -147,7 +147,7 @@ export default function TranslateCard() {
                              <Row>
                             {
                                 languages
-                                .filter(x => x.name !== language1)
+                                .filter(x => x.name !== src_lang)
                                 .slice(0, 3)
                                 .map((option, index) => {
                                 return (
@@ -164,7 +164,7 @@ export default function TranslateCard() {
                         <Form inline>
                             <Form.Group controlId="fromform">
                             <Form.Label>To: </Form.Label>
-                                <Form.Control value={language2} className="form-control" as="select" size="md" custom onChange={handleChangeLanguage2}>
+                                <Form.Control value={tgt_lang} className="form-control" as="select" size="md" custom onChange={handleChangeLanguage2}>
                                 {
                                     languages.map((option, index) => {
                                     return (<option key={option.id} key={index} value={option.name}>{option.name}</option>)
@@ -178,7 +178,7 @@ export default function TranslateCard() {
                         <Row>
                         {
                             languages
-                            .filter(x => x.name !== language2)
+                            .filter(x => x.name !== tgt_lang)
                             .slice(0, 3)
                             .map((option, index) => {
                             return (
@@ -200,7 +200,7 @@ export default function TranslateCard() {
                                 rows="3" 
                                 name="text"
                                 style={{ height: '200px', fontSize: 24 }} 
-                                value={text}
+                                value={input}
                                 onChange={e => setText(e.target.value)}
                             />
                         </Form.Group>
