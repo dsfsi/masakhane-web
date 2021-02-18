@@ -7,6 +7,9 @@ from flask_migrate import Migrate
 from extensions import db
 from db.config import Config, DevelopmentConfig, ProductionConfig, StagingConfig
 
+from model_load import MasakhaneModelLoader
+from models.predict import Predicter
+
 
 # this is only for debug purpose
 # import ipdb
@@ -47,6 +50,18 @@ def register_resources(app):
     api.add_resource(SaveResource, '/save')
 
 
+def load_model(model):
+    model_loader = MasakhaneModelLoader(
+                                    available_models_file=self.selected_models_file)
+
+    model_dir, config, lc = model_loader.load_model("sw")
+
+    translation_result = Predicter().predict_translation(data['input'], model_dir, lc)
+
 if __name__=='__main__':
+
+    models = {}
+    models["English-Swahili"] = load_model('/model/files/model.h5')
+
     masakhane = create_app()
     masakhane.run()
