@@ -32,14 +32,14 @@ class Predicter():
               
 
         src_input_file = 'src_input.bpe.txt'
-        src_bpe_path = os.path.join(model_dir, 'src.bpe.model')
+        # src_bpe_path = os.path.join(model_dir, 'src.bpe.model')
         
         # ted_link = 'https://raw.githubusercontent.com/juliakreutzer/masakhane-eval/master/data/multitarget-ted-filt.en.tsv'
         os.system(f'echo {source} > {path_to_temp}input.tsv')
-        src_data = SourceData(path_to_temp+'input.tsv', lc, \
-                                    bpe_path=src_bpe_path, out_file=path_to_temp+src_input_file)
-        sources = src_data.get_sources()
-        ted_df = src_data.get_df()
+        # src_data = SourceData(path_to_temp+'input.tsv', lc, \
+        #                             bpe_path=src_bpe_path, out_file=path_to_temp+src_input_file)
+        # sources = src_data.get_sources()
+        # ted_df = src_data.get_df()
         
         os.system(f"sed 's/@@ //g' {path_to_temp}{src_input_file} > {path_to_temp}src_input.txt")
 

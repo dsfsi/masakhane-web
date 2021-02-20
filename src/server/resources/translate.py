@@ -3,6 +3,7 @@ from http import HTTPStatus
 from model_load import MasakhaneModelLoader
 from models.predict import Predicter
 from models.feedback import Feedback
+
 import os
 import shutil
 
@@ -11,29 +12,33 @@ from models.translation import Translation
 from flask import request, current_app
 
 class TranslateResource(Resource):
-    def __init__(self):
-        self.model_path = current_app.config['MODEL']
-        self.selected_models_file = current_app.config['MODEL_ALL_FILE']
+    def __init__(self, saved_models):
+        # self.model_path = current_app.config['MODEL']
+        # self.selected_models_file = current_app.config['MODEL_ALL_FILE']
+        
+        self.models = saved_models
 
     def post(self):
         """
         Translate a sentence
         """
 
+        # global models 
         data = request.get_json()
         
-        model = self.model_path+data['src_lang']+'-'+data['tgt_lang']
-        
-        if not os.path.exists(model):
+        input_model = data['src_lang']+'-'+data['tgt_lang']
+
+        print(data['src_lang']+'-'+data['tgt_lang'])
+        print(self.models.keys())
+        if input_model not in self.models.keys() :
             return {'message' :'model not found'}, HTTPStatus.NOT_FOUND 
+        
 
         else : 
-            model_loader = MasakhaneModelLoader(
-                                available_models_file=self.selected_models_file)
 
-            model_dir, config, lc = model_loader.load_model(data['tgt_lang'])
-
-            translation_result = Predicter().predict_translation(data['input'], model_dir, lc)
+            translation_result = Predicter().predict_translation(data['input'], 
+                                        self.models[input_model]["model_dir"], 
+                                        self.models[input_model]["lc"])
             
             trans = Translation(src_lang=data['src_lang'],
                                     tgt_lang=data['tgt_lang'],

@@ -17,7 +17,7 @@ import os
 from flask_restful import Api
 
 
-def create_app():
+def create_app(saved_models):
 
     env = os.environ.get('ENV', 'Development')
 
@@ -33,7 +33,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(config_str)
     register_extensions(app)
-    register_resources(app)
+    register_resources(app, saved_models)
 
     return app
 
@@ -41,27 +41,29 @@ def register_extensions(app):
     db.init_app(app)
     migrate = Migrate(app, db)
 
-def register_resources(app):
+def register_resources(app, saved_models):
     api = Api(app)
-    api.add_resource(HomeResource, '/')
-    api.add_resource(TranslateResource, '/translate')
+    api.add_resource(HomeResource, '/') 
+    api.add_resource(TranslateResource, '/translate', resource_class_kwargs={'saved_models': saved_models})
     api.add_resource(DeleteResource, '/delete')
     api.add_resource(AddResource, '/add')
     api.add_resource(SaveResource, '/save')
 
 
-def load_model(model):
+def load_model(model_short_name):
     model_loader = MasakhaneModelLoader(
-                                    available_models_file=self.selected_models_file)
+                                    available_models_file="../../data/external/available_models.tsv")
 
-    model_dir, config, lc = model_loader.load_model("sw")
+    model_dir, config, lc = model_loader.load_model(model_short_name)
 
-    translation_result = Predicter().predict_translation(data['input'], model_dir, lc)
+    return {"model_dir": model_dir, "config": config, "lc": lc}
 
 if __name__=='__main__':
 
     models = {}
-    models["English-Swahili"] = load_model('/model/files/model.h5')
+    models["en-sw"] = load_model("sw")
+    # models["English-Yoruba"] = load_model("yo")
 
-    masakhane = create_app()
+
+    masakhane = create_app(models)
     masakhane.run()
