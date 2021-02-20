@@ -49,11 +49,9 @@ dependencies:
     - flatbuffers==1.12
     - future==0.18.2
     - gast==0.3.3
-    - google-api-core==1.26.0
     - google-auth==1.26.1
     - google-auth-oauthlib==0.4.2
     - google-cloud-core==1.6.0
-    - google-cloud-storage==1.36.0
     - google-crc32c==1.1.2
     - google-pasta==0.2.0
     - google-resumable-media==1.2.0
@@ -123,7 +121,6 @@ dependencies:
     - subword-nmt==0.3.7
     - tensorboard==2.4.1
     - tensorboard-plugin-wit==1.8.0
-    - tensorflow==2.4.1
     - tensorflow-estimator==2.4.0
     - termcolor==1.1.0
     - toml==0.10.2
