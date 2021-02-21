@@ -4,20 +4,23 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import MultiStepForm from './multiStepForm';
 
-const languages = [
-    { id: 1, name: "English" },
-    { id: 2, name: "Swahili" },
-    { id: 3, name: "Sesotho" },
-    { id: 4, name: "Yoruba" },
-    { id: 5, name: "Twi" },
+const sourceLanguages = [
+    { id: 1, name: "English", value: 'en' },
+];
+
+const targetLanguages = [
+    { id: 1, name: "Swahili", value: 'sw' },
+    { id: 2, name: "Sesotho", value: 'se' },
+    { id: 3, name: "Yoruba", value: 'yo' },
+    { id: 4, name: "Twi", value: 'tw' },
 ];
 
 export default function TranslateCard() {
     const [input, setText] = useState("");
-    const [translation, setTranslation] = useState("Translation");
+    const [translation, setTranslation] = useState("");
     const [show, setShow] = useState(false);
-    const [src_lang, setLanguage1] = useState('English');
-    const [tgt_lang, setLanguage2] = useState('Swahili');
+    const [src_lang, setSrc_Lang] = useState('en');
+    const [tgt_lang, setTgt_Lang] = useState('sw');
     const [feedBackForm, setFeedBackForm] = useState({});
 
     const textAreaRef = useRef(null);
@@ -32,12 +35,12 @@ export default function TranslateCard() {
         setShowToast(true);
     };
 
-    const handleChangeLanguage1 = (e) => {
-        setLanguage1(e.target.value);
+    const handleChangeSrc_Lang= (e) => {
+        setSrc_Lang(e.target.value);
     };
 
-    const handleChangeLanguage2 = (e) => {
-        setLanguage2(e.target.value);
+    const handleChangeTgt_Lang = (e) => {
+        setTgt_Lang(e.target.value);
     };
 
     const handleTranslate = (e) => {
@@ -73,39 +76,6 @@ export default function TranslateCard() {
 
     return (
         <Container className="border">
-            <style type="text/css">
-                {`
-                .header {
-                    background-color: aliceblue;
-                    height: 60px;
-                    font-size: 1rem;
-                    padding: 1rem 1.5rem;
-                }
-                .form-control {
-                    border: 0;
-                }
-                .h-list {
-                    border: 0;
-                }
-                .body {
-                    min-height: 250px;
-                }
-                .text-area {
-                    padding-top: 20px;
-                    padding-bottom: 20px;
-                }
-                .translated {
-                    font-size: 1.5rem;
-                    color: #797979;
-                    font-weight: normal;
-
-                }
-                .feedback-button {
-                    bottom: 10px;
-                }
-                `}
-            </style>
-
             <Modal scrollable={true} show={show} onHide={handleClose} centered style={{ maxHeight: '700px' }}>
                 <Modal.Header closeButton>
                 {/*<Modal.Title>Modal heading</Modal.Title>*/}
@@ -117,7 +87,7 @@ export default function TranslateCard() {
                 <Modal.Body>
                     <MultiStepForm 
                         src_lang={src_lang} 
-                        tgt={tgt_lang} 
+                        tgt_lang={tgt_lang} 
                         text={input} 
                         translation={translation} 
                         setShow={setShow}
@@ -126,17 +96,17 @@ export default function TranslateCard() {
                 </Modal.Body>
             </Modal>
 
-            <Row className="header">
+            <Row className="header" style={{ backgroundColor: 'aliceblue', height: 60, fontSize: '1rem', padding: '1rem 1.5rem'}}>
                 <Col className="border-right">
                     <Row>
                         <Col>
                             <Form inline>
                                 <Form.Group controlId="fromform">
                                 <Form.Label>From: </Form.Label>
-                                    <Form.Control value={src_lang} className="form-control" as="select" size="md" custom onChange={handleChangeLanguage1}>
+                                    <Form.Control value={src_lang} style={{ border: 0 }} as="select" size="md" custom onChange={handleChangeSrc_Lang}>
                                     {
-                                        languages.map((option, index) => {
-                                        return (<option key={index} value={option.name}>{option.name}</option>)
+                                        sourceLanguages.map((option, index) => {
+                                        return (<option key={index} value={option.value}>{option.name}</option>)
                                         })
                                     }
                                     </Form.Control>
@@ -146,12 +116,12 @@ export default function TranslateCard() {
                         <Col>
                              <Row>
                             {
-                                languages
-                                .filter(x => x.name !== src_lang)
+                                sourceLanguages
+                                .filter(x => x.value !== src_lang)
                                 .slice(0, 3)
                                 .map((option, index) => {
                                 return (
-                                    <Button key={option.id} variant="light" size="sm" onClick={() => setLanguage1(option.name)}>{option.name}</Button>                                   )
+                                    <Button key={option.id} variant="light" size="sm" onClick={() => setSrc_Lang(option.value)}>{option.name}</Button>                                   )
                                 })
                             }
                             </Row>
@@ -164,10 +134,10 @@ export default function TranslateCard() {
                         <Form inline>
                             <Form.Group controlId="fromform">
                             <Form.Label>To: </Form.Label>
-                                <Form.Control value={tgt_lang} className="form-control" as="select" size="md" custom onChange={handleChangeLanguage2}>
+                                <Form.Control value={tgt_lang} style={{ border: 0 }} as="select" size="md" custom onChange={handleChangeTgt_Lang}>
                                 {
-                                    languages.map((option, index) => {
-                                    return (<option key={option.id} key={index} value={option.name}>{option.name}</option>)
+                                    targetLanguages.map((option, index) => {
+                                    return (<option key={option.id} key={index} value={option.value}>{option.name}</option>)
                                     })
                                 }
                                 </Form.Control>
@@ -177,12 +147,12 @@ export default function TranslateCard() {
                     <Col>
                         <Row>
                         {
-                            languages
-                            .filter(x => x.name !== tgt_lang)
+                            targetLanguages
+                            .filter(x => x.value !== tgt_lang)
                             .slice(0, 3)
                             .map((option, index) => {
                             return (
-                                <Button key={option.id} variant="light" size="sm" onClick={() => setLanguage2(option.name)}>{option.name}</Button>                                   )
+                                <Button key={option.id} variant="light" size="sm" onClick={() => setTgt_Lang(option.value)}>{option.name}</Button>                                   )
                             })
                         }
                         </Row>
@@ -190,8 +160,8 @@ export default function TranslateCard() {
                 </Row>
                 </Col>
             </Row>
-            <Row className="body">
-                <Col className="border-right text-area">
+            <Row style={{ minHeight: '250px' }}>
+                <Col className="border-right" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                     <Form>
                         <Form.Group controlId="Form.ControlTextarea">
                             <Form.Control 
@@ -212,35 +182,36 @@ export default function TranslateCard() {
                         </Col>
                         <Col md="auto">{' '}</Col>
                         <Col xs lg="2">
-                            <Button variant="outline-danger" size="sm" onClick={() => setText("")}><i className="fas fa-times"></i></Button>{' '}
+                            <Button  variant = 'light' size="sm" onClick={() => setText("")}><i className="fas fa-times"></i></Button>{' '}
                         </Col>
                     </Row>
                 </Col>
-                <Col className="ml-3 text-area">
+                <Col className="ml-3" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                     <Form>
                         <Form.Group controlId="Form.ControlTextarea2">
                             <Form.Control 
                                 as="textarea"
-                                ref={textAreaRef}
-                                placeholder="Enter Text" 
+                                // ref={textAreaRef}
+                                placeholder="..." 
                                 rows="3" 
                                 name="text"
                                 style={{ height: '200px', fontSize: 24 }} 
                                 value={translation}
-                                onChange={e => setText(e.target.value)}
-                                autoFocus={showToast}
+                                readOnly
+                                // onChange={e => setText(e.target.value)}
+                                // autoFocus={showToast}
                             />
                         </Form.Group>
                     </Form>
                     
                     <Row>
                         <Col>
-                            <Button variant="light" className="feedback-button" onClick={handleShow}>Give Feedback</Button>
+                            <Button variant="light" style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback</Button>
                         </Col>
                         <Col md="auto">{' '}</Col>
                         <Col xs lg="2">
                             <CopyToClipboard text={translation} onCopy={copyToClipboard}>
-                                <Button variant="outline-success" size="sm"><i className="fa fa-copy"></i></Button>
+                                <Button variant = 'light' size="sm"><i className="fa fa-copy"></i></Button>
                             </CopyToClipboard>
                         </Col>
                     </Row>
