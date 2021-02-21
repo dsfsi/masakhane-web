@@ -45,15 +45,17 @@ def register_resources(app, saved_models):
     api = Api(app)
     api.add_resource(HomeResource, '/') 
     api.add_resource(TranslateResource, '/translate', resource_class_kwargs={'saved_models': saved_models})
-    api.add_resource(DeleteResource, '/delete')
-    api.add_resource(AddResource, '/add')
+    api.add_resource(DeleteResource, '/delete', resource_class_kwargs={'saved_models': saved_models})
+    api.add_resource(AddResource, '/add', resource_class_kwargs={'saved_models': saved_models})
     api.add_resource(SaveResource, '/save')
 
 
-def load_model(model_short_name):
+def load_model(model_short_name):   
     model_loader = MasakhaneModelLoader(
                                     available_models_file="../../data/external/available_models.tsv")
 
+    # Download currently supported languages
+    model_loader.download_model(model_short_name)
     model_dir, config, lc = model_loader.load_model(model_short_name)
 
     return {"model_dir": model_dir, "config": config, "lc": lc}
@@ -62,8 +64,7 @@ if __name__=='__main__':
 
     models = {}
     models["en-sw"] = load_model("sw")
-    # models["English-Yoruba"] = load_model("yo")
-
+    models["en-yo"] = load_model("yo")
 
     masakhane = create_app(models)
     masakhane.run()

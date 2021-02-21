@@ -6,6 +6,8 @@ from models.feedback import Feedback
 
 import os
 import shutil
+import json
+
 
 from models.translation import Translation
 
@@ -15,8 +17,18 @@ class TranslateResource(Resource):
     def __init__(self, saved_models):
         # self.model_path = current_app.config['MODEL']
         # self.selected_models_file = current_app.config['MODEL_ALL_FILE']
-        
         self.models = saved_models
+        # self.path_to_json = current_app.config['JSON']
+
+        with open(current_app.config['JSON'], 'r') as f:
+            distros_dict = json.load(f)
+
+        self.languages_short_to_full = {}
+        self.languages_full_to_short = {}
+
+        for distro in distros_dict:
+            self.languages_short_to_full[distro['language_short'].lower()] = distro['language_en'].lower()
+            self.languages_full_to_short[distro['language_en'].lower()] = distro['language_short'].lower()
 
     def post(self):
         """
@@ -25,14 +37,17 @@ class TranslateResource(Resource):
 
         # global models 
         data = request.get_json()
-        
-        input_model = data['src_lang']+'-'+data['tgt_lang']
 
-        print(data['src_lang']+'-'+data['tgt_lang'])
-        print(self.models.keys())
-        if input_model not in self.models.keys() :
-            return {'message' :'model not found'}, HTTPStatus.NOT_FOUND 
+        source_language = data['src_lang'].lower()
+        target_language = data['tgt_lang'].lower()
+
+        source_language_short = self.languages_full_to_short[source_language]
+        target_language_short = self.languages_full_to_short[target_language] 
         
+        input_model = source_language_short+'-'+target_language_short
+
+        if input_model not in self.models.keys():
+            return {'message' :'model not found'}, HTTPStatus.NOT_FOUND         
 
         else : 
 
@@ -48,13 +63,25 @@ class TranslateResource(Resource):
             return trans.data, HTTPStatus.CREATED
     
     def get(self):
-        return os.listdir(self.model_path), HTTPStatus.OK        
+
+        output = []
+        for couple in list(self.models.keys()):
+            src, tgt = couple.split("-")
+            output.append(
+                {
+                    "source" : {"name" : self.languages_short_to_full[src], "value" : src},
+                    "target" : {"name" : self.languages_short_to_full[tgt], "value" : tgt}
+                }
+            )
+
+        return output, HTTPStatus.OK        
 
 class DeleteResource(Resource):
-    def __init__(self) -> None:
+    def __init__(self, saved_models) -> None:
         super().__init__()
         self.selected_models_file = current_app.config['MODEL_ALL_FILE']
         self.model_path = current_app.config['MODEL']
+        self.models = saved_models
 
     def delete(self):
         """
@@ -63,21 +90,35 @@ class DeleteResource(Resource):
         data = request.get_json()
 
         try:
-            shutil.rmtree(self.model_path+data['tgt_lang']) 
+            # shutil.rmtree(self.model_path+data['tgt_lang']) 
             # os.rmdir(self.model_path+data['lag'])
-            return data['tgt_lang'], HTTPStatus.OK
 
-        except OSError as e:
-            print("Error: %s : %s" % (self.model_path+data['tgt_lang'], e.strerror))
-            return HTTPStatus.NOT_FOUND
+            result = self.models.pop(data['tgt_lang'], None)
+
+            if result != None:
+                return data['tgt_lang'], HTTPStatus.OK
+            else:
+                raise Exception('This model does not exist in memory')
+
+        except Exception as e:
+            return {'message' :"Model doesn't exist in memory"}, HTTPStatus.NOT_FOUND
        
 class AddResource(Resource):
-    def __init__(self):
+    def __init__(self, saved_models):
         super().__init__()
         self.selected_models_file = current_app.config['MODEL_ALL_FILE']
-        self.model_path = current_app.config['MODEL']
-        print(current_app.config)
-        self.path_to_json = current_app.config['JSON']
+
+        self.models = saved_models
+
+        with open(current_app.config['JSON'], 'r') as f:
+            distros_dict = json.load(f)
+
+        self.languages_short_to_full = {}
+        self.languages_full_to_short = {}
+
+        for distro in distros_dict:
+            self.languages_short_to_full[distro['language_short'].lower()] = distro['language_en'].lower()
+            self.languages_full_to_short[distro['language_en'].lower()] = distro['language_short'].lower()
 
 
     def post(self):
@@ -86,16 +127,26 @@ class AddResource(Resource):
         """
         data = request.get_json()
 
+        source_language = data['src_lang'].lower()
+        target_language = data['tgt_lang'].lower()
+
+        source_language_short = self.languages_full_to_short[source_language]
+        target_language_short = self.languages_full_to_short[target_language] 
+
         model_loader = MasakhaneModelLoader(
                             available_models_file=self.selected_models_file)
 
-        if data['tgt_lang'] not in model_loader.models.keys():
+        print(model_loader)
+        if target_language_short not in model_loader.models.keys():
             return {'message' :'language not found'}, HTTPStatus.NOT_FOUND
 
-        model_loader.download_model(data['tgt_lang'])
+        model_loader.download_model(target_language_short)
 
+        model_dir, config, lc = model_loader.load_model(target_language_short)
 
-        return {'message' :f"language {data['tgt_lang']} downloaded"}, HTTPStatus.CREATED       
+        self.models[source_language_short+'-'+target_language_short] = {"model_dir": model_dir, "config": config, "lc": lc}
+
+        return {'message' :f"language {target_language_short} downloaded"}, HTTPStatus.CREATED       
 
 class SaveResource(Resource):
     def __init__(self):
