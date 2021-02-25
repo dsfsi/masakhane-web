@@ -1,5 +1,7 @@
 from flask_restful import Resource
 from http import HTTPStatus
+
+import ipdb
 from model_load import MasakhaneModelLoader
 from models.predict import Predicter
 from models.feedback import Feedback
@@ -50,10 +52,20 @@ class TranslateResource(Resource):
             return {'message' :'model not found'}, HTTPStatus.NOT_FOUND         
 
         else : 
-
-            translation_result = Predicter().predict_translation(data['input'], 
-                                        self.models[input_model]["model_dir"], 
-                                        self.models[input_model]["lc"])
+            translation_result = Predicter().translate(
+                data['input'], model=self.models[input_model]['model'],
+                src_vocab=self.models[input_model]['src_vocab'],
+                trg_vocab=self.models[input_model]['trg_vocab'],
+                preprocess=self.models[input_model]['preprocess'],
+                postprocess=self.models[input_model]['postprocess'],
+                logger=self.models[input_model]['logger'],
+                beam_size=self.models[input_model]['beam_size'],
+                beam_alpha=self.models[input_model]['beam_alpha'],              
+                level=self.models[input_model]['level'],
+                lowercase=self.models[input_model]['lowercase'],
+                max_output_length=self.models[input_model]['max_output_length'],
+                use_cuda=self.models[input_model]['use_cuda'],
+                )
             
             trans = Translation(src_lang=data['src_lang'],
                                     tgt_lang=data['tgt_lang'],
@@ -75,6 +87,17 @@ class TranslateResource(Resource):
             )
 
         return output, HTTPStatus.OK        
+
+def load_model(model_short_name):   
+    model_loader = MasakhaneModelLoader(
+                                    available_models_file=current_app.config['MODEL_ALL_FILE'])
+
+    # Download currently supported languages
+    model_loader.download_model(model_short_name)
+    
+    model_dir = model_loader.load_model(model_short_name)
+
+    return model_dir
 
 class DeleteResource(Resource):
     def __init__(self, saved_models) -> None:
@@ -136,16 +159,12 @@ class AddResource(Resource):
         model_loader = MasakhaneModelLoader(
                             available_models_file=self.selected_models_file)
 
-        print(model_loader)
+        # print(model_loader)
         if target_language_short not in model_loader.models.keys():
             return {'message' :'language not found'}, HTTPStatus.NOT_FOUND
 
-        model_loader.download_model(target_language_short)
-
-        model_dir, config, lc = model_loader.load_model(target_language_short)
-
-        self.models[source_language_short+'-'+target_language_short] = {"model_dir": model_dir, "config": config, "lc": lc}
-
+        self.models[source_language_short+'-'+target_language_short] = load_model(target_language_short)
+        
         return {'message' :f"language {target_language_short} downloaded"}, HTTPStatus.CREATED       
 
 class SaveResource(Resource):

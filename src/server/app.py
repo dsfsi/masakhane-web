@@ -56,15 +56,19 @@ def load_model(model_short_name):
 
     # Download currently supported languages
     model_loader.download_model(model_short_name)
-    model_dir, config, lc = model_loader.load_model(model_short_name)
+    
+    model_dir = model_loader.load_model(model_short_name)
 
-    return {"model_dir": model_dir, "config": config, "lc": lc}
+    return model_dir
+    # model_dir, config, lc = model_loader.load_model(model_short_name)
+    # return {"model_dir": model_dir, "config": config, "lc": lc}
 
 if __name__=='__main__':
 
     models = {}
     models["en-sw"] = load_model("sw")
-    models["en-yo"] = load_model("yo")
+    # models["en-yo"] = load_model("yo")
 
+    print(models["en-sw"])
     masakhane = create_app(models)
     masakhane.run()

@@ -4,7 +4,7 @@ class Config:
     DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MODEL = "../../models/joeynmt/"
-    TEMP = "temp/"
+    TEMP = "./temp/"
     MODEL_ALL_FILE = "../../data/external/available_models.tsv"
     JSON = "../../data/external/languages.json"
     
