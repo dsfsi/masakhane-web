@@ -1,0 +1,52 @@
+{
+  "name": "masakhane",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "bootstrap": "^4.6.0",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.4.3",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "^17.0.1",
+    "react-hooks-helper": "^1.6.0",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "start-api": "cd ../server && flask run --host=0.0.0.0 --no-debugger",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "plugins": [
+      "testing-library"
+    ],
+    "rules": {
+      "testing-library/await-async-query": "error",
+      "testing-library/no-await-sync-query": "error",
+      "testing-library/no-debug": "warn"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-plugin-testing-library": "^3.10.1"
+  },
+  "proxy": "http://localhost:5000"
+}

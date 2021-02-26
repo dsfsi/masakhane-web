@@ -89,3 +89,10 @@ target/
 .mypy_cache/
 
 models/joeynmt/
+
+# node modules
+node_modules/
+
+#cache
+.eslintcache
+
