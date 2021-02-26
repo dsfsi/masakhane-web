@@ -1,0 +1,9 @@
+google-cloud-storage==1.24.1
+googleapis_common_protos 
+libraries:
+- name: grpcio
+  version: 1.0.0
+- name: ssl
+  version: latest
+- name: google-cloud-storage
+  version: latest 
