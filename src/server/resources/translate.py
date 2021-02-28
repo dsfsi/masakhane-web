@@ -81,12 +81,18 @@ class TranslateResource(Resource):
             src, tgt = couple.split("-")
             output.append(
                 {
-                    "source" : {"name" : self.languages_short_to_full[src], "value" : src},
-                    "target" : {"name" : self.languages_short_to_full[tgt], "value" : tgt}
+                    "id": "source", "name" : self.languages_short_to_full[src].capitalize(), "value" : src
+                }
+            )
+            output.append(
+                {
+                    "id": "target", "name" : self.languages_short_to_full[tgt].capitalize(), "value" : tgt
                 }
             )
 
-        return output, HTTPStatus.OK        
+        output = list({v['name']:v for v in output}.values())
+
+        return output, HTTPStatus.OK         
 
 def load_model(model_short_name):   
     model_loader = MasakhaneModelLoader(
