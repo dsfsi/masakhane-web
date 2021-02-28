@@ -1,26 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect} from 'react';
 import { Container, Row, Col, Form, Button, Modal, Toast, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import MultiStepForm from './multiStepForm';
 
-const sourceLanguages = [
-    { id: 1, name: "English", value: 'en' },
-];
-
-const targetLanguages = [
-    { id: 1, name: "Swahili", value: 'sw' },
-    { id: 2, name: "Sesotho", value: 'se' },
-    { id: 3, name: "Yoruba", value: 'yo' },
-    { id: 4, name: "Twi", value: 'tw' },
-];
-
 export default function TranslateCard() {
     const [input, setText] = useState("");
     const [translation, setTranslation] = useState("");
+    const [srcLanguages, setSrcLanguages] = useState([]);
+    const [tgtLanguages, setTgtLanguages] = useState([]);
     const [show, setShow] = useState(false);
-    const [src_lang, setSrc_Lang] = useState('en');
-    const [tgt_lang, setTgt_Lang] = useState('sw');
+    const [src_lang, setSrc_Lang] = useState('English');
+    const [tgt_lang, setTgt_Lang] = useState('Swahili');
     const [feedBackForm, setFeedBackForm] = useState({});
 
     const textAreaRef = useRef(null);
@@ -74,6 +65,41 @@ export default function TranslateCard() {
 
     }
 
+    let srcLang = [];
+    let tgtLang = [];
+
+    useEffect(()=> {
+        // define fetch function 
+        let src = [];
+        let tgt = [];
+        const fetchLanguages = async ()=> {
+        await fetch( 
+            '/translate', 
+            {
+                method: 'get', 
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                // credentials: 'same-origin',
+            })
+          .then(res => res.json())
+          .then(data => {
+              console.log({ data })
+            // do something here
+            setSrcLanguages(data.filter(x => x.type == "source"))
+            setTgtLanguages(data.filter(x => x.type == "target"))
+        
+          })
+        
+
+        }
+        // call fetch function
+        fetchLanguages()
+
+    }, [])
+    console.log(srcLanguages)
+    console.log(tgtLanguages)
+
     return (
         <Container className="border">
             <Modal scrollable={true} show={show} onHide={handleClose} centered style={{ maxHeight: '700px' }}>
@@ -105,8 +131,8 @@ export default function TranslateCard() {
                                 <Form.Label>From: </Form.Label>
                                     <Form.Control value={src_lang} style={{ border: 0 }} as="select" size="md" custom onChange={handleChangeSrc_Lang}>
                                     {
-                                        sourceLanguages.map((option, index) => {
-                                        return (<option key={index} value={option.value}>{option.name}</option>)
+                                        srcLanguages.map((option, index) => {
+                                        return (<option key={index} value={option.name}>{option.name}</option>)
                                         })
                                     }
                                     </Form.Control>
@@ -116,12 +142,12 @@ export default function TranslateCard() {
                         <Col>
                              <Row>
                             {
-                                sourceLanguages
+                                srcLanguages.length > 1 && srcLanguages
                                 .filter(x => x.value !== src_lang)
                                 .slice(0, 3)
                                 .map((option, index) => {
                                 return (
-                                    <Button key={option.id} variant="light" size="sm" onClick={() => setSrc_Lang(option.value)}>{option.name}</Button>                                   )
+                                    <Button key={option.id} variant="light" size="sm" onClick={() => setSrc_Lang(option.name)}>{option.name}</Button>                                   )
                                 })
                             }
                             </Row>
@@ -136,8 +162,8 @@ export default function TranslateCard() {
                             <Form.Label>To: </Form.Label>
                                 <Form.Control value={tgt_lang} style={{ border: 0 }} as="select" size="md" custom onChange={handleChangeTgt_Lang}>
                                 {
-                                    targetLanguages.map((option, index) => {
-                                    return (<option key={option.id} key={index} value={option.value}>{option.name}</option>)
+                                    tgtLanguages.map((option, index) => {
+                                    return (<option key={option.id} key={index} value={option.name}>{option.name}</option>)
                                     })
                                 }
                                 </Form.Control>
@@ -147,12 +173,12 @@ export default function TranslateCard() {
                     <Col>
                         <Row>
                         {
-                            targetLanguages
+                            tgtLanguages.length > 1 && tgtLanguages
                             .filter(x => x.value !== tgt_lang)
                             .slice(0, 3)
                             .map((option, index) => {
                             return (
-                                <Button key={option.id} variant="light" size="sm" onClick={() => setTgt_Lang(option.value)}>{option.name}</Button>                                   )
+                                <Button key={option.id} variant="light" size="sm" onClick={() => setTgt_Lang(option.name)}>{option.name}</Button>                                   )
                             })
                         }
                         </Row>
