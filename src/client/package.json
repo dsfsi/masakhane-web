@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-api": "cd ../server && flask run --host=0.0.0.0 --no-debugger",
+    "start-api": "cd ../server && python app.py",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
