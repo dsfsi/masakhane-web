@@ -11,8 +11,9 @@ cycler==0.10.0
 decorator==4.4.2
 filelock==3.0.12
 Flask==1.0.3
-Flask-Cors==3.0.9
+Flask-Cors==3.0.10
 Flask-RESTful==0.3.7
+Flask-WTF==0.14.3
 future==0.18.2
 gast==0.3.3
 gdown==3.12.2
