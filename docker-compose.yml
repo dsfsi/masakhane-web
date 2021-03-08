@@ -12,28 +12,12 @@ services:
       - './src/server:/usr/src/app'
     ports:
       - 5000:5001
-    environment:
-      - FLASK_ENV=development
-      - APP_SETTINGS=project.config.DevelopmentConfig 
-      - DATABASE_URL=postgres://postgres:postgres@users-db:5432/masakane_dev
-      - DATABASE_TEST_URL=postgres://postgres:postgres@users-db:5432/masakane_test
 
     env_file:
       - ./src/server/.env.dev
 
     depends_on: 
       - db
-
-  # users-db:
-  #   build: 
-  #     context: ./src/server/db
-  #     dockerfile: Dockerfile
-  #   ports: 
-  #     - 5432:5432
-  #   environment: 
-  #     - POSTGRES_HOST_AUTH_METHOD=trust
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=postgres
 
   db:
     image: postgres:12-alpine
@@ -43,8 +27,6 @@ services:
       - POSTGRES_USER=masakhane
       - POSTGRES_PASSWORD=masakhane
       - POSTGRES_DB=masakhane
-
-
 
   client:
     build :

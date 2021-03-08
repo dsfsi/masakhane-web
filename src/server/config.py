@@ -1,7 +1,10 @@
 import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 class Config:
     DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MODEL = "./models/joeynmt/"
     TEMP = "./temp/"
@@ -10,9 +13,8 @@ class Config:
     
 class DevelopmentConfig(Config):
     DEBUG = True
-    SECRET_KEY = 'super-secret-key'
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://masakhane:masakhane@localhost/masakhane'
-    MODEL = "../../models/joeynmt/"
+    SECRET_KEY = 'super-secret-key'    
+    basedir = os.path.abspath(os.path.dirname(__file__))
 
 class StagingConfig(Config):
     """
@@ -20,12 +22,10 @@ class StagingConfig(Config):
     testing purpose. 
     """
     DEBUG = True
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    MODEL = os.environ.get('MODEL')
+    SECRET_KEY = os.getenv('SECRET_KEY', "sqlite://")
+    MODEL = os.getenv('MODEL', "./")
 
 class ProductionConfig(Config):
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    MODEL = os.environ.get('MODEL')
+    SECRET_KEY = os.getenv('SECRET_KEY', "sqlite://")
+    MODEL = os.getenv('MODEL', "./")
 

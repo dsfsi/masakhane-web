@@ -3,12 +3,7 @@ from enum import unique
 # from sqlalchemy.orm import backref
 from flask_sqlalchemy import SQLAlchemy 
 
-# from extensions import db
-# from server import db
-# import db 
-
-db  = SQLAlchemy()
-
+from extensions import db
 
 class Feedback(db.Model):
     __tablename__ = 'masakhane'
