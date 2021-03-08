@@ -1,0 +1,65 @@
+version: '3.6'
+
+services:
+
+  server:
+    container_name: flask-api
+    build :
+      context: ./src/server
+      dockerfile: Dockerfile
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - './src/server:/usr/src/app'
+    ports:
+      - 5000:5001
+    environment:
+      - FLASK_ENV=development
+      - APP_SETTINGS=project.config.DevelopmentConfig 
+      - DATABASE_URL=postgres://postgres:postgres@users-db:5432/masakane_dev
+      - DATABASE_TEST_URL=postgres://postgres:postgres@users-db:5432/masakane_test
+
+    env_file:
+      - ./src/server/.env.dev
+
+    depends_on: 
+      - db
+
+  # users-db:
+  #   build: 
+  #     context: ./src/server/db
+  #     dockerfile: Dockerfile
+  #   ports: 
+  #     - 5432:5432
+  #   environment: 
+  #     - POSTGRES_HOST_AUTH_METHOD=trust
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=masakhane
+      - POSTGRES_PASSWORD=masakhane
+      - POSTGRES_DB=masakhane
+
+
+
+  client:
+    build :
+      context: ./src/client
+      dockerfile: Dockerfile
+    volumes:
+      - './src/client:/usr/src/app'
+    ports:
+      - 3000:3000
+
+    depends_on: 
+      - server
+
+# To persist the data beyond the life of the container 
+# we configured a volume. This config will bind 
+# postgres_data to the "/var/lib/postgresql/data/" directory in the container.
+volumes:
+  postgres_data:

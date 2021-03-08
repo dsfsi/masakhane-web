@@ -25,7 +25,7 @@ class MasakhaneModelLoader():
 
   def __init__(self, available_models_file):
     # self._model_dir_prefix = current_app.config['MODEL']
-    self._model_dir_prefix = "../../models/joeynmt/"
+    self._model_dir_prefix = "./models/joeynmt/"
     self._src_language = ''
     self.models = self.load_available_models(available_models_file)
   
