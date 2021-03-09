@@ -231,6 +231,10 @@ export default function TranslateCard() {
                     </Form>
                     
                     <Row>
+                        <Col>
+                            <Button variant="light" style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback</Button>
+                        </Col>
+                        <Col md="auto">{' '}</Col>
                         <Col xs lg="2">
                             <CopyToClipboard text={translation} onCopy={copyToClipboard}>
                                 <Button variant = 'light' size="sm"><i className="fa fa-copy"></i></Button>
