@@ -3,7 +3,7 @@ version: '3.6'
 services:
 
   server:
-    container_name: flask-api
+    # container_name: flask-api
     build :
       context: ./src/server
       dockerfile: Dockerfile
@@ -11,7 +11,7 @@ services:
     volumes:
       - './src/server:/usr/src/app'
     ports:
-      - 5000:5001
+      - 5000:5000
 
     env_file:
       - ./src/server/.env.dev

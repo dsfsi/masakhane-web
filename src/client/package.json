@@ -49,5 +49,5 @@
     "eslint-plugin-testing-library": "^3.10.1"
   },
 
-  "proxy": "http://flask-api:5001"
+  "proxy": "http://server:5000"
 }

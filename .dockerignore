@@ -2,3 +2,6 @@ env
 .dockerignore
 Dockerfile-dev
 Dockerfile-prod
+
+src/server/models/joeynmt
+src/server/core/models/joeynmt

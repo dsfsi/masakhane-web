@@ -2,24 +2,38 @@ from flask_restful import Resource
 from http import HTTPStatus
 
 import ipdb
-from model_load import MasakhaneModelLoader
-from models.predict import Predicter
-from models.feedback import Feedback
+from core.model_load import MasakhaneModelLoader
+from core.models.predict import Predicter
+from core.models.feedback import Feedback
 
-import os
-import shutil
 import json
 
+from core.models.language import Language, language_list
 
-from models.translation import Translation
+
+from core.models.translation import Translation
 
 from flask import request, current_app
+
+def load_model(model_short_name):   
+    model_loader = MasakhaneModelLoader(
+                                    available_models_file="./available_models.tsv")
+
+    # Download currently supported languages
+    model_loader.download_model(model_short_name)
+    
+    model_dir = model_loader.load_model(model_short_name)
+
+    return model_dir
+    # model_dir, config, lc = model_loader.load_model(model_short_name)
+    # return {"model_dir": model_dir, "config": config, "lc": lc}
 
 class TranslateResource(Resource):
     def __init__(self, saved_models):
         # self.model_path = current_app.config['MODEL']
         # self.selected_models_file = current_app.config['MODEL_ALL_FILE']
-        self.models = saved_models
+        # self.models = saved_models
+        self.models = current_app.models
         # self.path_to_json = current_app.config['JSON']
 
         with open(current_app.config['JSON'], 'r') as f:
@@ -31,6 +45,9 @@ class TranslateResource(Resource):
         for distro in distros_dict:
             self.languages_short_to_full[distro['language_short'].lower()] = distro['language_en'].lower()
             self.languages_full_to_short[distro['language_en'].lower()] = distro['language_short'].lower()
+
+        
+
 
     def post(self):
         """
@@ -137,41 +154,25 @@ class AddResource(Resource):
         super().__init__()
         self.selected_models_file = current_app.config['MODEL_ALL_FILE']
 
-        self.models = saved_models
+        self.models = current_app.models
 
-        with open(current_app.config['JSON'], 'r') as f:
-            distros_dict = json.load(f)
-
-        self.languages_short_to_full = {}
-        self.languages_full_to_short = {}
-
-        for distro in distros_dict:
-            self.languages_short_to_full[distro['language_short'].lower()] = distro['language_en'].lower()
-            self.languages_full_to_short[distro['language_en'].lower()] = distro['language_short'].lower()
-
-
-    def post(self):
-        """
-        Translate a sentence
-        """
-        data = request.get_json()
-
-        source_language = data['src_lang'].lower()
-        target_language = data['tgt_lang'].lower()
-
-        source_language_short = self.languages_full_to_short[source_language]
-        target_language_short = self.languages_full_to_short[target_language] 
-
-        model_loader = MasakhaneModelLoader(
-                            available_models_file=self.selected_models_file)
-
-        # print(model_loader)
-        if target_language_short not in model_loader.models.keys():
-            return {'message' :'language not found'}, HTTPStatus.NOT_FOUND
-
-        self.models[source_language_short+'-'+target_language_short] = load_model(target_language_short)
         
-        return {'message' :f"language {target_language_short} downloaded"}, HTTPStatus.CREATED       
+        db_pairs = []
+        # Update model form the db when doing the get call 
+        for lan in Language.query.all():
+            language_pair = lan.to_json()
+            db_pair = f"{language_pair['source']}-{language_pair['target']}"
+            self.models[db_pair] = load_model(f"{language_pair['target']}")
+            db_pairs.append(db_pair)
+
+        # To make sure that the model in memory are some with the one in the db
+        for pair in self.models.keys():
+            if pair not in db_pairs:
+                 del self.models[pair]
+
+    def get(self):
+        return {'message': "Models updated"}, HTTPStatus.OK
+
 
 class SaveResource(Resource):
     def __init__(self):
