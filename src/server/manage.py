@@ -18,6 +18,14 @@ def create_db():
     db.create_all()
     db.session.commit()
 
+@cli.command("clean")
+def clean():
+    # Carefull this will delete the content of the databases
+    db.drop_all()
+    db.create_all()
+    db.session.commit()
+
+
 @cli.command("all_language")
 def all_language():
     for lan in Language.query.all():

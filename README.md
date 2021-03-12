@@ -45,5 +45,6 @@ If you get the information about the version and not an error you can skeep the 
 - check the available models in memory `sudo docker-compose exec server python manage.py all_language`
 - add a new language `sudo docker-compose exec server python manage.py add_language en-sw`
 - delete a language `sudo docker-compose exec server python manage.py remove_language en-sw`
+- run this on the production server to update the models `curl --location --request GET 'http://127.0.0.1:5000/update' --data-raw ''`
 
 
