@@ -1,10 +1,11 @@
 from enum import unique
 
-from sqlalchemy.orm import backref
-from extensions import db
+from flask_sqlalchemy import SQLAlchemy 
+
+from core.extensions import db
 
 class Feedback(db.Model):
-    __tablename__ = 'masakhane'
+    __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key=True)
     
     src_lang = db.Column(db.String(20), nullable=False)

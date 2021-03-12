@@ -96,3 +96,6 @@ node_modules/
 
 #cache
 .eslintcache
+
+src/server/models/joeynmt
+src/server/core/models/joeynmt

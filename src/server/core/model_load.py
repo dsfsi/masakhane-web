@@ -14,7 +14,7 @@ from polyglot.text import Text
 from flask import current_app 
 from subword_nmt import apply_bpe
 from sacremoses import MosesTokenizer, MosesDetokenizer
-from utils import load_line_as_data
+from core.utils import load_line_as_data
 from joeynmt.helpers import load_config, get_latest_checkpoint, \
     load_checkpoint
 from joeynmt.vocabulary import build_vocab
@@ -25,7 +25,7 @@ class MasakhaneModelLoader():
 
   def __init__(self, available_models_file):
     # self._model_dir_prefix = current_app.config['MODEL']
-    self._model_dir_prefix = "../../models/joeynmt/"
+    self._model_dir_prefix = "./models/joeynmt/"
     self._src_language = ''
     self.models = self.load_available_models(available_models_file)
   
