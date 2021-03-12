@@ -1,6 +1,8 @@
 from enum import unique
 
-from sqlalchemy.orm import backref
+# from sqlalchemy.orm import backref
+from flask_sqlalchemy import SQLAlchemy 
+
 from extensions import db
 
 class Feedback(db.Model):

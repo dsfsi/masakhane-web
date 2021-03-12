@@ -88,6 +88,7 @@ target/
 # Mypy cache
 .mypy_cache/
 
+src/back-end/joeynmt/models/
 models/joeynmt/
 
 # node modules
@@ -96,3 +97,4 @@ node_modules/
 #cache
 .eslintcache
 
+src/server/models/joeynmt

@@ -211,5 +211,6 @@ class HomeResource(Resource):
         super().__init__()
 
     def get(self):
+        print('l')
         return {'message': "welcome Masakhane Web"}, HTTPStatus.OK
         
