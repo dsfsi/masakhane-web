@@ -1,43 +1,61 @@
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 import { Navbar, Nav, Container, Jumbotron, Image, Row, Col } from 'react-bootstrap'
 
-// // import { Container } from 'react-bootstrap';
-// import Navbar from 'react-bootstrap/Navbar'
+import Home from './pages/Home';
+import About from './pages/About';
+import FAQPage from './pages/Faq';
+import image from './images/masakhane-border.png';
 
-import TranslateCard from './components/translateCard';
-import image from './images/masakhane_bg2.png';
 
 function App() {
   return (
-    <div>
-      <Navbar style={{ backgroundColor: '#F2F0E9', width: '100%' }} >
-        <Navbar.Brand href="#home" variant="dark" style={{ fontFamily: 'lato', color: 'grey'}}>Masakhane</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start">
-          <Nav className="ml-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="https://www.masakhane.io/" target='blank'>About</Nav.Link>
-            <Nav.Link href="https://www.masakhane.io/faq" target='blank'>FAQ</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Jumbotron style={{ backgroundColor: '#F2F0E9', paddingTop: '50px', paddingBottom: '100px', backgroundImage: `url(${image})`,backgroundSize: 'cover', backgroundSize: 'cover'}} fluid>
-        <Container>
-          <Row style={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <Col>
-              <h1 style={{ fontFamily: 'lato, sans-serif', fontSize: 80, display:'flex', justifyContent: 'center',alignItems: 'center'}}>Masakhane</h1>
-              <p style={{display:'flex', justifyContent: 'center',alignItems: 'center'}}>Machine Translation Service for African Languages</p>
-            </Col>
-          </Row>
-        </Container>
-      </Jumbotron>
-      <Container className="my-4">
-        <br />
-        <br />
-        <TranslateCard />
-        <br />
-        <p style={{fontSize: 12, color: 'gray'}}>This is a community research project. Read more about it <span style={{color: 'blue'}}>here</span></p>
-      </Container>
-    </div>
+    <Router>
+      <div>
+        <Navbar style={{ backgroundColor: '#F2F0E9', width: '100%' }} >
+          <Navbar.Brand href="#home" variant="dark" style={{ fontFamily: 'lato', color: 'grey'}}>Masakhane</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-start">
+            <Nav className="ml-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/about">About</Nav.Link>
+                <Nav.Link href="/faq">FAQ</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        <Jumbotron style={{ backgroundColor: '#F2F0E9', paddingTop: '50px', paddingBottom: '50px',backgroundSize: 'cover', backgroundSize: 'cover'}} fluid>
+          <Container style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+            <Image src={image} width='240' height='250' roundedCircle style={{position:"absolute", left:0, right:0}}/>
+            <Row style={{display:'flex', flexDirection:'column' ,justifyContent:'center', alignItems:'center'}}>
+              <h1 style={{ fontFamily: 'lato, sans-serif', fontWeight: 'lighter', fontSize: 80 }}>Masakhane</h1>
+              <p>Machine translation service for African languages</p>
+            </Row>
+          </Container>
+        </Jumbotron>
+
+        <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/faq">
+              <FAQPage />
+            </Route>
+          </Switch>
+        {/* <Container className="my-4">
+          <br />
+          <br />
+          <TranslateCard />
+          <br />
+          <p style={{fontSize: 12, color: 'gray'}}>This is a community research project. Read more about it <span style={{color: 'blue'}}>here</span></p>
+        </Container> */}
+      </div>
+    </Router>
   );
 }
 
