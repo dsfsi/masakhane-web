@@ -74,7 +74,7 @@ const Step1 = ({ src_lang, tgt_lang, setForm, formData, navigation, handleSubmit
             <br />
 
             <div style={{textAlign: 'center'}}>
-                <p style={{ fontSize: 13, fontWeight: 'bold' }}>How well do you know {src_lang}?</p>
+                <p style={{ fontSize: 13, fontWeight: 'bold' }}>How well do you know {tgt_lang}?</p>
                 <Form>
                     <Row>
                         <Col>

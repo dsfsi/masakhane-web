@@ -5,8 +5,8 @@ const Step3 = ({ setShow }) => {
 
     return (
         <div style={{textAlign: 'center'}}>
-            <h6>THANK YOU</h6>
-            <p style={{fontSize: 11, color: 'gray'}}>We appreciate your feedback and your contribution which help us make translations better.</p>
+            <h6>THANK YOU!</h6>
+            {/* <p style={{fontSize: 11, color: 'gray'}}>We appreciate your feedback and your contribution which help us make translations better.</p> */}
             <div>
                 <Button size="sm" variant="outline-primary" onClick={handleShow}>Done</Button>
             </div>
