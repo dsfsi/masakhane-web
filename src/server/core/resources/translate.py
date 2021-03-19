@@ -98,12 +98,12 @@ class TranslateResource(Resource):
             src, tgt = couple.split("-")
             output.append(
                 {
-                    "id": "source", "name" : self.languages_short_to_full[src].capitalize(), "value" : src
+                    "type": "source", "name" : self.languages_short_to_full[src].capitalize(), "value" : src
                 }
             )
             output.append(
                 {
-                    "id": "target", "name" : self.languages_short_to_full[tgt].capitalize(), "value" : tgt
+                    "type": "target", "name" : self.languages_short_to_full[tgt].capitalize(), "value" : tgt
                 }
             )
 
