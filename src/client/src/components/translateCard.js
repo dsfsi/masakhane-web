@@ -219,7 +219,7 @@ export default function TranslateCard() {
                     
                     <Row>
                         <Col>
-                            <Button variant="outline-primary" onClick={handleTranslate}>Translate</Button>
+                            <Button variant="primary" onClick={handleTranslate}>Translate</Button>
                         </Col>
                         <Col md="auto">{' '}</Col>
                         <Col xs lg="2">
@@ -236,7 +236,7 @@ export default function TranslateCard() {
                                 placeholder="..." 
                                 rows="3" 
                                 name="text"
-                                style={{ height: '200px', fontSize: 24 }} 
+                                style={{ height: '200px', fontSize: 20 }} 
                                 value={translation}
                                 readOnly
                                 // onChange={e => setText(e.target.value)}
