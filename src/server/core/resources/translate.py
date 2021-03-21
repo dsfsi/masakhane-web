@@ -12,7 +12,6 @@ from core.models.feedback import Feedback
 import json
 
 from core.models.language import Language, language_list
-from core.extensions import sqlite_entry
 from core.models.translation import Translation
 
 from flask import request, current_app
