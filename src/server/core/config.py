@@ -4,9 +4,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
+    # SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///masakhane.db")
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MODEL = "./models/joeynmt/"
+    MODEL = os.getenv("MODEL", "./models/joeynmt/")
     TEMP = "./temp/"
     MODEL_ALL_FILE = "./available_models.tsv"
     JSON = "./languages.json"
@@ -28,4 +30,3 @@ class StagingConfig(Config):
 class ProductionConfig(Config):
     SECRET_KEY = os.getenv('SECRET_KEY', "sqlite://")
     MODEL = os.getenv('MODEL', "./")
-

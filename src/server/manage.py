@@ -14,9 +14,28 @@ cli = FlaskGroup(masakhane)
 
 @cli.command("create_db")
 def create_db():
-    # db.drop_all()
     db.create_all()
     db.session.commit()
+        
+
+@cli.command("init_models")
+def init_models():
+    print(current_app.models)
+    print(masakhane.models)
+
+#     db_pairs = []
+#     # Update model form the db when doing the get call 
+#     for lan in Language.query.all():
+#         language_pair = lan.to_json()
+#         print(language_pair)
+#         db_pair = f"{language_pair['source']}-{language_pair['target']}"
+#         masakhane.models[db_pair] = load_model(f"{language_pair['target']}")
+#         db_pairs.append(db_pair)
+
+#     # To make sure that the model in memory are some with the one in the db
+#     for pair in masakhane.models.keys():
+#         if pair not in db_pairs:
+#                 del masakhane.models[pair]
 
 @cli.command("clean")
 def clean():

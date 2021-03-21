@@ -2,6 +2,9 @@ from flask_restful import Resource
 from http import HTTPStatus
 
 import ipdb
+import os
+import sqlite3
+
 from core.model_load import MasakhaneModelLoader
 from core.models.predict import Predicter
 from core.models.feedback import Feedback
@@ -9,8 +12,7 @@ from core.models.feedback import Feedback
 import json
 
 from core.models.language import Language, language_list
-
-
+from core.extensions import sqlite_entry
 from core.models.translation import Translation
 
 from flask import request, current_app
@@ -32,8 +34,8 @@ class TranslateResource(Resource):
     def __init__(self, saved_models):
         # self.model_path = current_app.config['MODEL']
         # self.selected_models_file = current_app.config['MODEL_ALL_FILE']
-        # self.models = saved_models
-        self.models = current_app.models
+        self.models = saved_models
+        # self.models = current_app.models
         # self.path_to_json = current_app.config['JSON']
 
         with open(current_app.config['JSON'], 'r') as f:
@@ -45,9 +47,6 @@ class TranslateResource(Resource):
         for distro in distros_dict:
             self.languages_short_to_full[distro['language_short'].lower()] = distro['language_en'].lower()
             self.languages_full_to_short[distro['language_en'].lower()] = distro['language_short'].lower()
-
-        
-
 
     def post(self):
         """
@@ -94,6 +93,9 @@ class TranslateResource(Resource):
     def get(self):
 
         output = []
+
+        # print(self.models)
+
         for couple in list(self.models.keys()):
             src, tgt = couple.split("-")
             output.append(
@@ -121,56 +123,39 @@ def load_model(model_short_name):
     model_dir = model_loader.load_model(model_short_name)
 
     return model_dir
-
-class DeleteResource(Resource):
-    def __init__(self, saved_models) -> None:
-        super().__init__()
-        self.selected_models_file = current_app.config['MODEL_ALL_FILE']
-        self.model_path = current_app.config['MODEL']
-        self.models = saved_models
-
-    def delete(self):
-        """
-        Translate a sentence
-        """
-        data = request.get_json()
-
-        try:
-            # shutil.rmtree(self.model_path+data['tgt_lang']) 
-            # os.rmdir(self.model_path+data['lag'])
-
-            result = self.models.pop(data['tgt_lang'], None)
-
-            if result != None:
-                return data['tgt_lang'], HTTPStatus.OK
-            else:
-                raise Exception('This model does not exist in memory')
-
-        except Exception as e:
-            return {'message' :"Model doesn't exist in memory"}, HTTPStatus.NOT_FOUND
        
 class AddResource(Resource):
     def __init__(self, saved_models):
-        super().__init__()
         self.selected_models_file = current_app.config['MODEL_ALL_FILE']
+        # self.models = current_app.models
+        self.models = saved_models
 
-        self.models = current_app.models
+    def get(self):
 
-        
+        print(self.models)
+
+        now = list(self.models.keys())
+
         db_pairs = []
+
         # Update model form the db when doing the get call 
         for lan in Language.query.all():
             language_pair = lan.to_json()
             db_pair = f"{language_pair['source']}-{language_pair['target']}"
-            self.models[db_pair] = load_model(f"{language_pair['target']}")
-            db_pairs.append(db_pair)
+            
+            # check if the model is not already loaded
+            if db_pair not in now: 
+
+                print(f"db_pair : {db_pair} \n now : {now}")
+
+                self.models[db_pair] = load_model(f"{language_pair['target']}")
+                db_pairs.append(db_pair)
 
         # To make sure that the model in memory are some with the one in the db
-        for pair in self.models.keys():
+        for pair in now:
             if pair not in db_pairs:
                  del self.models[pair]
 
-    def get(self):
         return {'message': "Models updated"}, HTTPStatus.OK
 
 
@@ -212,6 +197,5 @@ class HomeResource(Resource):
         super().__init__()
 
     def get(self):
-        print('l')
         return {'message': "welcome Masakhane Web"}, HTTPStatus.OK
         

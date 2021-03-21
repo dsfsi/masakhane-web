@@ -1,7 +1,7 @@
-from core.resources.translate import TranslateResource, DeleteResource, AddResource, SaveResource, HomeResource
+from core.resources.translate import TranslateResource, AddResource, SaveResource, HomeResource
 
 from flask import Flask
-from flask import request, render_template
+from flask import request, render_template, current_app
 
 from core.models.feedback import Feedback
 from core.models.language import Language, language_list
@@ -41,6 +41,8 @@ def create_app(saved_models):
     register_extensions(app)
     register_resources(app, saved_models)
 
+    # db = SQLAlchemy(app)
+
     return app
 
 def register_extensions(app):
@@ -59,7 +61,8 @@ def register_resources(app, saved_models):
 
 def load_model(model_short_name):   
     model_loader = MasakhaneModelLoader(
-                                    available_models_file="./available_models.tsv")
+                                    available_models_file=os.environ.get('MODEL_ALL_FILE',
+                                        './available_models.tsv'))
 
     # Download currently supported languages
     model_loader.download_model(model_short_name)
@@ -67,44 +70,27 @@ def load_model(model_short_name):
     model_dir = model_loader.load_model(model_short_name)
 
     return model_dir
-    # model_dir, config, lc = model_loader.load_model(model_short_name)
-    # return {"model_dir": model_dir, "config": config, "lc": lc}
 
 
-
-
-# print(models["en-sw"])
-
-# import psycopg2
-# try: 
-#     conn = psycopg2.connect(database="masakhane", user="masakhane",  
-#     password="masakhane", host="localhost")
-#     print("connected")
-
-#     mycursor =conn.cursor()
-#     mycursor.execute("SELECT * FROM language")
-#     data = mycursor.fetchall()
-
-#     print(data)
-
-# except:
-#     print ("I am unable to connect to the database")
-
-# print(Language.query.all())
-
-
+# if __name__=='__main__' or __name__=='core':
+    
 models = {}
+
+# Always start with English-Swahili (This will be revised in the future)
 # models["en-sw"] = load_model("sw")
 
-# for lan in Language.query.all():
-#     print(lan.to_json())
-#     models[f"{lan['source']}-{lan['target']}"] = load_model("sw")
 
 masakhane = create_app(models)
-# db.create_all()
-# db.session.commit()
+
 
 masakhane.models = models
 
-# if __name__=='__main__':
+# our_db.create_all()
+
 #     masakhane.run(host='0.0.0.0', port=5001)
+
+
+# for lan in Language.query.all():
+#     print(lan.to_json())
+#     print(masakhane.models)
+#     models[f"{lan['source']}-{lan['target']}"] = load_model(f"{lan['target']}")
