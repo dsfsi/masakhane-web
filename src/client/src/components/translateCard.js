@@ -2,8 +2,6 @@ import { useState, useRef, useEffect} from 'react';
 import { Container, Row, Col, Form, Button, Modal, Toast, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-import MultiStepForm from './multiStepForm';
-
 export default function TranslateCard() {
     const [input, setText] = useState("");
     const [translation, setTranslation] = useState("");
@@ -109,33 +107,6 @@ export default function TranslateCard() {
 
     return (
         <Container className="border" style={{borderRadius: '5px'}}>
-            {/* <Modal scrollable={true} show={show} onHide={handleClose} centered style={{ maxHeight: '700px' }}> */}
-            <Modal 
-                scrollable={true} 
-                show={show} 
-                onHide={handleClose} 
-                centered 
-                size="lg"
-            >
-                <Modal.Header closeButton style={{backgroundColor:'#F2F0E9'}}>
-                {/*<Modal.Title>Modal heading</Modal.Title>*/}
-                <Col style={{textAlign: 'center'}}>
-                    <h4 style={{ fontSize: 14, color: '#717171' }}>GIVE FEEDBACK</h4>
-                    <p style={{ fontSize: 11, color: 'gray' }}>We appreciate your feedback and your contribution will help make our translation better.</p>
-                </Col>
-                </Modal.Header>
-                <Modal.Body>
-                    <MultiStepForm 
-                        src_lang={src_lang} 
-                        tgt_lang={tgt_lang} 
-                        text={input} 
-                        translation={translation} 
-                        setShow={setShow}
-                        submitFeedBack={submitFeedBack}
-                    />
-                </Modal.Body>
-            </Modal>
-
             <Row className="header" style={{ backgroundColor: 'aliceblue', height: 60, fontSize: '1rem', padding: '1rem 1.5rem'}}>
                 <Col className="border-right">
                     <Row>
@@ -247,7 +218,7 @@ export default function TranslateCard() {
                     
                     <Row>
                         <Col>
-                            <Button variant="light" size = 'sm' style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback</Button>
+                            {' '}
                         </Col>
                         <Col md="auto">{' '}</Col>
                         <Col xs lg="2">
