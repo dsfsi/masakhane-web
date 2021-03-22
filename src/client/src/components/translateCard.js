@@ -65,6 +65,13 @@ export default function TranslateCard() {
 
     }
 
+    const handleClear = () => {
+        // clears text part
+        setText('');
+        // clear translation
+        setTranslation('...');
+    }
+
     let srcLang = [];
     let tgtLang = [];
 
@@ -101,9 +108,16 @@ export default function TranslateCard() {
     console.log(tgtLanguages)
 
     return (
-        <Container className="border">
-            <Modal scrollable={true} show={show} onHide={handleClose} centered style={{ maxHeight: '700px' }}>
-                <Modal.Header closeButton>
+        <Container className="border" style={{borderRadius: '5px'}}>
+            {/* <Modal scrollable={true} show={show} onHide={handleClose} centered style={{ maxHeight: '700px' }}> */}
+            <Modal 
+                scrollable={true} 
+                show={show} 
+                onHide={handleClose} 
+                centered 
+                size="lg"
+            >
+                <Modal.Header closeButton style={{backgroundColor:'#F2F0E9'}}>
                 {/*<Modal.Title>Modal heading</Modal.Title>*/}
                 <Col style={{textAlign: 'center'}}>
                     <h4 style={{ fontSize: 14, color: '#717171' }}>GIVE FEEDBACK</h4>
@@ -154,7 +168,7 @@ export default function TranslateCard() {
                         </Col>
                     </Row>
                 </Col>
-                <Col className="ml-3">
+                <Col style={{ marginLeft: '15px' }}>
                 <Row>
                     <Col>
                         <Form inline>
@@ -184,10 +198,11 @@ export default function TranslateCard() {
                         </Row>
                     </Col>
                 </Row>
-                </Col>
+            </Col>
+            
             </Row>
-            <Row style={{ minHeight: '250px' }}>
-                <Col className="border-right" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+            <Row style={{ minHeight: '15px' }}>
+            <Col className="mr-3" style={{ paddingTop: '20px', paddingBottom: '20px', marginLeft: '10px' }}>
                     <Form>
                         <Form.Group controlId="Form.ControlTextarea">
                             <Form.Control 
@@ -195,7 +210,7 @@ export default function TranslateCard() {
                                 placeholder="Enter Text" 
                                 rows="3" 
                                 name="text"
-                                style={{ height: '200px', fontSize: 24 }} 
+                                style={{ height: '200px', fontSize: 20, font:'lato, sans-serif' }} 
                                 value={input}
                                 onChange={e => setText(e.target.value)}
                             />
@@ -204,11 +219,11 @@ export default function TranslateCard() {
                     
                     <Row>
                         <Col>
-                            <Button variant="outline-primary" onClick={handleTranslate}>Translate</Button>
+                            <Button variant="primary" onClick={handleTranslate}>Translate</Button>
                         </Col>
                         <Col md="auto">{' '}</Col>
                         <Col xs lg="2">
-                            <Button  variant = 'light' size="sm" onClick={() => setText("")}><i className="fas fa-times"></i></Button>{' '}
+                            <Button  style = {{color:'grey'}} variant = 'link' size="sm" onClick={handleClear}>clear</Button>{' '}
                         </Col>
                     </Row>
                 </Col>
@@ -221,7 +236,7 @@ export default function TranslateCard() {
                                 placeholder="..." 
                                 rows="3" 
                                 name="text"
-                                style={{ height: '200px', fontSize: 24 }} 
+                                style={{ height: '200px', fontSize: 20 }} 
                                 value={translation}
                                 readOnly
                                 // onChange={e => setText(e.target.value)}
@@ -231,10 +246,23 @@ export default function TranslateCard() {
                     </Form>
                     
                     <Row>
+                        <Col>
+                            <Button variant="light" size = 'sm' style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback</Button>
+                        </Col>
+                        <Col md="auto">{' '}</Col>
                         <Col xs lg="2">
-                            <CopyToClipboard text={translation} onCopy={copyToClipboard}>
-                                <Button variant = 'light' size="sm"><i className="fa fa-copy"></i></Button>
-                            </CopyToClipboard>
+                        <OverlayTrigger
+                                placement='top'
+                                overlay={
+                                <Tooltip id={'tooltip-top'} >
+                                    Copy <strong>Translation</strong>.
+                                </Tooltip>
+                                }
+                            >
+                                <CopyToClipboard text={translation} onCopy={copyToClipboard}>
+                                    <Button variant="light" size="sm"><i className="fa fa-copy"></i></Button>
+                                </CopyToClipboard>
+                            </OverlayTrigger>
                         </Col>
                     </Row>
                 </Col>
