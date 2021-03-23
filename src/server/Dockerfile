@@ -24,6 +24,16 @@ RUN apt-get update && apt-get install -y netcat
 #     apt-get postgresql-dev && \
     # apt-get --update netcat-openbsd
 
+RUN apt-get update
+RUN apt-get install -y gnupg lsb-release wget
+
+RUN lsb_release -c -s > /tmp/lsb_release
+RUN GCSFUSE_REPO=$(cat /tmp/lsb_release); echo "deb http://packages.cloud.google.com/apt gcsfuse-$GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list
+RUN wget -O - https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+RUN apt-get update
+RUN apt-get install -y gcsfuse
+
 RUN pip install --upgrade pip
 
 # add and install requirements 
