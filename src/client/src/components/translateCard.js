@@ -108,7 +108,7 @@ export default function TranslateCard() {
     return (
         <Container className="border" style={{borderRadius: '5px'}}>
             <Row className="header" style={{ backgroundColor: 'aliceblue', height: 60, fontSize: '1rem', padding: '1rem 1.5rem'}}>
-                <Col className="border-right">
+                <Col className="border-right" style={{marginBottom: 10}}>
                     <Row>
                         <Col>
                             <Form inline>
@@ -141,7 +141,7 @@ export default function TranslateCard() {
                 </Col>
                 <Col style={{ marginLeft: '15px' }}>
                 <Row>
-                    <Col>
+                    <Col md={6} xs={12}>
                         <Form inline>
                             <Form.Group controlId="fromform">
                             <Form.Label>To: </Form.Label>
@@ -173,7 +173,7 @@ export default function TranslateCard() {
             
             </Row>
             <Row style={{ minHeight: '15px' }}>
-            <Col className="mr-3" style={{ paddingTop: '20px', paddingBottom: '20px', marginLeft: '10px' }}>
+            <Col md={6} xs={12} className="mr-3" style={{ paddingTop: '20px', paddingBottom: '20px', marginLeft: '10px' }}>
                     <Form>
                         <Form.Group controlId="Form.ControlTextarea">
                             <Form.Control 
@@ -189,11 +189,11 @@ export default function TranslateCard() {
                     </Form>
                     
                     <Row>
-                        <Col>
+                        <Col md={10} xs={10}>
                             <Button variant="primary" onClick={handleTranslate}>Translate</Button>
                         </Col>
                         <Col md="auto">{' '}</Col>
-                        <Col xs lg="2">
+                        <Col md={2} xs={2} lg="2">
                             <Button  style = {{color:'grey'}} variant = 'link' size="sm" onClick={handleClear}>clear</Button>{' '}
                         </Col>
                     </Row>
