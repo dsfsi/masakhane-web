@@ -190,9 +190,9 @@ export default function TranslateCard() {
                     
                     <Row>
                         <Col md={10} xs={10}>
-                            <Button variant="primary" onClick={handleTranslate}>Translate</Button>
+                            <Button variant="primary" style = {{marginBottom:10}} onClick={handleTranslate}>Translate</Button>
                         </Col>
-                        <Col md="auto">{' '}</Col>
+                        {/* <Col md="auto">{' '}</Col> */}
                         <Col md={2} xs={2} lg="2">
                             <Button  style = {{color:'grey'}} variant = 'link' size="sm" onClick={handleClear}>clear</Button>{' '}
                         </Col>
