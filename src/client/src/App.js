@@ -26,29 +26,29 @@ function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Jumbotron xs={12} style={{ backgroundColor: '#F2F0E9'}} fluid>
+        {/* <Jumbotron xs={12} style={{ backgroundColor: '#F2F0E9'}} fluid>
           <Container>
             <Row>
               <Col md={4} className="d-none d-sm-block">
                 <Image src={image} width='200' height='220' roundedCircle />
               </Col>
               <Col xs={12} md={8} style={{ justifyContent: 'center'}}>
-                <h1 style={{ fontFamily: 'sans-serif', fontWeight: 'lighter', fontSize: 50 }}>Masakhane Web</h1>
+                <h1 style={{ fontFamily: 'lato, sans-serif', fontWeight: 'lighter', fontSize: 80 }}>Masakhane</h1>
                 <p>Machine translation service for African languages</p>
               </Col>
             </Row>
           </Container>
-        </Jumbotron>
+        </Jumbotron> */}
         
-        {/* <Jumbotron xs = {12} style={{ backgroundColor: '#F2F0E9', paddingTop: '50px', paddingBottom: '50px',backgroundSize: 'cover', backgroundSize: 'cover'}} fluid>
+        <Jumbotron xs = {12} style={{ backgroundColor: '#F2F0E9', paddingTop: '50px', paddingBottom: '50px',backgroundSize: 'cover', backgroundSize: 'cover'}} fluid>
           <Container style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-            <Image src={image} width='240' height='250' roundedCircle style={{position:"absolute", left:0, right:0}}/>
+            <Image className="d-none d-sm-block" src={image} width='240' height='250' roundedCircle style={{position:"absolute", left:0, right:0}}/>
             <Row style={{display:'flex', flexDirection:'column' ,justifyContent:'center', alignItems:'center'}}>
               <h1 style={{ fontFamily: 'lato, sans-serif', fontWeight: 'lighter', fontSize: 80 }}>Masakhane</h1>
-              <p>Machine translation service for African languages</p>
+              <p>Machine Translation service for African languages</p>
             </Row>
           </Container>
-        </Jumbotron> */}
+        </Jumbotron>
 
         <Switch>
             <Route exact path="/">
