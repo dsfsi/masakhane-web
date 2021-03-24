@@ -20,17 +20,18 @@ const defaultData = {
     own_translation: "",
 };
 
-const MultiStepForm = ({ src_lang, tgt_lang, text, translation, setShow, submitFeedBack}) => {
-    const [formData, setForm] = useForm(defaultData);
+const MultiStepForm = ({ src_lang, tgt_lang, text, translation, setShow, submitFeedBack, setFeedbackToken, feedbackToken}) => {
+    const [formData, setForm] = useForm({...defaultData, src_lang, tgt_lang, text, translation, feedbackToken});
     const { step, navigation } = useStep({ initialStep: 0, steps });
     const { id } = step;
 
     const handleSubmitFeedback = () => {
         // set formData to be feedback form
+        console.log({formData})
         submitFeedBack(formData);
     }
 
-    const props = { src_lang, tgt_lang, text, translation, setShow, formData, setForm, navigation, handleSubmitFeedback };
+    const props = { src_lang, tgt_lang, text, translation, setShow, formData, setForm, navigation, handleSubmitFeedback, setFeedbackToken, feedbackToken};
 
     switch (id) {
         case "terms":

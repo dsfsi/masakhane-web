@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect} from 'react';
+import { useState, useLayoutEffect,useRef, useEffect} from 'react';
 import { Container, Row, Col, Form, Button, Modal, Toast, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
@@ -13,6 +13,9 @@ export default function TranslateCard() {
     const [src_lang, setSrc_Lang] = useState('English');
     const [tgt_lang, setTgt_Lang] = useState('Swahili');
     const [feedBackForm, setFeedBackForm] = useState({});
+    const [feedbackToken, setFeedbackToken] = useState(
+        localStorage.getItem('feedbackToken') || ''
+    );
 
     const textAreaRef = useRef(null);
     const [copySuccess, setCopySuccess] = useState('');
@@ -27,11 +30,21 @@ export default function TranslateCard() {
     };
 
     const handleChangeSrc_Lang= (e) => {
+        //localstorage
+        localStorage.setItem('src_lang', e.target.value);
+
+        //set state
         setSrc_Lang(e.target.value);
+        
     };
 
     const handleChangeTgt_Lang = (e) => {
+        //localstorage
+        localStorage.setItem('tgt_lang', e.target.value);
+
+        //set state
         setTgt_Lang(e.target.value);
+        
     };
 
     const handleTranslate = (e) => {
@@ -72,6 +85,8 @@ export default function TranslateCard() {
         setTranslation('...');
     }
 
+    console.log({feedbackToken});
+
     let srcLang = [];
     let tgtLang = [];
 
@@ -104,8 +119,8 @@ export default function TranslateCard() {
         fetchLanguages()
 
     }, [])
-    console.log(srcLanguages)
-    console.log(tgtLanguages)
+    // console.log(srcLanguages)
+    // console.log(tgtLanguages)
 
     return (
         <Container className="border" style={{borderRadius: '5px'}}>
@@ -132,6 +147,8 @@ export default function TranslateCard() {
                         translation={translation} 
                         setShow={setShow}
                         submitFeedBack={submitFeedBack}
+                        setFeedbackToken={setFeedbackToken}
+                        feedbackToken={feedbackToken}
                     />
                 </Modal.Body>
             </Modal>

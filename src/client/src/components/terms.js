@@ -1,22 +1,26 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Row, Card, Button } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 
-const Terms = ({ setShow, navigation }) => {
-
-    const [acceptedTerms, setAcceptedTerms] = useState(false);
-    
+const Terms = ({ setShow, navigation, setFeedbackToken, feedbackToken }) => {
     const { next } = navigation;
 
-    const handleAccept = () => {
-        setAcceptedTerms(true);
-        // TODO: record time when user accepted terms
-
-        // proceed
-        next();
+    const accept = () => {
+        if(feedbackToken !== '') {
+            next();
+        } else {
+            // generate token
+            const token = uuidv4();
+            // set token
+            localStorage.setItem('feedbackToken', token);
+            setFeedbackToken(token);
+            // proceed
+            next();
+        }
     }
+    
 
     const handleDecline = () => {
-        setAcceptedTerms(false);
         // close modal
         setShow(false);
     }
@@ -74,7 +78,7 @@ const Terms = ({ setShow, navigation }) => {
                     <Button size="sm" variant="outline-secondary" onClick={handleDecline}>NOT NOW</Button>
                 </div>
                 <div>
-                    <Button size="sm" variant="outline-primary" onClick={handleAccept}>ACCEPT TERMS</Button>
+                    <Button size="sm" variant="outline-primary" onClick={accept}>ACCEPT TERMS</Button>
                 </div>
             </Row>
         </div>
