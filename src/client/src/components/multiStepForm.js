@@ -13,11 +13,11 @@ const steps = [
 ];
 
 const defaultData = {
-    know_language1: "little",
-    know_language2: "little",
+    know_src_lang: "little",
+    know_tgt_lang: "little",
     understand_translation: "none",
     accurate_translation: "nonsense",
-    own_translation: "",
+    own_translation: ""
 };
 
 const MultiStepForm = ({ src_lang, tgt_lang, text, translation, setShow, submitFeedBack, setFeedbackToken, feedbackToken}) => {
@@ -26,8 +26,8 @@ const MultiStepForm = ({ src_lang, tgt_lang, text, translation, setShow, submitF
     const { id } = step;
 
     const handleSubmitFeedback = () => {
+        console.log({formData});
         // set formData to be feedback form
-        console.log({formData})
         submitFeedBack(formData);
     }
 

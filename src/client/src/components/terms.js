@@ -1,8 +1,7 @@
-// import { useState } from 'react';
 import { Row, Card, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
-const Terms = ({ setShow, navigation, setFeedbackToken, feedbackToken }) => {
+const Terms = ({ setShow, navigation, setFeedbackToken, feedbackToken}) => {
     const { next } = navigation;
 
     const accept = () => {
@@ -18,7 +17,6 @@ const Terms = ({ setShow, navigation, setFeedbackToken, feedbackToken }) => {
             next();
         }
     }
-    
 
     const handleDecline = () => {
         // close modal
@@ -29,7 +27,7 @@ const Terms = ({ setShow, navigation, setFeedbackToken, feedbackToken }) => {
         <div>
             <Card style={{ width: '100%' }}>
                 <Card.Body>
-                    <Card.Title>Consent Letter</Card.Title>
+                    <Card.Title>Terms & Conditions</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">Dear Sir/Madam,</Card.Subtitle>
                     <div>
                         <Card.Text style={{ fontSize: 12, color: 'gray' }}>

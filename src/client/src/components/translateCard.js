@@ -64,7 +64,7 @@ export default function TranslateCard() {
             })
           .then(res => res.json())
           .then(data => {
-              console.log({ data })
+            //   console.log({ data })
             // do something here
             setTranslation(data.output)
           })
@@ -85,7 +85,7 @@ export default function TranslateCard() {
         setTranslation('...');
     }
 
-    console.log({feedbackToken});
+    // console.log({feedbackToken});
 
     let srcLang = [];
     let tgtLang = [];
@@ -106,7 +106,7 @@ export default function TranslateCard() {
             })
           .then(res => res.json())
           .then(data => {
-              console.log({ data })
+            //   console.log({ data })
             // do something here
             setSrcLanguages(data.filter(x => x.type == "source"))
             setTgtLanguages(data.filter(x => x.type == "target"))
