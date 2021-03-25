@@ -63,7 +63,39 @@ export default function TranslateCard() {
         // then submit feedback form to db here
         // here's where you write the function to push feedback to backend
 
+        console.log({formData})
+
+        fetch( 
+            '/save', 
+            {
+                method: 'post', 
+                // mode: 'no-cors',
+                body: JSON.stringify({
+                    src_lang: formData.src_lang,
+                    tgt_lang: formData.tgt_lang,
+                    accurate_translation:  formData.accurate_translation,
+                    know_src_lang: formData.know_src_lang,
+                    know_tgt_lang:  formData.know_tgt_lang,
+                    own_translation: formData.own_translation,
+                    text:  formData.text,
+                    translation: formData.translation,
+                    understand_translation: formData.understand_translation,
+                    feedbackToken: formData.feedbackToken
+            }),
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                // credentials: 'same-origin',
+            })
+          .then(res => res.json())
+          .then(data => {
+            //   console.log({ data })
+            // do something here
+            handleClear()
+          })
+
     }
+
 
     const handleClear = () => {
         // clears text part
