@@ -3,12 +3,12 @@ import RadioButton from './common/radioButton';
 
 const Step1 = ({ src_lang, tgt_lang, setForm, formData, navigation, handleSubmitFeedback }) => {
 
-    const { know_language1, know_language2 } = formData;
+    const { know_src_lang, know_tgt_lang } = formData;
     
     const { next, go } = navigation;
 
     const handleNext= () => {
-        if(know_language1 === "none" && know_language2 === "none") {
+        if(know_src_lang === "none" && know_tgt_lang === "none") {
             // submit feedback
             handleSubmitFeedback();
             // then skip next step
@@ -32,36 +32,36 @@ const Step1 = ({ src_lang, tgt_lang, setForm, formData, navigation, handleSubmit
                         <Col>
                             <RadioButton 
                                 value="none"
-                                name="know_language1"
+                                name="know_src_lang"
                                 label="Not at all"
-                                selected={know_language1}
+                                selected={know_src_lang}
                                 onChange={setForm} 
                             />
                         </Col>
                         <Col>
                             <RadioButton 
                                 value="little"
-                                name="know_language1" 
+                                name="know_src_lang" 
                                 label="A little bit"
-                                selected={know_language1}
+                                selected={know_src_lang}
                                 onChange={setForm} 
                             />
                         </Col>
                         <Col>
                             <RadioButton 
                                 value="decent"
-                                name="know_language1" 
+                                name="know_src_lang" 
                                 label="A decent amount"
-                                selected={know_language1}
+                                selected={know_src_lang}
                                 onChange={setForm} 
                             />
                         </Col>
                         <Col>
                             <RadioButton 
                                 value="well"
-                                name="know_language1" 
+                                name="know_src_lang" 
                                 label="Very well"
-                                selected={know_language1}
+                                selected={know_src_lang}
                                 onChange={setForm} 
                             />
                         </Col>
@@ -80,36 +80,36 @@ const Step1 = ({ src_lang, tgt_lang, setForm, formData, navigation, handleSubmit
                         <Col>
                             <RadioButton 
                                 value="none"
-                                name="know_language2"
+                                name="know_tgt_lang"
                                 label="Not at all"
-                                selected={know_language2}
+                                selected={know_tgt_lang}
                                 onChange={setForm} 
                             />
                         </Col>
                         <Col>
                             <RadioButton 
                                 value="little"
-                                name="know_language2" 
+                                name="know_tgt_lang" 
                                 label="A little bit"
-                                selected={know_language2}
+                                selected={know_tgt_lang}
                                 onChange={setForm} 
                             />
                         </Col>
                         <Col>
                             <RadioButton 
                                 value="decent"
-                                name="know_language2" 
+                                name="know_tgt_lang" 
                                 label="A decent amount"
-                                selected={know_language2}
+                                selected={know_tgt_lang}
                                 onChange={setForm} 
                             />
                         </Col>
                         <Col>
                             <RadioButton 
                                 value="well"
-                                name="know_language2" 
+                                name="know_tgt_lang" 
                                 label="Very well"
-                                selected={know_language2}
+                                selected={know_tgt_lang}
                                 onChange={setForm} 
                             />
                         </Col>

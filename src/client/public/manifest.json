@@ -1,5 +1,5 @@
 {
-  "short_name": "React App",
+  "short_name": "Masakhane Web",
   "name": "Create React App Sample",
   "icons": [
     {
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "favico.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "favico.png",
       "type": "image/png",
       "sizes": "512x512"
     }

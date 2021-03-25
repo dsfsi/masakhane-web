@@ -178,13 +178,18 @@ class SaveResource(Resource):
 
         data = request.get_json()
 
+
         feedback = Feedback(
                         src_lang = data['src_lang'], 
                         tgt_lang = data['tgt_lang'], 
-                        input = data['input'], 
-                        review = data['review'], 
-                        stars = data['stars'], 
-                        token = data['token'])
+                        accurate_translation = data['accurate_translation'], 
+                        know_src_lang = data['know_src_lang'], 
+                        know_tgt_lang = data['know_tgt_lang'], 
+                        own_translation = data['own_translation'], 
+                        text = data['text'], 
+                        translation = data['translation'], 
+                        understand_translation = data['understand_translation'], 
+                        feedbackToken = data['feedbackToken'])
 
         feedback.save()
 
