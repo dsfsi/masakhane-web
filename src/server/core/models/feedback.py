@@ -15,6 +15,7 @@ class Feedback(db.Model):
     know_tgt_lang = db.Column(db.String(50), nullable=False)
     own_translation = db.Column(db.String(800), nullable=True)
     translation = db.Column(db.String(800), nullable=False)
+    text = db.Column(db.String(800), nullable=False)
     understand_translation = db.Column(db.String(50), nullable=False)
     feedbackToken = db.Column(db.String(100), nullable=False)
 
