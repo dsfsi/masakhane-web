@@ -17,7 +17,7 @@ Inside Python run the following command to see the content of the database (Make
 
 ```sh
 import sqlite3,os
-conn = sqlite3.connect("masakhane.sqlite")
+conn = sqlite3.connect("masakhane.db")
 c = conn.cursor()
 for row in c.execute('SELECT * FROM masakhane'):
     print(row)

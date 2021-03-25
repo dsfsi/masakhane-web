@@ -55,6 +55,7 @@ class MasakhaneModelLoader():
   
   def download_model(self, trg_language):
     """ Download model for given trg language. """
+    # ipdb.set_trace()
     model_dir = "{}-{}".format(self._model_dir_prefix, trg_language)
 
     if not os.path.exists(model_dir):
