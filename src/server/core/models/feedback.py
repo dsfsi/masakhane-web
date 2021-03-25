@@ -10,10 +10,14 @@ class Feedback(db.Model):
     
     src_lang = db.Column(db.String(20), nullable=False)
     tgt_lang = db.Column(db.String(20), nullable=False)
-    input = db.Column(db.String(800), nullable=False, unique=False)
-    review = db.Column(db.String(800), nullable=False, unique=False)
-    stars = db.Column(db.Integer, nullable=True, unique=False)    
-    token = db.Column(db.String(20), nullable=False)
+    accurate_translation = db.Column(db.String(800), nullable=False)
+    know_src_lang = db.Column(db.String(50), nullable=False)
+    know_tgt_lang = db.Column(db.String(50), nullable=False)
+    own_translation = db.Column(db.String(800), nullable=True)
+    translation = db.Column(db.String(800), nullable=False)
+    understand_translation = db.Column(db.String(50), nullable=False)
+    feedbackToken = db.Column(db.String(100), nullable=False)
+
 
     created_at = db.Column(db.DateTime(), nullable=False,\
                                 server_default=db.func.now())
