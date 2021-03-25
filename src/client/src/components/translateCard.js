@@ -76,7 +76,7 @@ export default function TranslateCard() {
         // then submit feedback form to db here
         // here's where you write the function to push feedback to backend
 
-        console.log({formData})
+        // console.log({formData})
 
         fetch( 
             '/save', 
@@ -102,7 +102,7 @@ export default function TranslateCard() {
             })
           .then(res => res.json())
           .then(data => {
-            //   console.log({ data })
+              console.log({data})
             // do something here
             handleClear()
           })
