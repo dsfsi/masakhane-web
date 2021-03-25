@@ -12,7 +12,7 @@ function Home() {
         <br />
         <TranslateCard />
         <br />
-        <p style={{fontSize: 12, color: 'gray'}}>This is a community research project. Read more about it <span style={{color: 'blue'}}>here</span></p>
+        <p style={{fontSize: 12, color: 'gray'}}>This is a community research project. Don't see your language and interested in training one up yourself? Go <span style={{color: 'blue'}}>here</span> to learn how to contribute a model!</p>
       </Container>
     </div>
   );
