@@ -2,12 +2,16 @@
 
 # Masakhane WEB
 
+<<<<<<< HEAD
 **Masakhane Web** is an open source online machine translation service for solely African languages. This project is in line with the works of the Masakhane community and so far the community has trained translation models for over 38 African languages. As such, this platform aims at hosting the already trained machine translation models from the masakhane community and allows contributions from users to create new data for retraining and improving the models. 
 
 The Masakhane Web project is led by [Data Science for Social Impact](https://dsfsi.github.io/) research group at the [Department of Computer Science](https://cs.up.ac.za/), University of Pretoria, South Africa. 
 
 To find out more on how you can collaborate and work with Masakhane, please check out their website [https://www.masakhane.io](https://www.masakhane.io)
 
+=======
+TODO : description of the project 
+>>>>>>> bdb8a2c59b47a19a55bf055b45a303fddb811a81
 
 
 ## How to run
@@ -49,6 +53,7 @@ for row in c.execute('SELECT * FROM language'):
 ```
 
 
+<<<<<<< HEAD
 ### Frontend 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -74,6 +79,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 `yarn test`
 
 #### Learn more
+=======
+#### Frontend 
+TODO : Need to be completed by Cate 
+>>>>>>> bdb8a2c59b47a19a55bf055b45a303fddb811a81
 
 
 
@@ -119,7 +128,11 @@ To make sure that it is well installed you can run the code above to check the v
 
 - check the available models in memory `sudo docker-compose exec server python manage.py all_language`
 - add a new language, 
+<<<<<<< HEAD
     - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`curre
+=======
+    - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`
+>>>>>>> bdb8a2c59b47a19a55bf055b45a303fddb811a81
     - (English-Yoruba) `sudo docker-compose exec server python manage.py add_language en-yo`
 - delete a language `sudo docker-compose exec server python manage.py remove_language en-sw`
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`

@@ -32,6 +32,7 @@ services:
     build :
       context: ./src/client
       dockerfile: Dockerfile
+    # command: curl --location --request GET 'http://0.0.0.0:5000/update' --data-raw ''
     volumes:
       - './src/client:/usr/src/app'
     ports:
