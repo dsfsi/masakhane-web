@@ -91,7 +91,7 @@ To make sure that it is well installed you can run the code above to check the v
 
 - check the available models in memory `sudo docker-compose exec server python manage.py all_language`
 - add a new language, 
-    - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`curre
+    - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`
     - (English-Yoruba) `sudo docker-compose exec server python manage.py add_language en-yo`
 - delete a language `sudo docker-compose exec server python manage.py remove_language en-sw`
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`
