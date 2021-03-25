@@ -4,6 +4,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import MultiStepForm from './multiStepForm';
 
+const MIN_TEXTAREA_HEIGHT = 200;
+
 export default function TranslateCard() {
     const [input, setText] = useState("");
     const [translation, setTranslation] = useState("");
@@ -13,11 +15,12 @@ export default function TranslateCard() {
     const [src_lang, setSrc_Lang] = useState('English');
     const [tgt_lang, setTgt_Lang] = useState('Swahili');
     const [feedBackForm, setFeedBackForm] = useState({});
+    const textareaRef = useRef(null);
+    const textareaRef2= useRef(null);
     const [feedbackToken, setFeedbackToken] = useState(
         localStorage.getItem('feedbackToken') || ''
     );
 
-    const textAreaRef = useRef(null);
     const [copySuccess, setCopySuccess] = useState('');
     const [showToast, setShowToast] = useState('');
 
@@ -116,6 +119,29 @@ export default function TranslateCard() {
         setTranslation('...');
     }
 
+    useLayoutEffect(() => {
+        // Reset height - important to shrink on delete
+        textareaRef.current.style.height = "inherit";
+        // Set height
+        textareaRef.current.style.height = `${Math.max(
+          textareaRef.current.scrollHeight,
+          MIN_TEXTAREA_HEIGHT
+        )}px`;
+      }, [input]);
+
+    useLayoutEffect(() => {
+        // Reset height - important to shrink on delete
+        textareaRef2.current.style.height = "inherit";
+        // Set height
+        textareaRef2.current.style.height = `${Math.max(
+          textareaRef2.current.scrollHeight,
+          MIN_TEXTAREA_HEIGHT
+        )}px`;
+      }, [input]);
+
+    //   console.log({feedbackToken});
+    //   console.log({tgt_lang});
+
     // console.log({feedbackToken});
 
     let srcLang = [];
@@ -154,8 +180,7 @@ export default function TranslateCard() {
     // console.log(tgtLanguages)
 
     return (
-        <Container className="border" style={{borderRadius: '5px'}}>
-            {/* <Modal scrollable={true} show={show} onHide={handleClose} centered style={{ maxHeight: '700px' }}> */}
+        <Container className="border">
             <Modal 
                 scrollable={true} 
                 show={show} 
@@ -163,12 +188,11 @@ export default function TranslateCard() {
                 centered 
                 size="lg"
             >
-                <Modal.Header closeButton style={{backgroundColor:'#F2F0E9'}}>
-                {/*<Modal.Title>Modal heading</Modal.Title>*/}
-                <Col style={{textAlign: 'center'}}>
-                    <h4 style={{ fontSize: 14, color: '#717171' }}>GIVE FEEDBACK</h4>
-                    <p style={{ fontSize: 11, color: 'gray' }}>We appreciate your feedback and your contribution will help make our translation better.</p>
-                </Col>
+                <Modal.Header closeButton>
+                    <Col style={{textAlign: 'center'}}>
+                        <h4 style={{ fontSize: 14, color: '#717171' }}>GIVE FEEDBACK</h4>
+                        <p style={{ fontSize: 11, color: 'gray' }}>We appreciate your feedback and your contribution will help make our translation better.</p>
+                    </Col>
                 </Modal.Header>
                 <Modal.Body>
                     <MultiStepForm 
@@ -184,32 +208,32 @@ export default function TranslateCard() {
                 </Modal.Body>
             </Modal>
 
-            <Row className="header" style={{ backgroundColor: 'aliceblue', height: 60, fontSize: '1rem', padding: '1rem 1.5rem'}}>
-                <Col className="border-right">
+            <Row className="header" style={{ backgroundColor: 'aliceblue', height: 60, fontSize: '1rem', padding: '0.5rem 0.5rem' }}>
+                <Col className="border-right" style={{marginBottom: 10}}>
                     <Row>
-                        <Col>
+                        <Col md={6} xs={12}>
                             <Form inline>
                                 <Form.Group controlId="fromform">
-                                <Form.Label>From: </Form.Label>
-                                    <Form.Control value={src_lang} style={{ border: 0 }} as="select" size="md" custom onChange={handleChangeSrc_Lang}>
+                                    <Form.Label>From: </Form.Label>
+                                    <Form.Control value={src_lang} style={{ border: 0, marginLeft: 10 }} as="select" size="sm" custom onChange={handleChangeSrc_Lang}>
                                     {
                                         srcLanguages.map((option, index) => {
-                                        return (<option key={index} value={option.name}>{option.name}</option>)
+                                        return (<option key={index} value={option.value}>{option.name}</option>)
                                         })
                                     }
                                     </Form.Control>
                                 </Form.Group>
                             </Form>
                         </Col>
-                        <Col>
+                        <Col className="d-none d-sm-block">
                              <Row>
                             {
                                 srcLanguages.length > 1 && srcLanguages
                                 .filter(x => x.value !== src_lang)
-                                .slice(0, 3)
+                                .slice(0, 2)
                                 .map((option, index) => {
                                 return (
-                                    <Button key={option.id} variant="light" size="sm" onClick={() => setSrc_Lang(option.name)}>{option.name}</Button>                                   )
+                                    <Button key={option.id} variant="light" size="sm" onClick={() => setSrc_Lang(option.value)}>{option.name}</Button>                                   )
                                 })
                             }
                             </Row>
@@ -217,40 +241,39 @@ export default function TranslateCard() {
                     </Row>
                 </Col>
                 <Col style={{ marginLeft: '15px' }}>
-                <Row>
-                    <Col>
-                        <Form inline>
-                            <Form.Group controlId="fromform">
-                            <Form.Label>To: </Form.Label>
-                                <Form.Control value={tgt_lang} style={{ border: 0 }} as="select" size="md" custom onChange={handleChangeTgt_Lang}>
-                                {
-                                    tgtLanguages.map((option, index) => {
-                                    return (<option key={option.id} key={index} value={option.name}>{option.name}</option>)
-                                    })
-                                }
-                                </Form.Control>
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                    <Col>
-                        <Row>
-                        {
-                            tgtLanguages.length > 1 && tgtLanguages
-                            .filter(x => x.value !== tgt_lang)
-                            .slice(0, 3)
-                            .map((option, index) => {
-                            return (
-                                <Button key={option.id} variant="light" size="sm" onClick={() => setTgt_Lang(option.name)}>{option.name}</Button>                                   )
-                            })
-                        }
-                        </Row>
-                    </Col>
-                </Row>
-            </Col>
-            
+                    <Row>
+                        <Col md={6} xs={12}>
+                            <Form inline>
+                                <Form.Group controlId="fromform" as={Row}>
+                                <Form.Label>To: </Form.Label>
+                                    <Form.Control md={6} xs={12} value={tgt_lang} style={{ border: 0, marginLeft: 10 }} as="select" size="sm" custom onChange={handleChangeTgt_Lang}>
+                                    {
+                                        tgtLanguages.map((option, index) => {
+                                        return (<option key={index} value={option.value}>{option.name}</option>)
+                                        })
+                                    }
+                                    </Form.Control>
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                        <Col className="d-none d-sm-block">
+                            <Row>
+                            {
+                                tgtLanguages.length > 1 && tgtLanguages
+                                .filter(x => x.value !== tgt_lang)
+                                .slice(0, 2)
+                                .map((option, index) => {
+                                return (
+                                    <Button key={option.id} variant="light" size="sm" onClick={() => setTgt_Lang(option.value)}>{option.name}</Button>                                   )
+                                })
+                            }
+                            </Row>
+                        </Col>
+                    </Row>
+                </Col>
             </Row>
-            <Row style={{ minHeight: '15px' }}>
-            <Col className="mr-3" style={{ paddingTop: '20px', paddingBottom: '20px', marginLeft: '10px' }}>
+            <Row style={{ minHeight: '250px', marginTop: '20px' }}>
+                <Col md={6} xs={12} className="ml-1" style={{ paddingTop: '20px', paddingBottom: '20px', marginLeft: '10px' }}>
                     <Form>
                         <Form.Group controlId="Form.ControlTextarea">
                             <Form.Control 
@@ -258,7 +281,8 @@ export default function TranslateCard() {
                                 placeholder="Enter Text" 
                                 rows="3" 
                                 name="text"
-                                style={{ height: '200px', fontSize: 20, font:'lato, sans-serif' }} 
+                                ref={textareaRef}
+                                style={{ fontSize: 24, minHeight: MIN_TEXTAREA_HEIGHT, resize: 'none' }} 
                                 value={input}
                                 onChange={e => setText(e.target.value)}
                             />
@@ -266,43 +290,40 @@ export default function TranslateCard() {
                     </Form>
                     
                     <Row>
-                        <Col>
-                            <Button variant="primary" onClick={handleTranslate}>Translate</Button>
+                        <Col md={10} xs={10}>
+                            <Button variant="primary" style={{ marginBottom: 10 }} onClick={handleTranslate}>Translate</Button>
                         </Col>
-                        <Col md="auto">{' '}</Col>
-                        <Col xs lg="2">
-                            <Button  style = {{color:'grey'}} variant = 'link' size="sm" onClick={handleClear}>clear</Button>{' '}
+                        <Col md={2} xs={2} lg="2">
+                            <Button style = {{color:'grey'}} variant = 'link' size="sm" onClick={handleClear}><i className="fas fa-times"></i></Button>{' '}
                         </Col>
                     </Row>
                 </Col>
-                <Col className="ml-3" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+                <Col style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                     <Form>
                         <Form.Group controlId="Form.ControlTextarea2">
                             <Form.Control 
+                                controlid="translation"
                                 as="textarea"
-                                // ref={textAreaRef}
                                 placeholder="..." 
                                 rows="3" 
                                 name="text"
-                                style={{ height: '200px', fontSize: 20 }} 
+                                ref={textareaRef2}
+                                style={{ fontSize: 24, minHeight: MIN_TEXTAREA_HEIGHT, resize: 'none' }} 
                                 value={translation}
                                 readOnly
-                                // onChange={e => setText(e.target.value)}
-                                // autoFocus={showToast}
                             />
                         </Form.Group>
                     </Form>
                     
                     <Row>
-                        <Col>
-                            <Button variant="light" size = 'sm' style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback</Button>
+                        <Col md={10} xs={10}>
+                            <Button variant="light" style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback</Button>
                         </Col>
-                        <Col md="auto">{' '}</Col>
-                        <Col xs lg="2">
-                        <OverlayTrigger
+                        <Col md={2} xs={2} lg="2">
+                            <OverlayTrigger
                                 placement='top'
                                 overlay={
-                                <Tooltip id={'tooltip-top'} >
+                                <Tooltip id={'tooltip-top'}>
                                     Copy <strong>Translation</strong>.
                                 </Tooltip>
                                 }
@@ -328,7 +349,7 @@ export default function TranslateCard() {
                         left: 0
                     }}
                 >
-                    <Toast.Body style={{color: 'green'}}>{copySuccess}</Toast.Body>
+                    <Toast.Body style={{color: 'black'}}>{copySuccess}</Toast.Body>
                 </Toast>
             </div>
         </Container>
