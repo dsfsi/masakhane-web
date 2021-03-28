@@ -115,12 +115,11 @@ class AddResource(Resource):
         self.selected_models_file = current_app.config['MODEL_ALL_FILE']
         # self.models = current_app.models
         self.models = saved_models
+        self.now = list(self.models.keys())
 
     def get(self):
 
         print(self.models)
-
-        now = list(self.models.keys())
 
         db_pairs = []
 
@@ -130,17 +129,19 @@ class AddResource(Resource):
             db_pair = f"{language_pair['source']}-{language_pair['target']}"
             
             # check if the model is not already loaded
-            if db_pair not in now: 
+            if db_pair not in self.now: 
 
-                print(f"db_pair : {db_pair} \n now : {now}")
+                print(f"db_pair : {db_pair} \n now : {self.now}")
 
                 self.models[db_pair] = load_model(src_language=language_pair['source'], 
                                 trg_language=language_pair['target'],
                                 domain=language_pair['domain'])
-                db_pairs.append(db_pair)
+
+            # Keep all the pays in the db
+            db_pairs.append(db_pair)
 
         # To make sure that the model in memory are some with the one in the db
-        for pair in now:
+        for pair in self.now:
             if pair not in db_pairs:
                  del self.models[pair]
 
