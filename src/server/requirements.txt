@@ -84,3 +84,6 @@ Werkzeug==1.0.1
 wrapt==1.11.1
 zipp==3.4.0
 sacremoses==0.0.43
+
+# https://gunicorn.org/#deployment
+gunicorn==20.0.4
