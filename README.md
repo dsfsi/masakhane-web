@@ -51,6 +51,9 @@ for row in c.execute('SELECT * FROM language'):
 
 To delete an existing sqlite db `rm core/masakhane.db`
 
+List of available languages :
+    - en	af	JW300
+
 #### Frontend 
 TODO : Need to be completed by Cate 
 

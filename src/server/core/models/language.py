@@ -29,5 +29,6 @@ class Language(db.Model):
         return {
             'source': source,
             'target': target,
+            'src-tgt_domn' : self.source_target_domain,
             'domain': domain
         }
