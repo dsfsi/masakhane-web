@@ -22,7 +22,7 @@ Note: The stand alone app uses sqlite as db instead of postgress like our live a
 - Create table relations
     - `python manage.py create_db`
 - Add languages 
-    - `python manage.py add_language en-sw`
+    - `python manage.py add_language en-sw-JW300`
 - Check available languages
     - `python manage.py all_language`
 - Update known languages 
@@ -43,6 +43,7 @@ for row in c.execute('SELECT * FROM language'):
     print(row)
 ```
 
+To delete an existing sqlite db `rm core/masakhane.db`
 
 #### Frontend 
 TODO : Need to be completed by Cate 

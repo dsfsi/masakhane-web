@@ -25,31 +25,33 @@ class Language(db.Model):
     # src_tgt = db.Column(db.String(20), nullable=False)
 
     src_tgt = db.Column(db.String(20), primary_key=True)
-    source_target = db.Column(db.String(30), nullable=True)
+    source_target = db.Column(db.String(30), nullable=False)
+    domain = db.Column(db.String(30), nullable=True)
     
     created_at = db.Column(db.DateTime(), nullable=False,\
                                 server_default=db.func.now())
     update_at = db.Column(db.DateTime(), nullable=False,\
                                 server_default=db.func.now(), onupdate=db.func.now()) 
 
-    # # TODO We need to decide how we deal with duplicate on the review saving
-    # __table_args__ = (
-    #     # this can be db.PrimaryKeyConstraint if you want it to be a primary key
-    #     db.UniqueConstraint('src_tgt'),) 
+    # TODO We need to decide how we deal with duplicate on the review saving
+    __table_args__ = (
+        # this can be db.PrimaryKeyConstraint if you want it to be a primary key
+        db.UniqueConstraint('src_tgt', 'source_target', 'domain'),) 
 
-    def __init__(self, src_tgt, source_target="") -> None:
+    def __init__(self, src_tgt, source_target="", domain="JW300") :
         super().__init__()
-        # self.id = get_last_id()
         self.src_tgt = src_tgt
         self.source_target = source_target
+        self.domain = domain
 
     def save(self):
         db.session.add(self)
         db.session.commit()
 
     def to_json(self):
-        source, target = self.src_tgt.split('-')
+        source, target, domain = self.src_tgt, self.source_target, self.domain
         return {
             'source': source,
-            'target': target
+            'target': target,
+            'domain': domain
         }

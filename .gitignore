@@ -99,3 +99,5 @@ node_modules/
 
 src/server/models/joeynmt
 src/server/core/models/joeynmt
+
+.env.prod

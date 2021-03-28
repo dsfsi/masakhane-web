@@ -53,16 +53,23 @@ def all_language():
 @cli.command("add_language")
 @click.argument('name_tag')
 def add_language(name_tag):
-    language = Language(src_tgt=name_tag)
+    source, target, domain = name_tag.split('-')
+    language = Language(src_tgt=source,
+                        source_target=target,
+                        domain=domain)
     db.session.add(language)
     db.session.commit()
-    source, target = name_tag.split('-')
+    
 
 @cli.command("remove_language")
 @click.argument('name_tag')
 def remove_language(name_tag):
+    source, target, domain = name_tag.split('-')
     # Be carefull 
-    language = Language.query.filter_by(src_tgt=name_tag).first_or_404()
+    language = Language.query.filter_by(src_tgt=source, 
+                        source_target=target, 
+                        domain=domain).first_or_404()
+
     print(language)
     db.session.delete(language)
     db.session.commit()

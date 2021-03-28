@@ -59,15 +59,17 @@ def register_resources(app, saved_models):
 
 
 
-def load_model(model_short_name):   
+def load_model(src_language, trg_language, domain):   
     model_loader = MasakhaneModelLoader(
                                     available_models_file=os.environ.get('MODEL_ALL_FILE',
                                         './available_models.tsv'))
 
     # Download currently supported languages
-    model_loader.download_model(model_short_name)
+    model_loader.download_model(src_language=src_language, 
+                    trg_language=trg_language, domain=domain)
     
-    model_dir = model_loader.load_model(model_short_name)
+    model_dir = model_loader.load_model(src_language=src_language, 
+                    trg_language=trg_language, domain=domain)
 
     return model_dir
 
