@@ -3,16 +3,12 @@ from core.resources.translate import TranslateResource, AddResource, SaveResourc
 from flask import Flask
 from flask import request, render_template, current_app
 
-from core.models.feedback import Feedback
-from core.models.language import Language, language_list
 
 from flask_migrate import Migrate
 from core.extensions import db
 from core.config import Config, DevelopmentConfig, ProductionConfig, StagingConfig
 
 from core.model_load import MasakhaneModelLoader
-
-from flask_sqlalchemy import SQLAlchemy
 
 
 # this is only for debug purpose
@@ -59,15 +55,17 @@ def register_resources(app, saved_models):
 
 
 
-def load_model(model_short_name):   
+def load_model(src_language, trg_language, domain):   
     model_loader = MasakhaneModelLoader(
                                     available_models_file=os.environ.get('MODEL_ALL_FILE',
                                         './available_models.tsv'))
 
     # Download currently supported languages
-    model_loader.download_model(model_short_name)
+    model_loader.download_model(src_language=src_language, 
+                    trg_language=trg_language, domain=domain)
     
-    model_dir = model_loader.load_model(model_short_name)
+    model_dir = model_loader.load_model(src_language=src_language, 
+                    trg_language=trg_language, domain=domain)
 
     return model_dir
 

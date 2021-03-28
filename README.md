@@ -28,7 +28,7 @@ Note: The stand alone app uses sqlite as db instead of postgress like our live a
 - Create table relations
     - `python manage.py create_db`
 - Add languages 
-    - `python manage.py add_language en-sw`
+    - `python manage.py add_language en-sw-JW300`
 - Check available languages
     - `python manage.py all_language`
 - Update known languages 
@@ -49,6 +49,7 @@ for row in c.execute('SELECT * FROM language'):
     print(row)
 ```
 
+To delete an existing sqlite db `rm core/masakhane.db`
 
 #### Frontend 
 TODO : Need to be completed by Cate 
@@ -76,15 +77,15 @@ To make sure that it is well installed you can run the code above to check the v
 #### Run the App
 
 - run the app 
-    * `sudo docker-compose up -d --build` from the root project. 
+    * `docker-compose -f docker-compose.prod.yml up -d --build` from the root project. 
 - shutdown the app
-    * `sudo docker-compose down` 
+    * `docker-compose  -f docker-compose.prod.yml down` 
 
 - create_db
-    * `sudo docker-compose exec server python manage.py create_db`
+    * `docker-compose -f docker-compose.prod.yml exec server python manage.py create_db`
 
 - check the database
-    * `sudo docker-compose exec db psql --username=masakhane --dbname=masakhane`
+    * `docker-compose -f docker-compose.prod.yml exec db psql --username=masakhane --dbname=masakhane`
         * list databases`\l`
         * connect to the masakhane database`\c masakhane`
         * list relations `\dt`
@@ -97,9 +98,9 @@ To make sure that it is well installed you can run the code above to check the v
 
 - check the available models in memory `docker-compose -f docker-compose.prod.yml exec api python manage.py all_language`
 - add a new language, 
-    - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-sw`curre
-    - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo`
-- delete a language `docker-compose -f docker-compose.prod.yml exec api python manage.py remove_language en-sw`
+    - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-sw-JW300`
+    - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo-`
+- delete a language `docker-compose -f docker-compose.prod.yml exec api python manage.py remove_language en-sw-JW300`
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`
 
 
