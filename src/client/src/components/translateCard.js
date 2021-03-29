@@ -105,12 +105,13 @@ export default function TranslateCard() {
             })
           .then(res => res.json())
           .then(data => {
-            //   console.log({ data })
+            //console.log({data})
             // do something here
             handleClear()
           })
 
     }
+
 
     const handleClear = () => {
         // clears text part

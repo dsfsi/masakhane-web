@@ -11,31 +11,29 @@ from core.models.feedback import Feedback
 
 import json
 
-from core.models.language import Language, language_list
+from core.models.language import Language
 from core.models.translation import Translation
 
 from flask import request, current_app
 
-def load_model(model_short_name):   
+def load_model(src_language, trg_language, domain):   
     model_loader = MasakhaneModelLoader(
-                                    available_models_file="./available_models.tsv")
+                                    available_models_file=os.environ.get('MODEL_ALL_FILE',
+                                        './available_models.tsv'))
 
     # Download currently supported languages
-    model_loader.download_model(model_short_name)
+    model_loader.download_model(src_language=src_language, 
+                    trg_language=trg_language, domain=domain)
     
-    model_dir = model_loader.load_model(model_short_name)
+    model_dir = model_loader.load_model(src_language=src_language, 
+                    trg_language=trg_language, domain=domain)
 
     return model_dir
-    # model_dir, config, lc = model_loader.load_model(model_short_name)
-    # return {"model_dir": model_dir, "config": config, "lc": lc}
-
+    
 class TranslateResource(Resource):
     def __init__(self, saved_models):
-        # self.model_path = current_app.config['MODEL']
-        # self.selected_models_file = current_app.config['MODEL_ALL_FILE']
         self.models = saved_models
         # self.models = current_app.models
-        # self.path_to_json = current_app.config['JSON']
 
         with open(current_app.config['JSON'], 'r') as f:
             distros_dict = json.load(f)
@@ -111,29 +109,17 @@ class TranslateResource(Resource):
         output = list({v['name']:v for v in output}.values())
 
         return output, HTTPStatus.OK         
-
-def load_model(model_short_name):   
-    model_loader = MasakhaneModelLoader(
-                                    available_models_file=current_app.config['MODEL_ALL_FILE'])
-
-    # Download currently supported languages
-    model_loader.download_model(model_short_name)
-    
-    model_dir = model_loader.load_model(model_short_name)
-
-    return model_dir
        
 class AddResource(Resource):
     def __init__(self, saved_models):
         self.selected_models_file = current_app.config['MODEL_ALL_FILE']
         # self.models = current_app.models
         self.models = saved_models
+        self.now = list(self.models.keys())
 
     def get(self):
 
         print(self.models)
-
-        now = list(self.models.keys())
 
         db_pairs = []
 
@@ -143,15 +129,19 @@ class AddResource(Resource):
             db_pair = f"{language_pair['source']}-{language_pair['target']}"
             
             # check if the model is not already loaded
-            if db_pair not in now: 
+            if db_pair not in self.now: 
 
-                print(f"db_pair : {db_pair} \n now : {now}")
+                print(f"db_pair : {db_pair} \n now : {self.now}")
 
-                self.models[db_pair] = load_model(f"{language_pair['target']}")
-                db_pairs.append(db_pair)
+                self.models[db_pair] = load_model(src_language=language_pair['source'], 
+                                trg_language=language_pair['target'],
+                                domain=language_pair['domain'])
+
+            # Keep all the pays in the db
+            db_pairs.append(db_pair)
 
         # To make sure that the model in memory are some with the one in the db
-        for pair in now:
+        for pair in self.now:
             if pair not in db_pairs:
                  del self.models[pair]
 
@@ -204,4 +194,3 @@ class HomeResource(Resource):
 
     def get(self):
         return {'message': "welcome Masakhane Web"}, HTTPStatus.OK
-        

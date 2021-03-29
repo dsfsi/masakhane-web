@@ -1,17 +1,14 @@
+---
+noteId: "d52ba5108f1311eb805b2f8870244062"
+tags: []
+
+---
+
 ==============================
 
 # Masakhane WEB
 
-<<<<<<< HEAD
-**Masakhane Web** is an open source online machine translation service for solely African languages. This project is in line with the works of the Masakhane community and so far the community has trained translation models for over 38 African languages. As such, this platform aims at hosting the already trained machine translation models from the masakhane community and allows contributions from users to create new data for retraining and improving the models. 
-
-The Masakhane Web project is led by [Data Science for Social Impact](https://dsfsi.github.io/) research group at the [Department of Computer Science](https://cs.up.ac.za/), University of Pretoria, South Africa. 
-
-To find out more on how you can collaborate and work with Masakhane, please check out their website [https://www.masakhane.io](https://www.masakhane.io)
-
-=======
 TODO : description of the project 
->>>>>>> bdb8a2c59b47a19a55bf055b45a303fddb811a81
 
 
 ## How to run
@@ -31,7 +28,7 @@ Note: The stand alone app uses sqlite as db instead of postgress like our live a
 - Create table relations
     - `python manage.py create_db`
 - Add languages 
-    - `python manage.py add_language en-sw`
+    - `python manage.py add_language en-sw-JW300`
 - Check available languages
     - `python manage.py all_language`
 - Update known languages 
@@ -52,37 +49,13 @@ for row in c.execute('SELECT * FROM language'):
     print(row)
 ```
 
+To delete an existing sqlite db `rm core/masakhane.db`
 
-<<<<<<< HEAD
-### Frontend 
+List of available languages :
+    - en	af	JW300
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-#### Installations
-
-To run the applications you need to install:
-- Node
-- Yarn
-
-
-To run the frontend of this project, you need to get into src/client then run:
-
-- `yarn`
-- `yarn start`
-
-
-This runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-#### Running tests
-
-`yarn test`
-
-#### Learn more
-=======
 #### Frontend 
 TODO : Need to be completed by Cate 
->>>>>>> bdb8a2c59b47a19a55bf055b45a303fddb811a81
 
 
 
@@ -107,15 +80,15 @@ To make sure that it is well installed you can run the code above to check the v
 #### Run the App
 
 - run the app 
-    * `sudo docker-compose up -d --build` from the root project. 
+    * `docker-compose -f docker-compose.prod.yml up -d --build` from the root project. 
 - shutdown the app
-    * `sudo docker-compose down` 
+    * `docker-compose  -f docker-compose.prod.yml down` 
 
 - create_db
-    * `sudo docker-compose exec server python manage.py create_db`
+    * `docker-compose -f docker-compose.prod.yml exec server python manage.py create_db`
 
 - check the database
-    * `sudo docker-compose exec db psql --username=masakhane --dbname=masakhane`
+    * `docker-compose -f docker-compose.prod.yml exec db psql --username=masakhane --dbname=masakhane`
         * list databases`\l`
         * connect to the masakhane database`\c masakhane`
         * list relations `\dt`
@@ -126,15 +99,11 @@ To make sure that it is well installed you can run the code above to check the v
 
 #### Add, Delete and Updaate supported languages  
 
-- check the available models in memory `sudo docker-compose exec server python manage.py all_language`
+- check the available models in memory `docker-compose -f docker-compose.prod.yml exec api python manage.py all_language`
 - add a new language, 
-<<<<<<< HEAD
-    - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`curre
-=======
-    - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`
->>>>>>> bdb8a2c59b47a19a55bf055b45a303fddb811a81
-    - (English-Yoruba) `sudo docker-compose exec server python manage.py add_language en-yo`
-- delete a language `sudo docker-compose exec server python manage.py remove_language en-sw`
+    - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-sw-JW300`
+    - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo-`
+- delete a language `docker-compose -f docker-compose.prod.yml exec api python manage.py remove_language en-sw-JW300`
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`
 
 

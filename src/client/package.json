@@ -50,5 +50,5 @@
     "eslint": "^7.18.0",
     "eslint-plugin-testing-library": "^3.10.1"
   },
-  "proxy": "http://server:5000"
+  "proxy": "http://api:5000"
 }
