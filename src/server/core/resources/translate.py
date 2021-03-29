@@ -166,7 +166,9 @@ class SaveResource(Resource):
             - data['token'] : User authorisation to collect data token (Boolean value)
         """          
 
-        data = request.get_json()
+        data_request = request.get_json()
+
+        data = data_request['formData']
 
 
         feedback = Feedback(

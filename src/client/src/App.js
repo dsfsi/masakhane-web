@@ -26,10 +26,10 @@ function App() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Jumbotron style={{ backgroundColor: '#F2F0E9', paddingTop: '50px', paddingBottom: '50px',backgroundSize: 'cover', backgroundSize: 'cover'}} fluid>
+        <Jumbotron xs={12} style={{ backgroundColor: '#F2F0E9', paddingTop: '50px', paddingBottom: '50px',backgroundSize: 'cover', backgroundSize: 'cover'}} fluid>
           <Container style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-            <Image src={image} width='240' height='250' roundedCircle style={{position:"absolute", left:0, right:0}}/>
-            <Row style={{display:'flex', flexDirection:'column' ,justifyContent:'center', alignItems:'center'}}>
+            <Image src={image}  className="d-none d-sm-block" width='240' height='250' roundedCircle style={{position:"absolute", left:0, right:0}}/>
+            <Row xs={12} md={8} style={{display:'flex', flexDirection:'column' ,justifyContent:'center', alignItems:'center'}}>
               <h1 style={{ fontFamily: 'lato, sans-serif', fontWeight: 'lighter', fontSize: 80 }}>Masakhane</h1>
               <p>Machine translation service for African languages</p>
             </Row>

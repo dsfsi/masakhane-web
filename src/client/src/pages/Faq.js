@@ -7,10 +7,10 @@ export default function FAQPage() {
                 <Card style={{ width: '100%' }}>
                     <Card.Body>
                         <Card.Title>FAQ</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Enter  subtitle here</Card.Subtitle>
+                        {/* <Card.Subtitle className="mb-2 text-muted">Enter  subtitle here</Card.Subtitle> */}
                         <div>
                             <Card.Text style={{ fontSize: 14, color: 'gray' }}>
-                                Faqs go here...
+                                Faqs will be updated soon...
                             </Card.Text>
                         </div>
                         <br />
