@@ -2,7 +2,7 @@
 
 # Masakhane WEB
 
-TODO : description of the project 
+Masakhane Web is a translation web application for solely African Languages. The objective of this web application is to provide access to an open-source platform that makes available reatively accurate translations for languages across Africa. his project is in line with the works of the Masakhane community (https://www.masakhane.io/). Masakhane meaning ‘we build together’,  is a research effort for machine translation for African languages which is open source and online. So far, the community has built translation models for over 38 African languages. As such, this platform will aim at hosting the already trained models from the community and allow contributions from users to create new data for retraining. If you can't find your language and/or would like to train your own Machine Translation model in your language, see https://github.com/masakhane-io/masakhane-mt on how you can contribute.
 
 
 ## How to run
@@ -10,7 +10,7 @@ TODO : description of the project
 ### As a stand alone app 
 
 #### Backend 
-- Install requiered packages 
+- Install required packages 
     -  `pip install -r requirements.txt`
 - run the app :
     - move to the server directory : `cd src/server/`
@@ -45,8 +45,17 @@ for row in c.execute('SELECT * FROM language'):
 
 
 #### Frontend 
-TODO : Need to be completed by Cate 
+To run the frontend on it's own you first need the following installed: \
+    -[node.js](https://nodejs.org/en/)\
+    - yarn
 
+Run the following command in the src/client folder: 
+- `yarn start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+View [https://github.com/dsfsi/masakhane-web/tree/master/src/client](https://github.com/dsfsi/masakhane-web/tree/master/src/client) on how you can contribute to improve the look of the website.
 
 
 
