@@ -1,4 +1,4 @@
-# Masakhane WEB - A Machine Translation Web Platform for Soley African Languages
+# Masakhane WEB - A Machine Translation Web Platform for Solely African Languages
 <div align="center">
 <img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg" >
 </div>
