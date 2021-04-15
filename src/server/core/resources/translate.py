@@ -34,8 +34,9 @@ class TranslateResource(Resource):
     def __init__(self, saved_models):
         self.models = saved_models
         # self.models = current_app.models
-
-        with open(current_app.config['JSON'], 'r') as f:
+        json_file = os.environ.get('JSON',
+                                        './languages.json')
+        with open(json_file, 'r') as f:
             distros_dict = json.load(f)
 
         self.languages_short_to_full = {}
@@ -112,7 +113,8 @@ class TranslateResource(Resource):
        
 class AddResource(Resource):
     def __init__(self, saved_models):
-        self.selected_models_file = current_app.config['MODEL_ALL_FILE']
+        self.selected_models_file = os.environ.get('MODEL_ALL_FILE',
+                                        "./available_models.tsv")
         # self.models = current_app.models
         self.models = saved_models
         self.now = list(self.models.keys())
