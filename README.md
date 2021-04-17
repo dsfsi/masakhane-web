@@ -1,17 +1,7 @@
-<<<<<<< HEAD
----
-noteId: "d52ba5108f1311eb805b2f8870244062"
-tags: []
-
----
-
-==============================
-=======
 # Masakhane WEB - A Machine Translation Web Platform for Solely African Languages
 <div align="center">
-<img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg" >
+<img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg">
 </div>
->>>>>>> master
 
 [**Masakhane**](https://www.masakhane.io/) meaning ‘we build together’,  is a research effort for machine translation for African languages which is open source and online. So far, the community has built translation models for over 38 African languages. As such, **Masakhane Web** is a platform that aims to host the already trained models from the community and allow contributions from users to create new data for retraining. The objective of this web application is to provide access to an open-source platform that makes available relatively accurate translations for languages across Africa. If you can't find your language and/or would like to train your own machine translation model in your language, see https://github.com/masakhane-io/masakhane-mt on how you can contribute.
    
@@ -35,11 +25,12 @@ tags: []
 ### As a stand alone app 
 
 #### Backend 
-- Install required packages 
-    -  `pip install -r requirements.txt`
 - run the app :
     - move to the server directory : `cd src/server/`
+    - Install required packages 
+        -  `pip install -r requirements.txt`
     - `export FLASK_APP=core/__init__.py`
+    - `export FLASK_ENV=development`
     - `python manage.py run`
 
 Note: The stand alone app uses sqlite as db instead of postgreSQL like our live app, you then need to run the command below to create and initialize the datbase. 
@@ -68,28 +59,19 @@ for row in c.execute('SELECT * FROM language'):
     print(row)
 ```
 
-<<<<<<< HEAD
-To delete an existing sqlite db `rm core/masakhane.db`
-
-List of available languages :
-    - en	af	JW300
-
-=======
->>>>>>> master
 #### Frontend 
 - install the following: \
     - [node.js](https://nodejs.org/en/)
-    - [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
+    - [yarn](https://classic.yarnpkg.com/en/docs/install)
 
 - To run:
     - move to the client directory : `cd src/client/` 
+    - run `npm install`
     - run `yarn start`
 
 
 This runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-View [https://github.com/dsfsi/masakhane-web/tree/master/src/client](https://github.com/dsfsi/masakhane-web/tree/master/src/client) on how you can contribute to improve the look of the website.
 
 ### Using Docker (Prefered)
 
@@ -138,6 +120,8 @@ To make sure that it is well installed you can run the code above to check the v
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`
 
 
+
+View [https://github.com/dsfsi/masakhane-web/tree/master/src/client](https://github.com/dsfsi/masakhane-web/tree/master/src/client) on how you can contribute to improve the look of the website.
 
 
 # Contributing
