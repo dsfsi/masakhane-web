@@ -47,11 +47,15 @@ export default function TranslateCard() {
 
         //set state
         setTgt_Lang(e.target.value);
+
+        // console.log(e.target.value)
         
     };
 
     const handleTranslate = (e) => {
         console.log('translating ..')
+        // console.log(src_lang)
+        // console.log(tgt_lang)
         e.preventDefault()
     
         fetch( 
@@ -164,7 +168,7 @@ export default function TranslateCard() {
             })
           .then(res => res.json())
           .then(data => {
-            //   console.log({ data })
+              console.log({ data })
             // do something here
             setSrcLanguages(data.filter(x => x.type == "source"))
             setTgtLanguages(data.filter(x => x.type == "target"))
@@ -219,14 +223,14 @@ export default function TranslateCard() {
                                     <Form.Control value={src_lang} style={{ border: 0, marginLeft: 10 }} as="select" size="sm" custom onChange={handleChangeSrc_Lang}>
                                     {
                                         srcLanguages.map((option, index) => {
-                                        return (<option key={index} value={option.value}>{option.name}</option>)
+                                        return (<option key={index} value={option.name}>{option.name}</option>)
                                         })
                                     }
                                     </Form.Control>
                                 </Form.Group>
                             </Form>
                         </Col>
-                        <Col className="d-none d-sm-block">
+                        {/* <Col className="d-none d-sm-block">
                              <Row>
                             {
                                 srcLanguages.length > 1 && srcLanguages
@@ -234,11 +238,11 @@ export default function TranslateCard() {
                                 .slice(0, 2)
                                 .map((option, index) => {
                                 return (
-                                    <Button key={option.id} variant="light" size="sm" onClick={() => setSrc_Lang(option.value)}>{option.name}</Button>                                   )
+                                    <Button key={option.id} variant="light" size="sm" onClick={() => setSrc_Lang(option.name)}>{option.name}</Button>                                   )
                                 })
                             }
                             </Row>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Col>
                 <Col style={{ marginLeft: '15px' }}>
@@ -250,14 +254,14 @@ export default function TranslateCard() {
                                     <Form.Control md={6} xs={12} value={tgt_lang} style={{ border: 0, marginLeft: 10 }} as="select" size="sm" custom onChange={handleChangeTgt_Lang}>
                                     {
                                         tgtLanguages.map((option, index) => {
-                                        return (<option key={index} value={option.value}>{option.name}</option>)
+                                        return (<option key={index} value={option.name}>{option.name}</option>)
                                         })
                                     }
                                     </Form.Control>
                                 </Form.Group>
                             </Form>
                         </Col>
-                        <Col className="d-none d-sm-block">
+                        {/* <Col className="d-none d-sm-block">
                             <Row>
                             {
                                 tgtLanguages.length > 1 && tgtLanguages
@@ -265,11 +269,11 @@ export default function TranslateCard() {
                                 .slice(0, 2)
                                 .map((option, index) => {
                                 return (
-                                    <Button key={option.id} variant="light" size="sm" onClick={() => setTgt_Lang(option.value)}>{option.name}</Button>                                   )
+                                    <Button key={option.id} variant="light" size="sm" onClick={() => setTgt_Lang(option.name)}>{option.name}</Button>                                   )
                                 })
                             }
                             </Row>
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Col>
             </Row>
