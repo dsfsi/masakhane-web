@@ -37,16 +37,20 @@ Note: The stand alone app uses sqlite as db instead of postgreSQL like our live 
 
 - Create table relations
     - `python manage.py create_db`
-- Add languages 
+- Add language 
     - `python manage.py add_language en-sw-JW300`
+- Remove language
+    - `python manage.py remove_language en-sw-JW300`
 - Check available languages
     - `python manage.py all_language`
 - Update known languages 
     - `curl --request GET 'http://127.0.0.1:5000/update'`
+- Run tests
+    - `python manage.py tests`
 
-You can check content saved in the dabase using the code below :
+You can check content saved in the dabase using the code below (move to `src/server/core/` and run `python`):
 
-```
+```python
 import sqlite3, os
 
 conn = sqlite3.connect("masakhane.db")
@@ -63,6 +67,8 @@ for row in c.execute('SELECT * FROM language'):
 - install the following: \
     - [node.js](https://nodejs.org/en/)
     - [yarn](https://classic.yarnpkg.com/en/docs/install)
+
+**Note**: This need to be improved :) later, but in order to run the stand alone app you need to modify line `53` in file [package.json](https://github.com/dsfsi/masakhane-web/blob/production/src/client/package.json) from `"proxy": "http://api:5000"` to `"proxy": "http://localhost:5000"` and set it back accordingly if you want to use back the docker seeting. 
 
 - To run:
     - move to the client directory : `cd src/client/` 
@@ -97,9 +103,6 @@ To make sure that it is well installed you can run the code above to check the v
 - shutdown the app
     * `docker-compose  -f docker-compose.prod.yml down` 
 
-- create_db
-    * `docker-compose -f docker-compose.prod.yml exec server python manage.py create_db`
-
 - check the database
     * `docker-compose -f docker-compose.prod.yml exec db psql --username=masakhane --dbname=masakhane`
         * list databases`\l`
@@ -118,6 +121,8 @@ To make sure that it is well installed you can run the code above to check the v
     - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo-`
 - delete a language `docker-compose -f docker-compose.prod.yml exec api python manage.py remove_language en-sw-JW300`
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`
+- Run tests
+    - `docker-compose -f docker-compose.prod.yml exec api python manage.py tests`
 
 
 

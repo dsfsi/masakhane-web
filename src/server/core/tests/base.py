@@ -5,7 +5,7 @@ from core import masakhane, load_model
 
 class BaseTestCase(TestCase):
     def create_app(self):
-        masakhane.config.from_object('project.config.TestingConfig')
+        masakhane.config.from_object('core.config.Config')
         return masakhane
 
     def setUp(self):

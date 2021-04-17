@@ -80,7 +80,7 @@ typed-ast==1.4.2
 typing-extensions==3.7.4.3
 urllib3==1.26.3
 wcwidth==0.2.5
-Werkzeug==1.0.1
+Werkzeug==0.16.1
 wrapt==1.11.1
 zipp==3.4.0
 sacremoses==0.0.43

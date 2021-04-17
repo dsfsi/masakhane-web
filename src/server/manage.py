@@ -70,22 +70,22 @@ def remove_language(name_tag):
     db.session.delete(language)
     db.session.commit()
 
-@cli.command("test")
-def test():
+@cli.command("tests")
+def tests():
     """ Runs the tests without code coverage """
-    tests = unittest.TestLoader().discover('core/tests', pattern='test*.py')
-    print(tests)
-    # result = unittest.TextTestResult(tests)
-    result = unittest.TextTestResult(verbosity=2).run(tests)
+    
+    loader = unittest.defaultTestLoader
+    suite = unittest.TestSuite()
 
-    # # Pass the flask app to suite
-    # suite = flask_unittest.LiveTestSuite(create_app())
-    # # Add the testcase
-    # suite.addTest(unittest.makeSuite(TestFoo))
+    for test_module in loader.discover('core/tests', pattern='test*.py'):
+        suite.addTest(test_module)
+
+    result = unittest.TextTestRunner(verbosity=1).run(suite)
 
     if result.wasSuccessful():
         return 0
     return 1
+    # return tests
 
 if __name__ == "__main__":
     cli()
