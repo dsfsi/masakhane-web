@@ -15,7 +15,6 @@ export default function About() {
                             is a research effort whose mission is to strengthen and spur NLP research for African languages which is open source and online. 
                             So far, the community has trained translation models for over 38 African languages. As such, this platform aims at hosting the already trained machine translation models from the Masakhane community and allows contributions 
                             from users to create new data for retraining and improving the models. <br/>
-                            Find the link to this open source project on <a id='link' href = 'https://github.com/dsfsi/masakhane-web'>https://github.com/dsfsi/masakhane-web</a>. 
                             </Card.Text>
                         </div>
                         <div>
@@ -34,8 +33,7 @@ export default function About() {
                         <br />
                         <div>
                             <Card.Text style={{ fontSize: 16, color: 'black' }}>
-                            If you're interested in training a model in your language or to find out more on how you can collaborate and work with Masakhane, please check out their website <a id='link' href='https://www.masakhane.io'>https://www.masakhane.io </a> 
-                             or you can reach any of the Masakhane Web contributors in the following ways:
+                                If you would like to contribute to this project, train a model in your language or want to collaborate and work with Masakhane, find out how in <a id='link' href = 'https://github.com/dsfsi/masakhane-web'>https://github.com/dsfsi/masakhane-web</a> or reach out to any of the Masakhane Web contributors in the following ways:
                              </Card.Text>
                         </div>
                         <div>
