@@ -54,10 +54,14 @@ export default function About() {
                             <br />
                             <span><b>Salomon Kabongo</b></span>
                             <br />
+                            <span><i>skabenamualu@aimsammi.org</i></span>
+                            <br />
                             <a id='link' href= 'https://twitter.com/SalomonKabongo'>@SalomonKabongo</a>
                             <br />
                             <br />
                             <span><b>Catherine Gitau</b></span>
+                            <br />
+                            <span><i>cgitau@aimsammi.org</i></span>
                             <br />
                             <a id='link' href= 'https://twitter.com/categitau_'>@categitau_</a>
                             <br />
