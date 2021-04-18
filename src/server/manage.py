@@ -1,3 +1,4 @@
+from unittest import result
 from flask.cli import FlaskGroup
 
 from core.extensions import db
@@ -6,8 +7,9 @@ from core import masakhane, load_model
 from flask import current_app
 from core.models.language import Language
 
-import click, json, os
+import click, json, os, unittest
 
+# import flask_unittest
 
 cli = FlaskGroup(masakhane)
 
@@ -68,6 +70,22 @@ def remove_language(name_tag):
     db.session.delete(language)
     db.session.commit()
 
+@cli.command("tests")
+def tests():
+    """ Runs the tests without code coverage """
+    
+    loader = unittest.defaultTestLoader
+    suite = unittest.TestSuite()
+
+    for test_module in loader.discover('core/tests', pattern='test*.py'):
+        suite.addTest(test_module)
+
+    result = unittest.TextTestRunner(verbosity=1).run(suite)
+
+    if result.wasSuccessful():
+        return 0
+    return 1
+    # return tests
 
 if __name__ == "__main__":
     cli()
