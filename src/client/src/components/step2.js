@@ -1,5 +1,6 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import RadioButton from './common/radioButton';
+import React from 'react';
 
 const Step2 = ({ src_lang, tgt_lang, text, translation, setForm, formData, navigation, handleSubmitFeedback }) => {
 

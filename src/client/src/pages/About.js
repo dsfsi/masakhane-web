@@ -1,4 +1,5 @@
 import { Container, Card } from 'react-bootstrap'
+import React from 'react';
 
 export default function About() {
     return(

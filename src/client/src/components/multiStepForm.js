@@ -1,4 +1,5 @@
 import { useForm, useStep } from "react-hooks-helper";
+import React from 'react';
 
 import Terms from "./terms";
 import Step1 from "./step1";

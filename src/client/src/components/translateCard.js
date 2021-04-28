@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useLayoutEffect,useRef, useEffect} from 'react';
 import { Container, Row, Col, Form, Button, Modal, Toast, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -186,6 +187,7 @@ export default function TranslateCard() {
 
     return (
         <Container className="border">
+            
             <Modal 
                 scrollable={true} 
                 show={show} 
@@ -193,7 +195,7 @@ export default function TranslateCard() {
                 centered 
                 size="lg"
             >
-                <Modal.Header closeButton>
+                <Modal.Header closeButton style={{backgroundColor:'#F2F0E9'}}>
                     <Col style={{textAlign: 'center'}}>
                         <h4 style={{ fontSize: 14, color: '#717171' }}>GIVE FEEDBACK</h4>
                         <p style={{ fontSize: 11, color: 'gray' }}>We appreciate your feedback and your contribution will help make our translation better.</p>

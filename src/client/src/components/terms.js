@@ -1,5 +1,6 @@
 import { Row, Card, Button } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
 
 const Terms = ({ setShow, navigation, setFeedbackToken, feedbackToken}) => {
     const { next } = navigation;

@@ -1,4 +1,5 @@
 import { Button } from 'react-bootstrap';
+import React from 'react';
 
 const Step3 = ({ setShow }) => {
     const handleShow = () => setShow(false);
