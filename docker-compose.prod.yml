@@ -16,7 +16,7 @@ services:
   nginx:
     build: ./src/server/nginx
     ports:
-      - 5000:80
+      - 80:80
     depends_on:
       - api
 
