@@ -11,10 +11,28 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     open: true,
     clientLogLevel: 'silent',
-    port: 8000,
+    port: 3000,
     historyApiFallback: true,
     compress: true,
-    public: 'masakhane.translate.io'
+    public: 'masakhane.translate.io',
+    // proxy: {  
+    //   '/': {
+    //       target: 'http://localhost:5000',
+    //       pathRewrite: { '^/api': '' },
+    //   },
+    //   "changeOrigin":true
+    // }
+    proxy: {
+      '/': {
+        target: 'http://localhost:5000',
+        bypass: function (req, res, proxyOptions) {
+          if (req.headers.accept.indexOf('html') !== -1) {
+            console.log('Skipping proxy for browser request.');
+            return '/index.html';
+          }
+        },
+      },
+    },
   },
   module: {
     rules: [
