@@ -12,9 +12,8 @@ COPY package.json package-lock.json ./
 # NOTE: opencollective is not required but leads to warnings if missing
 # RUN npm install
 RUN npm i webpack webpack-cli
-RUN npm i @babel/core @babel/preset-env @babel/preset-react babel-loader
 RUN npm run develop
-
+RUN npm i @babel/core @babel/preset-env @babel/preset-react babel-loader
 
 # RUN apt-get update && apt-get install -y curl
 
