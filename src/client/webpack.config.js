@@ -14,7 +14,7 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
     compress: true,
-    public: 'translate.masakhane.io:80',
+    public: 'translate.masakhane.io',
     // proxy: {  
     //   '/': {
     //       target: 'http://localhost:5000',
@@ -24,13 +24,13 @@ module.exports = {
     // }
     proxy: {
       '/': {
-        target: 'http://localhost:5000',
-        bypass: function (req, res, proxyOptions) {
-          if (req.headers.accept.indexOf('html') !== -1) {
-            console.log('Skipping proxy for browser request.');
-            return '/index.html';
-          }
-        },
+        target: 'http://localhost:5000'
+        // bypass: function (req, res, proxyOptions) {
+        //   if (req.headers.accept.indexOf('html') !== -1) {
+        //     console.log('Skipping proxy for browser request.');
+        //     return '/index.html';
+          // }
+        // },
       },
     },
   },
