@@ -42,7 +42,7 @@ Note: The stand alone app uses sqlite as db instead of postgreSQL like our live 
 - Remove language
     - `python manage.py remove_language en-sw-JW300`
 - Check available languages
-    - `python manage.py all_language`
+    - `python manage.py all_languages`
 - Update known languages 
     - `curl --request GET 'http://127.0.0.1:5000/update'`
 - Run tests
@@ -115,7 +115,7 @@ To make sure that it is well installed you can run the code above to check the v
 
 #### Add, Delete and Update supported languages  
 
-- check the available models in memory `docker-compose -f docker-compose.prod.yml exec api python manage.py all_language`
+- check the available models in memory `docker-compose -f docker-compose.prod.yml exec api python manage.py all_languages`
 - add a new language, 
     - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-sw-JW300`
     - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo-`

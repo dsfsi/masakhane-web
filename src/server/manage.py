@@ -33,8 +33,8 @@ def clean():
     db.session.commit()
 
 
-@cli.command("all_language")
-def all_language():
+@cli.command("all_languages")
+def all_languages():
     for lan in Language.query.all():
         print(lan.to_json() )
 

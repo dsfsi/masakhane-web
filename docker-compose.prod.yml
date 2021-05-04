@@ -6,8 +6,10 @@ services:
       context: ./src/server
       dockerfile: Dockerfile.prod
     command: gunicorn --bind 0.0.0.0:5000 manage:masakhane
-    expose:
-      - 5000
+    ports:
+      - 5000:5000
+    # expose:
+    #   - 5000
     env_file:
       - ./.env.prod
     depends_on:
