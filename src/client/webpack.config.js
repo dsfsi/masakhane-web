@@ -15,7 +15,7 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
     compress: true,
-    public: 'translate.masakhane.io',
+    public: 'translate.masakhane.io:80',
     // proxy: {  
     //   '/': {
     //       target: 'http://localhost:5000',
