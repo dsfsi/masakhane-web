@@ -11,6 +11,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'public'),
     open: true,
     clientLogLevel: 'silent',
+    host: '0.0.0.0',
     port: 3000,
     historyApiFallback: true,
     compress: true,
