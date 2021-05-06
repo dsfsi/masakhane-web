@@ -3,7 +3,7 @@
 <img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg" >
 </div>
 
-[**Masakhane**](https://www.masakhane.io/) meaning ‘we build together’,  is a research effort for machine translation for African languages which is open source and online. So far, the community has built translation models for over 38 African languages. As such, **Masakhane Web** is a platform that aims to host the already trained models from the community and allow contributions from users to create new data for retraining. The objective of this web application is to provide access to an open-source platform that makes available relatively accurate translations for languages across Africa. If you can't find your language and/or would like to train your own machine translation model in your language, see https://github.com/masakhane-io/masakhane-mt on how you can contribute.
+[**Masakhane**](https://www.masakhane.io/) meaning ‘we build together’,  is a research effort for machine translation for African languages which is open source and online. So far, the community has built translation models based on [Joey NMT](https://github.com/joeynmt/joeynmt) for over 38 African languages. As such, **Masakhane Web** is a platform that aims to host the already trained models from the community and allow contributions from users to create new data for retraining. The objective of this web application is to provide access to an open-source platform that makes available relatively accurate translations for languages across Africa. If you can't find your language and/or would like to train your own machine translation model in your language, see https://github.com/masakhane-io/masakhane-mt on how you can contribute.
    
 
 **Disclaimer:**  This system is for research purposes only and should be taken as work in progress. None of the trained models are suitable for production usage.
@@ -111,7 +111,7 @@ To make sure that it is well installed you can run the code above to check the v
         * to see feedbacks in a relation `select * from feedback;`
 
 #### Add, Delete and Update supported languages  
-
+- The
 - check the available models in memory `sudo docker-compose exec server python manage.py all_language`
 - add a new language, 
     - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`curre
