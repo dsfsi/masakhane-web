@@ -16,7 +16,9 @@
         - [Frontend](#frontend)
     - [Using Docker (Prefered)](#using-docker-(prefered))
 - [Contributing](#contributing)
+- [Contributors](#contributors)
 - [Contact Us](#contact-us)
+- [Acknowledgements](#acknowledgements)
 
 
 
