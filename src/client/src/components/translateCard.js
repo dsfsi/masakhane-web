@@ -9,7 +9,7 @@ const MIN_TEXTAREA_HEIGHT = 200;
 
 export default function TranslateCard() {
     const [input, setText] = useState("");
-    const [translation, setTranslation] = useState("");
+    const [translation, setTranslation] = useState('...');
     const [srcLanguages, setSrcLanguages] = useState([]);
     const [tgtLanguages, setTgtLanguages] = useState([]);
     const [show, setShow] = useState(false);
@@ -318,7 +318,15 @@ export default function TranslateCard() {
                                 style={{ fontSize: 24, minHeight: MIN_TEXTAREA_HEIGHT, resize: 'none' }} 
                                 value={translation}
                                 readOnly
+                                isInvalid = {!translation}
                             />
+                            {
+                                !translation && (
+                                    <Form.Control.Feedback type = "invalid">
+                                        Sorry, there is no translation for that phrase.
+                                    </Form.Control.Feedback>
+                                )
+                            }
                         </Form.Group>
                     </Form>
                     
