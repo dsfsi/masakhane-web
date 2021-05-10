@@ -240,9 +240,15 @@ export default function TranslateCard() {
                                 style={{ fontSize: 24, minHeight: MIN_TEXTAREA_HEIGHT, resize: 'none' }} 
                                 value={translation}
                                 readOnly
+                                isInvalid={!translation}
                                 // onChange={e => setText(e.target.value)}
                                 // autoFocus={showToast}
                             />
+                            {!translation && (
+                                <Form.Control.Feedback type="invalid">
+                                    Sorry, there’s no translation for that phrase.
+                                </Form.Control.Feedback>
+                            )}
                         </Form.Group>
                     </Form>
                     
