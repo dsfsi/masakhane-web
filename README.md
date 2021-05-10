@@ -149,7 +149,7 @@ Made with [contributors-img](https://contrib.rocks).
 # License
 [MIT](https://mit-license.org/)
 
-## Citing the dataset
+## Citing the project
 **On a visualisation/notebook/webapp:**
 
 > Data Science for Social Impact Research Group @ University of Pretoria, Masakhane NLP, *Masakhane WEB - A Machine Translation Web Platform for Solely African Languages* Available on: [https://github.com/dsfsi/masakhane-web](https://github.com/dsfsi/masakhane-web).
