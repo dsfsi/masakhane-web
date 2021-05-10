@@ -149,6 +149,31 @@ Made with [contributors-img](https://contrib.rocks).
 # License
 [MIT](https://mit-license.org/)
 
+## Citing the dataset
+**On a visualisation/notebook/webapp:**
+
+> Data Science for Social Impact Research Group @ University of Pretoria, Masakhane NLP, *Masakhane WEB - A Machine Translation Web Platform for Solely African Languages* Available on: [https://github.com/dsfsi/masakhane-web](https://github.com/dsfsi/masakhane-web).
+
+**In a publication**
+
+Software
+
+> @software{marivate_vukosi_2021_4745501,
+  author       = {Marivate, Vukosi and
+                  Gitau, Catherine and
+                  Kabenamualu, Salomon and
+                  Modupe, Abiodun and
+                  Masakhane NLP},
+  title        = {{Masakhane WEB - A Machine Translation Web Platform 
+                   for Solely African Languages}},
+  month        = may,
+  year         = 2021,
+  publisher    = {Zenodo},
+  version      = {0.9},
+  doi          = {10.5281/zenodo.4745501},
+  url          = {[https://doi.org/10.5281/zenodo.4745501](https://doi.org/10.5281/zenodo.4745501)}
+}
+
 # Acknowledgements
 
 We want to acknowledge support from the following organisations
