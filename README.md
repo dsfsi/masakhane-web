@@ -68,12 +68,13 @@ for row in c.execute('SELECT * FROM language'):
     - [node.js](https://nodejs.org/en/)
     - [yarn](https://classic.yarnpkg.com/en/docs/install)
 
-**Note**: This need to be improved :) later, but in order to run the stand alone app you need to modify line `53` in file [package.json](https://github.com/dsfsi/masakhane-web/blob/production/src/client/package.json) from `"proxy": "http://api:5000"` to `"proxy": "http://localhost:5000"` and set it back accordingly if you want to use back the docker seeting. 
 
 - To run:
     - move to the client directory : `cd src/client/` 
     - run `npm install`
-    - run `yarn start`
+    - run `npm i webpack webpack-cli --legacy-peer-deps`
+    - run `npm i @babel/core @babel/preset-env @babel/preset-react babel-loader`
+    - run `npm run develop`
 
 
 This runs the app in development mode.\

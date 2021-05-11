@@ -93,6 +93,7 @@ class TranslateResource(Resource):
         output = []
 
         # print(self.models)
+        # ipdb.set_trace()
 
         for couple in list(self.models.keys()):
             src, tgt = couple.split("-")

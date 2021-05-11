@@ -70,6 +70,8 @@ class MasakhaneModelLoader():
     if not os.path.exists(model_dir):
         os.system(f'mkdir -p {model_dir}')
 
+    # print(self.models)
+    # ipdb.set_trace()
     model_files = self.models[f"{src_language}-{trg_language}-{domain}"]
 
     # Download the checkpoint.
