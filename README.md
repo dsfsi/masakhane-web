@@ -1,4 +1,4 @@
-# Masakhane WEB - A Machine Translation Web Platform for Solely African Languages
+# Masakhane WEB - A Machine Translation Web Platform for African Languages
 <div align="center">
 <img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg" >
 </div>
@@ -154,7 +154,7 @@ Made with [contributors-img](https://contrib.rocks).
 ## Citing the project
 **On a visualisation/notebook/webapp:**
 
-> Data Science for Social Impact Research Group @ University of Pretoria, Masakhane NLP, *Masakhane WEB - A Machine Translation Web Platform for Solely African Languages* Available on: [https://github.com/dsfsi/masakhane-web](https://github.com/dsfsi/masakhane-web).
+> Data Science for Social Impact Research Group @ University of Pretoria, Masakhane NLP, *Masakhane WEB - A Machine Translation Web Platform for African Languages* Available on: [https://github.com/dsfsi/masakhane-web](https://github.com/dsfsi/masakhane-web).
 
 **In a publication**
 
