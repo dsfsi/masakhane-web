@@ -167,7 +167,7 @@ Software
                   Modupe, Abiodun and
                   Masakhane NLP},
   title        = {{Masakhane WEB - A Machine Translation Web Platform 
-                   for Solely African Languages}},
+                   for African Languages}},
   month        = may,
   year         = 2021,
   publisher    = {Zenodo},
