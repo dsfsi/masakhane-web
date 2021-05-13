@@ -108,6 +108,16 @@ class TranslateResource(Resource):
                 }
             )
 
+        # TODO: Need to solve the issue for available language format 
+        
+        # source_vals = [d for d in output if d['type'] == 'source']
+        # target_vals = [d for d in output if d['type'] == 'target']
+
+        # src_vals = list({v['name']:v for v in source_vals}.values())
+        # tgt_vals = list({v['name']:v for v in target_vals}.values())
+
+        # output = src_vals + tgt_vals
+
         output = list({v['name']:v for v in output}.values())
 
         return output, HTTPStatus.OK         
