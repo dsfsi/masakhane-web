@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  api:
+    build :
+      context: ./src/server
+      dockerfile: Dockerfile.prod
+    command: gunicorn --bind 0.0.0.0:5000 manage:masakhane
+    ports:
+      - 5000:5000
+    # expose:
+    #   - 5000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+
+  nginx:
+    build: ./src/server/nginx
+    ports:
+      - 80:80
+    depends_on:
+      - api
+
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+
+  client:
+    build :
+      context: ./src/client
+      dockerfile: Dockerfile
+    # command: curl --location --request GET 'http://0.0.0.0:5000/update' --data-raw ''
+    volumes:
+      - './src/client:/usr/src/app'
+    ports:
+      - 3000:3000
+
+    depends_on: 
+      - api
+
+volumes:
+  postgres_data:

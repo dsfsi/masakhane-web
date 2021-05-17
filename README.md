@@ -1,6 +1,6 @@
 # Masakhane WEB - A Machine Translation Web Platform for African Languages
 <div align="center">
-<img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg" >
+<img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg">
 </div>
 
 [**Masakhane**](https://www.masakhane.io/) meaning ‘we build together’,  is a research effort for machine translation for African languages which is open source and online. So far, the community has built translation models based on [Joey NMT](https://github.com/joeynmt/joeynmt) for over 38 African languages. As such, **Masakhane Web** is a platform that aims to host the already trained models from the community and allow contributions from users to create new data for retraining. The objective of this web application is to provide access to an open-source platform that makes available relatively accurate translations for languages across Africa. If you can't find your language and/or would like to train your own machine translation model in your language, see https://github.com/masakhane-io/masakhane-mt on how you can contribute.
@@ -27,27 +27,32 @@
 ### As a stand alone app 
 
 #### Backend 
-- Install required packages 
-    -  `pip install -r requirements.txt`
 - run the app :
     - move to the server directory : `cd src/server/`
+    - Install required packages 
+        -  `pip install -r requirements.txt`
     - `export FLASK_APP=core/__init__.py`
+    - `export FLASK_ENV=development`
     - `python manage.py run`
 
 Note: The stand alone app uses sqlite as db instead of postgreSQL like our live app, you then need to run the command below to create and initialize the datbase. 
 
 - Create table relations
     - `python manage.py create_db`
-- Add languages 
-    - `python manage.py add_language en-sw`
+- Add language 
+    - `python manage.py add_language en-sw-JW300`
+- Remove language
+    - `python manage.py remove_language en-sw-JW300`
 - Check available languages
-    - `python manage.py all_language`
+    - `python manage.py all_languages`
 - Update known languages 
     - `curl --request GET 'http://127.0.0.1:5000/update'`
+- Run tests
+    - `python manage.py tests`
 
-You can check content saved in the dabase using the code below :
+You can check content saved in the dabase using the code below (move to `src/server/core/` and run `python`):
 
-```
+```python
 import sqlite3, os
 
 conn = sqlite3.connect("masakhane.db")
@@ -63,17 +68,19 @@ for row in c.execute('SELECT * FROM language'):
 #### Frontend 
 - install the following: \
     - [node.js](https://nodejs.org/en/)
-    - [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable)
+    - [yarn](https://classic.yarnpkg.com/en/docs/install)
+
 
 - To run:
     - move to the client directory : `cd src/client/` 
-    - run `yarn start`
+    - run `npm install`
+    - run `npm i webpack webpack-cli --legacy-peer-deps`
+    - run `npm i @babel/core @babel/preset-env @babel/preset-react babel-loader`
+    - run `npm run develop`
 
 
 This runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-View [https://github.com/dsfsi/masakhane-web/tree/master/src/client](https://github.com/dsfsi/masakhane-web/tree/master/src/client) on how you can contribute to improve the look of the website.
 
 ### Using Docker (Prefered)
 
@@ -95,15 +102,12 @@ To make sure that it is well installed you can run the code above to check the v
 #### Run the App
 
 - run the app 
-    * `sudo docker-compose up -d --build` from the root project. 
+    * `docker-compose -f docker-compose.prod.yml up -d --build` from the root project. 
 - shutdown the app
-    * `sudo docker-compose down` 
-
-- create_db
-    * `sudo docker-compose exec server python manage.py create_db`
+    * `docker-compose  -f docker-compose.prod.yml down` 
 
 - check the database
-    * `sudo docker-compose exec db psql --username=masakhane --dbname=masakhane`
+    * `docker-compose -f docker-compose.prod.yml exec db psql --username=masakhane --dbname=masakhane`
         * list databases`\l`
         * connect to the masakhane database`\c masakhane`
         * list relations `\dt`
@@ -113,15 +117,19 @@ To make sure that it is well installed you can run the code above to check the v
         * to see feedbacks in a relation `select * from feedback;`
 
 #### Add, Delete and Update supported languages  
-- The
-- check the available models in memory `sudo docker-compose exec server python manage.py all_language`
+- check the available models in memory `docker-compose -f docker-compose.prod.yml exec api python manage.py all_languages`
+
 - add a new language, 
-    - e.g English-Swahili (note: we are using JW300 shortform) `sudo docker-compose exec server python manage.py add_language en-sw`curre
-    - (English-Yoruba) `sudo docker-compose exec server python manage.py add_language en-yo`
-- delete a language `sudo docker-compose exec server python manage.py remove_language en-sw`
+    - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-sw-JW300`
+    - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo-`
+- delete a language `docker-compose -f docker-compose.prod.yml exec api python manage.py remove_language en-sw-JW300`
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`
+- Run tests
+    - `docker-compose -f docker-compose.prod.yml exec api python manage.py tests`
 
 
+
+View [https://github.com/dsfsi/masakhane-web/tree/master/src/client](https://github.com/dsfsi/masakhane-web/tree/master/src/client) on how you can contribute to improve the look of the website.
 
 
 # Contributing

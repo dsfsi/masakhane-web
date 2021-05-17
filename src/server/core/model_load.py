@@ -25,12 +25,12 @@ class MasakhaneModelLoader():
 
   def __init__(self, available_models_file):
     # self._model_dir_prefix = current_app.config['MODEL']
-    self._model_dir_prefix = "./models/joeynmt/"
+    self._model_dir_prefix = os.environ.get('MODEL',
+                                        "./models/joeynmt/")
     self._src_language = ''
     self.models = self.load_available_models(available_models_file)
   
-  def load_available_models(self, available_models_file, 
-                            src_language='en', domain='JW300'):
+  def load_available_models(self, available_models_file):
     # Get list of available models.
     # If multiple models: select domain. 
     # Only select relevant models with correct src language.
@@ -38,29 +38,41 @@ class MasakhaneModelLoader():
     with open(available_models_file, 'r') as ofile:
       for i, line in enumerate(ofile):
         entries = line.strip().split("\t")
+
         if i == 0:
           headers = entries
           header_keys = [h.__str__() for h in headers]
           continue
+
         model = {h: v for h, v in zip(header_keys, entries)}
-        if model['src_language'] != src_language or model['complete'] != 'yes':
+
+        if model['complete'] != 'yes':
           continue
-        if model['trg_language'] in models.keys() and model['domain'] != domain:
-          continue
-        models[model['trg_language']] = model
+
+        # if model['trg_language'] in models.keys() and model['domain'] != domain:
+        #   continue
+
+        models[f"{model['src_language']}-{model['trg_language']}-{model['domain']}"] = model
+    
     print('Found {} Masakhane models.'.format(len(models)))
-    self._model_dir_prefix += src_language
-    self._src_language = src_language
+    
+    # self._model_dir_prefix += src_language
+    # self._src_language = src_language
+
+    # ipdb.set_trace()
     return models
   
-  def download_model(self, trg_language):
+  def download_model(self, src_language, trg_language, domain):
     """ Download model for given trg language. """
-    model_dir = "{}-{}".format(self._model_dir_prefix, trg_language)
+    # ipdb.set_trace()
+    model_dir = f"{self._model_dir_prefix}{src_language}-{trg_language}-{domain}"
 
     if not os.path.exists(model_dir):
         os.system(f'mkdir -p {model_dir}')
 
-    model_files = self.models[trg_language]
+    # print(self.models)
+    # ipdb.set_trace()
+    model_files = self.models[f"{src_language}-{trg_language}-{domain}"]
 
     # Download the checkpoint.
     ckpt_path = os.path.join(model_dir, 'model.ckpt')
@@ -102,14 +114,16 @@ class MasakhaneModelLoader():
         self._download(model_files['src_bpe'], src_bpe_path)
         self._download(model_files['trg_bpe'], trg_bpe_path)
 
-    print('Downloaded model for {}-{}.'.format(self._src_language, trg_language))
+    # print('Downloaded model for {}-{}.'.format(self._src_language, trg_language))
+    print('Downloaded model for {}-{}.'.format(src_language, trg_language))
     # return model_dir, config, self._is_lc(src_vocab_path)
     # return 
 
 
-  def load_model(self, trg_language, bpe_src_code=None, tokenize=None):
+  def load_model(self, src_language, trg_language, domain, bpe_src_code=None, tokenize=None):
     """ Load model for given trg language. """
-    model_dir = "{}-{}".format(self._model_dir_prefix, trg_language)
+    # model_dir = "{}-{}".format(self._model_dir_prefix, trg_language)
+    model_dir = f"{self._model_dir_prefix}{src_language}-{trg_language}-{domain}"
 
     # Load the checkpoint.
     ckpt_path = os.path.join(model_dir, 'model.ckpt')
@@ -130,7 +144,8 @@ class MasakhaneModelLoader():
     with open(new_config_file, 'w') as cfile:
       yaml.dump(config, cfile)
 
-    print('Loaded model for {}-{}.'.format(self._src_language, trg_language))
+    # print('Loaded model for {}-{}.'.format(self._src_language, trg_language))
+    print('Loaded model for {}-{}.'.format(src_language, trg_language))
 
     conf = {}
 

@@ -4,7 +4,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     DEBUG = False
-    # SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite://")
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///masakhane.db")
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -24,9 +23,10 @@ class StagingConfig(Config):
     testing purpose. 
     """
     DEBUG = True
-    SECRET_KEY = os.getenv('SECRET_KEY', "sqlite://")
-    MODEL = os.getenv('MODEL', "./")
+    TESTING = True
+    SECRET_KEY = os.getenv('SECRET_KEY', "key_testing")
+    # MODEL = os.getenv('MODEL', "./")
 
 class ProductionConfig(Config):
-    SECRET_KEY = os.getenv('SECRET_KEY', "sqlite://")
-    MODEL = os.getenv('MODEL', "./")
+    SECRET_KEY = os.getenv('SECRET_KEY', "key_production")
+    # MODEL = os.getenv('MODEL', "./")
