@@ -1,9 +1,9 @@
-# Masakhane WEB - A Machine Translation Web Platform for Solely African Languages
+# Masakhane WEB - A Machine Translation Web Platform for African Languages
 <div align="center">
 <img src="https://pbs.twimg.com/profile_images/1255858628986384384/d7Lk9I-w_400x400.jpg">
 </div>
 
-[**Masakhane**](https://www.masakhane.io/) meaning ‘we build together’,  is a research effort for machine translation for African languages which is open source and online. So far, the community has built translation models for over 38 African languages. As such, **Masakhane Web** is a platform that aims to host the already trained models from the community and allow contributions from users to create new data for retraining. The objective of this web application is to provide access to an open-source platform that makes available relatively accurate translations for languages across Africa. If you can't find your language and/or would like to train your own machine translation model in your language, see https://github.com/masakhane-io/masakhane-mt on how you can contribute.
+[**Masakhane**](https://www.masakhane.io/) meaning ‘we build together’,  is a research effort for machine translation for African languages which is open source and online. So far, the community has built translation models based on [Joey NMT](https://github.com/joeynmt/joeynmt) for over 38 African languages. As such, **Masakhane Web** is a platform that aims to host the already trained models from the community and allow contributions from users to create new data for retraining. The objective of this web application is to provide access to an open-source platform that makes available relatively accurate translations for languages across Africa. If you can't find your language and/or would like to train your own machine translation model in your language, see https://github.com/masakhane-io/masakhane-mt on how you can contribute.
    
 
 **Disclaimer:**  This system is for research purposes only and should be taken as work in progress. None of the trained models are suitable for production usage.
@@ -16,7 +16,9 @@
         - [Frontend](#frontend)
     - [Using Docker (Prefered)](#using-docker-(prefered))
 - [Contributing](#contributing)
+- [Contributors](#contributors)
 - [Contact Us](#contact-us)
+- [Acknowledgements](#acknowledgements)
 
 
 
@@ -115,8 +117,8 @@ To make sure that it is well installed you can run the code above to check the v
         * to see feedbacks in a relation `select * from feedback;`
 
 #### Add, Delete and Update supported languages  
-
 - check the available models in memory `docker-compose -f docker-compose.prod.yml exec api python manage.py all_languages`
+
 - add a new language, 
     - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-sw-JW300`
     - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo-`
@@ -156,6 +158,31 @@ Made with [contributors-img](https://contrib.rocks).
 
 # License
 [MIT](https://mit-license.org/)
+
+## Citing the project
+**On a visualisation/notebook/webapp:**
+
+> Data Science for Social Impact Research Group @ University of Pretoria, Masakhane NLP, *Masakhane WEB - A Machine Translation Web Platform for African Languages* Available on: [https://github.com/dsfsi/masakhane-web](https://github.com/dsfsi/masakhane-web).
+
+**In a publication**
+
+Software
+
+> @software{marivate_vukosi_2021_4745501,
+  author       = {Marivate, Vukosi and
+                  Gitau, Catherine and
+                  Kabenamualu, Salomon and
+                  Modupe, Abiodun and
+                  Masakhane NLP},
+  title        = {{Masakhane WEB - A Machine Translation Web Platform 
+                   for African Languages}},
+  month        = may,
+  year         = 2021,
+  publisher    = {Zenodo},
+  version      = {0.9},
+  doi          = {10.5281/zenodo.4745501},
+  url          = {[https://doi.org/10.5281/zenodo.4745501](https://doi.org/10.5281/zenodo.4745501)}
+}
 
 # Acknowledgements
 
