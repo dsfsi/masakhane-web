@@ -1,5 +1,5 @@
 import { Navbar, Nav, Container, Jumbotron, Image, Row, Col } from 'react-bootstrap'
-
+import React from 'react';
 import TranslateCard from '../components/translateCard';
 import image from '../images/masakhane-border.png';
 
