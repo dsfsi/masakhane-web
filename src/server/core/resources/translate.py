@@ -4,6 +4,7 @@ from http import HTTPStatus
 import ipdb
 import os
 import sqlite3
+from collections import defaultdict
 
 from core.model_load import MasakhaneModelLoader
 from core.models.predict import Predicter
@@ -95,30 +96,22 @@ class TranslateResource(Resource):
         # print(self.models)
         # ipdb.set_trace()
 
+        dict_output = defaultdict(lambda: [] )
+        
         for couple in list(self.models.keys()):
             src, tgt = couple.split("-")
+
+            dict_output[src].append(tgt)
+
+        for source in dict_output:
             output.append(
                 {
-                    "type": "source", "name" : self.languages_short_to_full[src].capitalize(), "value" : src
+                    "type": "source", 
+                    "name" : self.languages_short_to_full[source].capitalize(), 
+                    "value" : source,
+                    'targets': dict_output[source]
                 }
             )
-            output.append(
-                {
-                    "type": "target", "name" : self.languages_short_to_full[tgt].capitalize(), "value" : tgt
-                }
-            )
-
-        # TODO: Need to solve the issue for available language format 
-        
-        # source_vals = [d for d in output if d['type'] == 'source']
-        # target_vals = [d for d in output if d['type'] == 'target']
-
-        # src_vals = list({v['name']:v for v in source_vals}.values())
-        # tgt_vals = list({v['name']:v for v in target_vals}.values())
-
-        # output = src_vals + tgt_vals
-
-        output = list({v['name']:v for v in output}.values())
 
         return output, HTTPStatus.OK         
        
