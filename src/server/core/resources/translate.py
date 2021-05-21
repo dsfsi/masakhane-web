@@ -100,8 +100,13 @@ class TranslateResource(Resource):
         
         for couple in list(self.models.keys()):
             src, tgt = couple.split("-")
-
-            dict_output[src].append(tgt)
+            
+            dict_output[src].append(
+                {
+                    'name': self.languages_short_to_full[tgt].capitalize(), 
+                    'value': tgt
+                }
+            )
 
         for source in dict_output:
             output.append(
