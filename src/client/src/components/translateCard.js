@@ -35,11 +35,15 @@ export default function TranslateCard() {
 
     const handleChangeSrc_Lang= (e) => {
         //localstorage
-        localStorage.setItem('src_lang', e.target.value);
+        const name = e.target.value
+        localStorage.setItem('src_lang', name);
 
         //set state
-        setSrc_Lang(e.target.value);
-        
+        setSrc_Lang(name);
+        //get target languages
+        const target = srcLanguages.filter(x => x.name === name)
+        const target_languages = target[0].targets 
+        setTgtLanguages(target_languages)       
     };
 
     const handleChangeTgt_Lang = (e) => {
@@ -169,10 +173,10 @@ export default function TranslateCard() {
             })
           .then(res => res.json())
           .then(data => {
-              console.log({ data })
+              console.log({ data})
             // do something here
-            setSrcLanguages(data.filter(x => x.type == "source"))
-            setTgtLanguages(data.filter(x => x.type == "target"))
+            setSrcLanguages(data)
+            setTgtLanguages(data[0].targets)
         
           })
         
@@ -184,6 +188,7 @@ export default function TranslateCard() {
     }, [])
     // console.log(srcLanguages)
     // console.log(tgtLanguages)
+    console.log(tgt_lang)
 
     return (
         <Container className="border">
@@ -224,7 +229,7 @@ export default function TranslateCard() {
                                     <Form.Label>From: </Form.Label>
                                     <Form.Control value={src_lang} style={{ border: 0, marginLeft: 10 }} as="select" size="sm" custom onChange={handleChangeSrc_Lang}>
                                     {
-                                        srcLanguages.map((option, index) => {
+                                        srcLanguages && srcLanguages.map((option, index) => {
                                         return (<option key={index} value={option.name}>{option.name}</option>)
                                         })
                                     }
@@ -254,11 +259,13 @@ export default function TranslateCard() {
                                 <Form.Group controlId="fromform" as={Row}>
                                 <Form.Label>To: </Form.Label>
                                     <Form.Control md={6} xs={12} value={tgt_lang} style={{ border: 0, marginLeft: 10 }} as="select" size="sm" custom onChange={handleChangeTgt_Lang}>
+                        
                                     {
                                         tgtLanguages.map((option, index) => {
                                         return (<option key={index} value={option.name}>{option.name}</option>)
                                         })
                                     }
+
                                     </Form.Control>
                                 </Form.Group>
                             </Form>
