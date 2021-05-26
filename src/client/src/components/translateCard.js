@@ -43,7 +43,8 @@ export default function TranslateCard() {
         //get target languages
         const target = srcLanguages.filter(x => x.name === name)
         const target_languages = target[0].targets 
-        setTgtLanguages(target_languages)       
+        setTgtLanguages(target_languages)
+        setTgt_Lang(target_languages[0].name)       
     };
 
     const handleChangeTgt_Lang = (e) => {
@@ -59,8 +60,8 @@ export default function TranslateCard() {
 
     const handleTranslate = (e) => {
         console.log('translating ..')
-        // console.log(src_lang)
-        // console.log(tgt_lang)
+        console.log(src_lang)
+        console.log(tgt_lang)
         e.preventDefault()
     
         fetch( 
@@ -188,7 +189,7 @@ export default function TranslateCard() {
     }, [])
     // console.log(srcLanguages)
     // console.log(tgtLanguages)
-    console.log(tgt_lang)
+    // console.log(tgt_lang)
 
     return (
         <Container className="border">
