@@ -340,7 +340,7 @@ export default function TranslateCard() {
                     
                     <Row>
                         <Col md={10} xs={10}>
-                            {/* <Button variant="light" size = 'sm' style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback on Translation</Button> */}
+                            <Button variant="light" size = 'sm' style={{ bottom: '10px' }} onClick={handleShow}>Give Feedback on Translation</Button>
                         </Col>
                         <Col md={2} xs={2} lg="2">
                             <OverlayTrigger
