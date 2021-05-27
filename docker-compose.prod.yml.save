@@ -6,10 +6,8 @@ services:
       context: ./src/server
       dockerfile: Dockerfile.prod
     command: gunicorn --bind 0.0.0.0:5000 manage:masakhane
-    ports:
-      - 5000:5000
-    # expose:
-    #   - 5000
+    expose:
+      - 5000
     env_file:
       - ./.env.prod
     depends_on:
@@ -18,7 +16,7 @@ services:
   nginx:
     build: ./src/server/nginx
     ports:
-      - 80:80
+      - curl --request GET 'http://127.0.0.1:5000/update':80
     depends_on:
       - api
 
@@ -38,6 +36,8 @@ services:
       - './src/client:/usr/src/app'
     ports:
       - 3000:3000
+   # expose:
+    #  - 3000
 
     depends_on: 
       - api
