@@ -103,3 +103,6 @@ src/server/core/models/joeynmt
 .env.prod
 
 *.sqlite
+
+docker_export_postgre_table.sh
+feedback_data.csv
