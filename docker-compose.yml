@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
 
-  server:
+  api:
     # container_name: flask-api
     build :
       context: ./src/server
@@ -14,10 +14,17 @@ services:
       - 5000:5000
 
     env_file:
-      - ./src/server/.env.dev
+      - ./.env.dev
 
     depends_on: 
       - db
+
+  nginx:
+    build: ./src/server/nginx
+    ports:
+      - 80:80
+    depends_on:
+      - api
 
   db:
     image: postgres:12-alpine
@@ -39,7 +46,7 @@ services:
       - 3000:3000
 
     depends_on: 
-      - server
+      - api
 
 # To persist the data beyond the life of the container 
 # we configured a volume. This config will bind 

@@ -102,12 +102,12 @@ To make sure that it is well installed you can run the code above to check the v
 #### Run the App
 
 - run the app 
-    * `docker-compose -f docker-compose.prod.yml up -d --build` from the root project. 
+    * `docker-compose up -d --build` from the root project. 
 - shutdown the app
-    * `docker-compose  -f docker-compose.prod.yml down` 
+    * `docker-compose down` 
 
 - check the database
-    * `docker-compose -f docker-compose.prod.yml exec db psql --username=masakhane --dbname=masakhane`
+    * `docker-compose exec db psql --username=masakhane --dbname=masakhane`
         * list databases`\l`
         * connect to the masakhane database`\c masakhane`
         * list relations `\dt`
@@ -117,15 +117,15 @@ To make sure that it is well installed you can run the code above to check the v
         * to see feedbacks in a relation `select * from feedback;`
 
 #### Add, Delete and Update supported languages  
-- check the available models in memory `docker-compose -f docker-compose.prod.yml exec api python manage.py all_languages`
+- check the available models in memory `docker-compose exec api python manage.py all_languages`
 
 - add a new language, 
-    - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-sw-JW300`
-    - (English-Yoruba) `docker-compose -f docker-compose.prod.yml exec api python manage.py add_language en-yo-`
-- delete a language `docker-compose -f docker-compose.prod.yml exec api python manage.py remove_language en-sw-JW300`
+    - e.g English-Swahili (note: we are using JW300 shortform) `docker-compose  exec api python manage.py add_language en-sw-JW300`
+    - (English-Yoruba) `docker-compose  exec api python manage.py add_language en-yo-`
+- delete a language `docker-compose  exec api python manage.py remove_language en-sw-JW300`
 - run this on the production server to update the models `curl --request GET 'http://127.0.0.1:5000/update'`
 - Run tests
-    - `docker-compose -f docker-compose.prod.yml exec api python manage.py tests`
+    - `docker-compose  exec api python manage.py tests`
 
 
 
