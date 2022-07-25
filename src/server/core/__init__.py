@@ -1,4 +1,6 @@
-from core.resources.translate import TranslateResource, AddResource, SaveResource, HomeResource
+from core.resources.translate import TranslateResource, AddResource, SaveResource, HomeResource, load_model
+
+# src/server/manage.py
 
 from flask import Flask
 from flask import request, render_template, current_app
@@ -9,6 +11,10 @@ from core.extensions import db
 from core.config import Config, DevelopmentConfig, ProductionConfig, StagingConfig
 
 from core.model_load import MasakhaneModelLoader
+
+from core.models.language import Language
+
+import json
 
 
 # this is only for debug purpose
@@ -80,7 +86,29 @@ models = {}
 
 masakhane = create_app(models)
 
+name_tag = "en-sn-JW300"
 
+languages_short_to_full = {}
+languages_full_to_short = {}
+with open(os.environ.get('JSON', 
+    "./languages.json"), 'r') as f:
+            distros_dict = json.load(f)
+
+for distro in distros_dict:
+    languages_short_to_full[distro['language_short'].lower()] = distro['language_en'].lower()
+    languages_full_to_short[distro['language_en'].lower()] = distro['language_short'].lower()
+
+source, target, domain = name_tag.split('-')
+language = Language(src_tgt_dmn=name_tag, 
+                    source_target_domain = f"{languages_short_to_full[source]}-{languages_short_to_full[target]}-{domain}")
+
+try:
+    db.session.add(language)
+    db.session.commit()
+except Exception as e:
+    print(e)    
+
+# load_model("en", "sn", "JW300")
 masakhane.models = models
 
 # our_db.create_all()
