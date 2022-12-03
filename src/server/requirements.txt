@@ -46,7 +46,7 @@ polyglot==16.7.4
 portalocker==2.2.1
 prompt-toolkit==3.0.16
 protobuf==3.14.0
-psycopg2-binary==2.8.6
+psycopg2-binary==2.9.5
 ptyprocess==0.7.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
