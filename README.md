@@ -153,11 +153,11 @@ print(row)
 
 - move to the client directory : `cd src/client/`
 
-- run `npm install`
+- run `npm install --legacy-peer-deps`
 
 - run `npm i webpack webpack-cli --legacy-peer-deps`
 
-- run `npm i @babel/core @babel/preset-env @babel/preset-react babel-loader`
+- run `npm i @babel/core @babel/preset-env @babel/preset-react babel-loader --legacy-peer-deps`
 
 - run `npm run develop`
 
