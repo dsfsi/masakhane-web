@@ -17,7 +17,7 @@ future==0.18.2
 google-auth==1.26.1
 google-auth-oauthlib==0.4.2
 grpcio==1.35.0
-gdown==3.3.1
+gdown==4.6.0
 idna==2.10
 importlib-metadata==3.4.0
 ipdb==0.13.4
