@@ -61,7 +61,7 @@ The language code parameter '`en-sw-JW300`' represents {src-lang}-{tgt-lang}-{sh
 So '`en-sw-JW300`' represents English-Swahili using JW300 shortform  
 **Note** - A code parameter example without shortform is `en-tiv-'
 
-View all available languages [here]() 
+View all available languages [here](../../src/server/available_models.tsv) 
 
 **Update Langugaes**
 ```bash
