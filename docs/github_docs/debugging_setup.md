@@ -74,9 +74,9 @@ The client should be running on http://localhost:3000.
 
 Check the terminal (standalone), inspect the webpage or view the docker logs for error output.
 ## **Check the api**
-The client should be running on http://localhost:5000 and return the following output:
+The API should be running on http://localhost:5000 and return the following output:
 ```json
-{
+{  
     "message": "welcome Masakhane Web"
 }
 ```
@@ -96,8 +96,9 @@ Use a developer tool such as [Postman](https://www.postman.com/) to make POST re
 | Endpoint | Description | Example Body |
 | ------ | --------- | --------- |
 | http://localhost:5000/translate | Returns the translated text  | <pre lang="json">{<br>  "src_lang": "english",<br>  "tgt_lang": "swahili",<br>  "input":    "Hello, how are you?"<br>}</pre>|
+
 ## **Check the database**
-Docker makes use of a postgreSQL database
+Docker makes use of a postgreSQL database  
 The stand alone app uses sqlite, so there is an different method for access.
 
 ### **With Docker**  
