@@ -1,6 +1,17 @@
 # Running the App In Production
 To run the app locally, see [here](start_app_locally_doc.md)
 
+## Table of Contents
+- [Running the App In Production](#running-the-app-in-production)
+  - [Table of Contents](#table-of-contents)
+  - [**Docker Setup**](#docker-setup)
+  - [**Running the app**](#running-the-app)
+    - [**Building the App**](#building-the-app)
+    - [**Shut down the app**](#shut-down-the-app)
+    - [**Add, Update, \& Delete Languages**](#add-update--delete-languages)
+    - [**Running tests**](#running-tests)
+
+
 ## **Docker Setup**
 
 Ensure you have `docker` & `docker-compose` installed on your computer, you can check with the following commands:

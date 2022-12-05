@@ -6,9 +6,22 @@ To run the app in production, see [here](start_app_prod_doc.md).
 
 For any errors during setup, please see the [debugging doc](debugging_setup.md).
 
+## Table of Contents
+- [Running the App Locally](#running-the-app-locally)
+  - [Table of Contents](#table-of-contents)
+- [Using Docker ( Preferred )](#using-docker--preferred-)
+  - [**Docker Setup**](#docker-setup)
+  - [**Running the app**](#running-the-app)
+    - [**Building the App**](#building-the-app)
+    - [**Shut down the app**](#shut-down-the-app)
+    - [**Add, Update, \& Delete Languages**](#add-update--delete-languages)
+    - [**Running tests**](#running-tests)
+- [As a stand-alone app](#as-a-stand-alone-app)
+  - [**Backend Setup**](#backend-setup)
+  - [**Frontend Setup**](#frontend-setup)
+- [Errors during setup](#errors-during-setup)
 
-## Table of contents
-- [Using Docker](#using-docker--preferred)
+
 # Using Docker ( Preferred ) 
 
 The better/easier way to run the app is to use Docker, which will build both the frontend and the backend with the correct enviroment setup.

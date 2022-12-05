@@ -10,6 +10,20 @@
 
 **Disclaimer:** This system is for research purposes only and should be taken as work in progress. None of the trained models are suitable for production usage.
 
+## Table of contents
+- [Masakhane WEB - A Machine Translation Web Platform for African Languages](#masakhane-web---a-machine-translation-web-platform-for-african-languages)
+	- [Table of contents](#table-of-contents)
+- [Running The App](#running-the-app)
+- [Contributing](#contributing)
+	- [Options](#options)
+	- [Submitting Changes\[Pull Request\]](#submitting-changespull-request)
+- [Contributors](#contributors)
+- [Contact Us](#contact-us)
+- [License](#license)
+	- [Citing the project](#citing-the-project)
+- [Acknowledgements](#acknowledgements)
+
+
 # Running The App 
 To run the app locally, see [here](/docs/github_docs/start_app_locally_doc.md#running-the-app-locally)  
 To run the app in a production, see [here](/docs/github_docs/start_app_prod_doc.md#running-the-app-in-production)
