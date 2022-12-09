@@ -46,16 +46,6 @@ def all_languages():
 @cli.command("add_language")
 @click.argument('name_tag')
 def add_language(name_tag):
-    try:
-        language = Language.query.filter_by(
-            src_tgt_dmn=name_tag).first_or_404()
-
-        print(language)
-        db.session.delete(language)
-        db.session.commit()
-    except Exception as e:
-        pass
-
     with open(os.environ.get('JSON',
                              "./languages.json"), 'r') as f:
         distros_dict = json.load(f)
@@ -73,7 +63,7 @@ def add_language(name_tag):
     language = Language(src_tgt_dmn=name_tag,
                         source_target_domain=f"{languages_short_to_full[source]}-{languages_short_to_full[target]}-{domain}")
 
-    db.session.add(language)
+    db.session.merge(language)
     db.session.commit()
 
 
