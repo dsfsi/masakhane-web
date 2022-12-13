@@ -12,5 +12,5 @@ then
 fi
 
 python manage.py create_db
-
+python manage.py add_language en-sw-JW300
 exec "$@"
