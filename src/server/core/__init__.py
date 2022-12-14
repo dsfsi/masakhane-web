@@ -16,6 +16,7 @@ from core.model_load import MasakhaneModelLoader
 # import ipdb
 import os
 from flask_restful import Api
+from flask_cors import CORS
 
 
 def create_app(saved_models):
