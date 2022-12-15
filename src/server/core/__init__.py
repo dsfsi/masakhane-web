@@ -5,7 +5,6 @@ from flask import request, render_template, current_app
 
 
 from flask_migrate import Migrate
-from flask_cors import CORS
 from core.extensions import db
 from core.config import Config, DevelopmentConfig, ProductionConfig, StagingConfig
 

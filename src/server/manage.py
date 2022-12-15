@@ -6,6 +6,7 @@ from core import masakhane, load_model
 
 from flask import current_app
 from core.models.language import Language
+
 import click
 import json
 import os
