@@ -65,7 +65,7 @@ export default function TranslateCard() {
         e.preventDefault()
     
         fetch( 
-            'http://localhost:5000/translate', 
+            '/translate', 
             {
                 method: 'post', 
                 // mode: 'no-cors',
@@ -92,7 +92,7 @@ export default function TranslateCard() {
         console.log({formData})
 
         fetch( 
-            'http://localhost:5000/save', 
+            '/save', 
             {
                 method: 'post', 
                 // mode: 'no-cors',
@@ -164,7 +164,7 @@ export default function TranslateCard() {
         let tgt = [];
         const fetchLanguages = async ()=> {
         await fetch( 
-            'http://localhost:5000/update', 
+            '/update', 
             {
                 method: 'get', 
                 headers: {
@@ -172,7 +172,7 @@ export default function TranslateCard() {
                     },
             })    
         await fetch( 
-            'http://localhost:5000/translate', 
+            '/translate', 
             {
                 method: 'get', 
                 headers: {
