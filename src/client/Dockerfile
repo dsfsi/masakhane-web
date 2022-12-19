@@ -11,9 +11,9 @@ COPY package.json package-lock.json ./
 
 # NOTE: opencollective is not required but leads to warnings if missing
 #RUN npm rm -rf node_modules
-RUN npm install
+RUN npm install --legacy-peer-deps
 RUN npm i webpack webpack-cli --legacy-peer-deps
-RUN npm i @babel/core @babel/preset-env @babel/preset-react babel-loader
+RUN npm i @babel/core @babel/preset-env @babel/preset-react babel-loader --legacy-peer-deps
 # RUN apt-get update && apt-get install -y curl
 # install the dependencies
 # RUN npm ci 

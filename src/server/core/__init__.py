@@ -15,6 +15,7 @@ from core.model_load import MasakhaneModelLoader
 # import ipdb
 import os
 from flask_restful import Api
+from flask_cors import CORS
 
 
 def create_app(saved_models):
@@ -31,6 +32,7 @@ def create_app(saved_models):
         config_str = DevelopmentConfig()
 
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object(config_str)
 
 

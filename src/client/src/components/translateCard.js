@@ -164,6 +164,14 @@ export default function TranslateCard() {
         let tgt = [];
         const fetchLanguages = async ()=> {
         await fetch( 
+            '/update', 
+            {
+                method: 'get', 
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+            })    
+        await fetch( 
             '/translate', 
             {
                 method: 'get', 
