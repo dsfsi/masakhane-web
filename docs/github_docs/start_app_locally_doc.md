@@ -6,7 +6,8 @@ To run the app in production, see [here](start_app_prod_doc.md).
 
 For any errors during setup, please see the [debugging doc](debugging_setup.md).
 
-Review the [project details doc](project_details.md) for more information on the technology stack
+Review the [project details doc](project_details.md) for more information on the technology stack.  
+Take note of the [Client](../../src/client/README.md) and [Server](../../src/server/README.md) README's.
 
 ## **Table of Contents**
 - [**Using Docker ( Preferred )**](#using-docker--preferred-)
@@ -64,9 +65,9 @@ docker-compose -f docker-compose.yml down
 ```bash
 docker-compose -f docker-compose.yml exec server python manage.py add_language en-sw-JW300
 ```
-The language code parameter '`en-sw-JW300`' represents {src-lang}-{tgt-lang}-{shortform}  
-So '`en-sw-JW300`' represents English-Swahili using JW300 shortform  
-**Note** - A code parameter example without shortform is `en-tiv-'
+The language code parameter `en-sw-JW300` represents {src-lang}-{tgt-lang}-{shortform}  
+So `en-sw-JW300` represents English-Swahili using JW300 shortform  
+**Note** - A code parameter example without shortform is `en-tiv-`
 
 View all available languages [here](../../src/server/available_models.tsv) 
 
@@ -128,9 +129,9 @@ Look [here](debugging_setup.md#with-stand-alone-backend) for more information ab
 ```bash
 python manage.py add_language en-sw-JW300
 ```
-The language code parameter '`en-sw-JW300`' represents {src-lang}-{tgt-lang}-{shortform}  
-So '`en-sw-JW300`' represents English-Swahili using JW300 shortform  
-**Note** - A code parameter example without shortform is `en-tiv-'
+The language code parameter `en-sw-JW300` represents {src-lang}-{tgt-lang}-{shortform}  
+So `en-sw-JW300` represents English-Swahili using JW300 shortform  
+**Note** - A code parameter example without shortform is `en-tiv-`
 
 View all available languages [here](../../src/server/available_models.tsv) 
 
