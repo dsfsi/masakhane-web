@@ -1,49 +1,19 @@
-# Masakhane Frontend
+# The Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**NOTE** I know next to nothing about this frontend so update needed
 
-## Available Scripts
+The client is running on http://localhost:3000  
 
-In the project directory, you can run:
+It consists of 
+    -   ReactJS
+    -   Webpack
 
-### `yarn start`
+# Available npm scripts:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-<<<<<<< HEAD
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more infor
-=======
->>>>>>> master
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
+| Command | Executes | 
+| ------- | -------- |
+| `npm run develop` | `webpack-dev-server --host 0.0.0.0` |
+| `npm run start-api` | `cd ../server && python app.py` |
+| `npm run build` | `react-scripts build` |
+| `npm run test` | `react-scripts test` |
+| `npm run eject` | `react-scripts eject` |
