@@ -11,8 +11,6 @@
 **Disclaimer:** This system is for research purposes only and should be taken as work in progress. None of the trained models are suitable for production usage.
 
 ## Table of contents
-- [Masakhane WEB - A Machine Translation Web Platform for African Languages](#masakhane-web---a-machine-translation-web-platform-for-african-languages)
-	- [Table of contents](#table-of-contents)
 - [Running The App](#running-the-app)
 - [Contributing](#contributing)
 	- [Options](#options)
@@ -110,26 +108,3 @@ We want to acknowledge support from the following organisations
 - [Mozilla](https://www.mozilla.org/en-US/moss/)
 
 - [Google Cloud Platfrom](https://cloud.google.com/)
-
-  
-  
-
-<!-- ### Mount GCB
-
-  
-
-gcloud auth application-default login
-
-gcloud auth login
-
-  
-
-mkdir bucket/
-
-gcsfuse maskhane-web-test bucket/
-
-GOOGLE_APPLICATION_CREDENTIALS=./json.json gcsfuse maskhane-web-test bucket/
-
-  
-
-fusermount -u bucket/ -->

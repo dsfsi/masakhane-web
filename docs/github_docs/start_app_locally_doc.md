@@ -1,4 +1,4 @@
-# Running the App Locally
+# **Running the App Locally**
 
 The app can be run as a standalone or using Docker, unless you are working on an machine running linux/ubuntu, it is adviseable to use Docker.
 
@@ -6,10 +6,10 @@ To run the app in production, see [here](start_app_prod_doc.md).
 
 For any errors during setup, please see the [debugging doc](debugging_setup.md).
 
-## Table of Contents
-- [Running the App Locally](#running-the-app-locally)
-  - [Table of Contents](#table-of-contents)
-- [Using Docker ( Preferred )](#using-docker--preferred-)
+Review the [project details doc](project_details.md) for more information on the technology stack
+
+## **Table of Contents**
+- [**Using Docker ( Preferred )**](#using-docker--preferred-)
   - [**Docker Setup**](#docker-setup)
   - [**Running the app**](#running-the-app)
     - [**Building the App**](#building-the-app)
@@ -17,7 +17,7 @@ For any errors during setup, please see the [debugging doc](debugging_setup.md).
     - [**Add, Update, \& Delete Languages**](#add-update--delete-languages)
     - [**Running tests**](#running-tests)
     - [**The Database**](#the-database)
-- [As a stand-alone app](#as-a-stand-alone-app)
+- [**As a stand-alone app**](#as-a-stand-alone-app)
   - [**Backend Setup**](#backend-setup)
   - [**Run the server:**](#run-the-server)
     - [**The Database**](#the-database-1)
@@ -25,10 +25,10 @@ For any errors during setup, please see the [debugging doc](debugging_setup.md).
     - [**Running tests**](#running-tests-1)
   - [**Frontend Setup**](#frontend-setup)
   - [**Run the client:**](#run-the-client)
-- [Errors during setup](#errors-during-setup)
+- [**Errors during setup**](#errors-during-setup)
 
 
-# Using Docker ( Preferred ) 
+# **Using Docker ( Preferred )**
 
 The better/easier way to run the app is to use Docker, which will build both the frontend and the backend with the correct enviroment setup.
 
@@ -93,7 +93,7 @@ docker-compose -f docker-compose.yml exec server python manage.py tests
 ### **The Database**
 Look [here](debugging_setup.md#with-docker) for more information about accessing the database
 
-# As a stand-alone app
+# **As a stand-alone app**
 In order to run the app, we need to set up the backend and frontend seperately.  
 **Note** It is advisable to be working on an linux/ubuntu machine.
 
@@ -179,6 +179,6 @@ npm run develop
 
 The client is available at `http://localhost:3000`
 
-# Errors during setup
+# **Errors during setup**
 If there was a problem during setup, review [this doc](debugging_setup.md) for possible errors and solutions.
 

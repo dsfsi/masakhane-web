@@ -1,9 +1,7 @@
-# Running the App In Production
+# **Running the App In Production**
 To run the app locally, see [here](start_app_locally_doc.md)
 
-## Table of Contents
-- [Running the App In Production](#running-the-app-in-production)
-  - [Table of Contents](#table-of-contents)
+## **Table of Contents**
   - [**Docker Setup**](#docker-setup)
   - [**Running the app**](#running-the-app)
     - [**Building the App**](#building-the-app)
@@ -44,7 +42,7 @@ The language code parameter '`en-sw-JW300`' represents {src-lang}-{tgt-lang}-{sh
 So '`en-sw-JW300`' represents English-Swahili using JW300 shortform  
 **Note** - A code parameter example without shortform is `en-tiv-'
 
-View all available languages [here]() 
+View all available languages [here](../../src/server/available_models.tsv)
 
 **Update Langugaes**
 ```bash
