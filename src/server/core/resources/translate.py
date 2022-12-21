@@ -12,22 +12,6 @@ from core.models.language import Language
 from core.models.translation import Translation
 
 
-
-def load_model(src_language, trg_language, domain):
-    model_loader = MasakhaneModelLoader(
-        available_models_file=os.environ.get('MODEL_ALL_FILE',
-                                             './available_models.tsv'))
-
-    # Download currently supported languages
-    model_loader.download_model(src_language=src_language,
-                                trg_language=trg_language, domain=domain)
-
-    model_dir = model_loader.load_model(src_language=src_language,
-                                        trg_language=trg_language, domain=domain)
-
-    return model_dir
-
-
 class TranslateResource(Resource):
     """ TranslateResource
         -----------------
@@ -183,28 +167,33 @@ class AddResource(Resource):
             }
             ```
         """
-
+        model_loader = MasakhaneModelLoader(available_models_file=os.environ.get('MODEL_ALL_FILE',
+                                             './available_models.tsv'))
         db_pairs = []
-
-        # Update model form the db when doing the get call
+        downloaded_models = os.listdir('./models/joeynmt')
+        #loads model info from the Language table
         for lan in Language.query.all():
             language_pair = lan.to_json()
+            src_language =language_pair['source']
+            tgt_language = language_pair['target']
+            domain = language_pair['domain']
             db_pair = f"{language_pair['source']}-{language_pair['target']}"
+            # check if the model is not already loaded in memory
+            if db_pair not in list(self.models.keys()):
+                name_tag = src_language+"-"+tgt_language+"-"+domain
+                # check if the model is not already downloaded
+                if name_tag not in downloaded_models:
+                    print("Downloading model for "+name_tag)
+                    model_loader.download_model(src_language, tgt_language, domain)
+                # Attempts to download model and store in self.models
+                self.models[db_pair] = model_loader.load_model(src_language, tgt_language, domain)
+                print(f"db_pair : {db_pair} \n now : {list(self.models.keys())}")
 
-            # check if the model is not already loaded
-            if db_pair not in self.now:
-
-                print(f"db_pair : {db_pair} \n now : {self.now}")
-
-                self.models[db_pair] = load_model(src_language=language_pair['source'],
-                                                  trg_language=language_pair['target'],
-                                                  domain=language_pair['domain'])
-
-            # Keep all the pays in the db
+            # keep all the pairs in the db
             db_pairs.append(db_pair)
 
-        # To make sure that the model in memory are some with the one in the db
-        for pair in self.now:
+        # Remove models from memory that are not listed in the DB Language table 
+        for pair in list(self.models.keys()):
             if pair not in db_pairs:
                 del self.models[pair]
 
