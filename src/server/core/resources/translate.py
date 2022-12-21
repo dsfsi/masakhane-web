@@ -1,21 +1,16 @@
+#External modules
 from flask_restful import Resource
+from flask import request
 from http import HTTPStatus
-
-import ipdb
-import os
-import sqlite3
 from collections import defaultdict
-
+import os, json
+#Internal modules
 from core.model_load import MasakhaneModelLoader
 from core.models.predict import Predicter
 from core.models.feedback import Feedback
-
-import json
-
 from core.models.language import Language
 from core.models.translation import Translation
 
-from flask import request, current_app
 
 
 def load_model(src_language, trg_language, domain):
@@ -34,14 +29,20 @@ def load_model(src_language, trg_language, domain):
 
 
 class TranslateResource(Resource):
+    """ TranslateResource
+        -----------------
+        #### User-Defined Flask API Resource accepting GET & POST\n
+        GET - List's available models\\
+        POST - Performs translation from srg lang to tgt lang, review the server ReadMe for more info.
+    """
     def __init__(self, saved_models):
         self.models = saved_models
-        # self.models = current_app.models
-        json_file = os.environ.get('JSON',
-                                   './languages.json')
+
+        # load languages.json into distros_dict
+        json_file = os.environ.get('JSON','./languages.json')
         with open(json_file, 'r') as f:
             distros_dict = json.load(f)
-
+        # init empty dicts to store full_name to short_name bindings
         self.languages_short_to_full = {}
         self.languages_full_to_short = {}
 
@@ -50,26 +51,46 @@ class TranslateResource(Resource):
             )] = distro['language_en'].lower()
             self.languages_full_to_short[distro['language_en'].lower(
             )] = distro['language_short'].lower()
+        # Example: languages_short_to_full['sw'] = 'swahili'
+        # Example: languages_full_to_short['Swahili'] = 'sw'
 
     def post(self):
-        """
-        Translate a sentence
-        """
+        """POST method to translate a given input
+        ---
 
-        # global models
+        ### Request Body
+        ```json 
+        {
+            "src_lang" : "src_lang_full",
+            "tgt_lang" : "tgt_lang_full",
+            "input": "input_text",
+        }
+        ```
+        ### Returns a Translation Object defined in `src/server/core/models/translation.py`
+        ```json 
+        {
+            "src_lang" : "src_lang_full",
+            "tgt_lang" : "tgt_lang_full",
+            "input": "input_text",
+            "output": "translation_result"
+        }
+        ```
+        """
+        # Get req body
         data = request.get_json()
 
         source_language = data['src_lang'].lower()
         target_language = data['tgt_lang'].lower()
 
+        #Get short_name from self.language_dicts
         source_language_short = self.languages_full_to_short[source_language]
         target_language_short = self.languages_full_to_short[target_language]
 
+        #model key to provide translation
         input_model = source_language_short+'-'+target_language_short
 
         if input_model not in self.models.keys():
             return {'message': 'model not found'}, HTTPStatus.NOT_FOUND
-
         else:
             translation_result = Predicter().translate(
                 data['input'], model=self.models[input_model]['model'],
@@ -94,17 +115,31 @@ class TranslateResource(Resource):
             return trans.data, HTTPStatus.CREATED
 
     def get(self):
+        """GET Method to list available models in memory
+        ---
 
-        output = []
-
-        # print(self.models)
-        # ipdb.set_trace()
+        Returns a json list, ie
+        ```json
+        [
+            {
+                "type": "source",
+                "name": "src_lang_full",
+                "value": "src_lang_short",
+                "targets": [
+                    {
+                        "name": "tgt_lang_full",
+                        "value": "tgt_lang_short"
+                    }
+                ]
+            }
+        ]
+        ```
+        """
 
         dict_output = defaultdict(lambda: [])
-
+        #for each src-tgt key in model dict 
         for couple in list(self.models.keys()):
             src, tgt = couple.split("-")
-
             dict_output[src].append(
                 {
                     'name': self.languages_short_to_full[tgt].capitalize(),
@@ -112,6 +147,7 @@ class TranslateResource(Resource):
                 }
             )
 
+        output = []
         for source in dict_output:
             output.append(
                 {
@@ -126,16 +162,27 @@ class TranslateResource(Resource):
 
 
 class AddResource(Resource):
+    """ AddResource
+        -----------------
+        #### User-Defined Flask API Resource accepting GET\n
+        GET - Updates the models based on the model info stored in the Language table
+    """
     def __init__(self, saved_models):
+        self.models = saved_models
+        # Load file path to avialable_models.tsv which has all the github & google drive links that store the model files
         self.selected_models_file = os.environ.get('MODEL_ALL_FILE',
                                                    "./available_models.tsv")
-        # self.models = current_app.models
-        self.models = saved_models
-        self.now = list(self.models.keys())
 
     def get(self):
-
-        print(self.models)
+        """GET Method to update the available models
+            ---
+            Returns a json Object, ie
+            ```json
+            {
+                "message": "Models updated"
+            }
+            ```
+        """
 
         db_pairs = []
 
@@ -165,26 +212,36 @@ class AddResource(Resource):
 
 
 class SaveResource(Resource):
+    """ SaveResource
+        ------------
+        #### User-Defined Flask API Resource accepting POST\n
+        POST - saves feedback/correction information into the Feedback database
+    """
     def __init__(self):
         super().__init__()
 
     def post(self):
-        """
-        Save into the database
-
-        params:
-        -------
-            - data['src_lang']    : The source language 
-            - data['tgt_lang']    : The target language
-            - data['input']     : The input setence
-            - data['review']    : The suggested translation correction
-            - data['stars']     : The confidence of the suggested translation
-            - data['token'] : User authorisation to collect data token (Boolean value)
+        """POST Method to save feeback into the DB Feedback table
+        ---
+        ### Request Body
+        ```json 
+        {
+            "src_lang" : "src_lang_full",
+            "tgt_lang" : "tgt_lang_full",
+            "input": "input_text",
+            "review": "translation_correction",
+            "stars": "translation_confidence",
+            "token": "user_auth(bool)",
+        }
+        ```
+        ### Returns a Translation Object defined in `src/server/core/models/translation.py
+        ```json 
+        {
+            "message": "Review saved"
+        }
         """
 
         data = request.get_json()
-        # ipdb.set_trace()
-        # data = data_request['formData']
 
         feedback = Feedback(
             src_lang=data['src_lang'],
@@ -204,6 +261,11 @@ class SaveResource(Resource):
 
 
 class HomeResource(Resource):
+    """ HomeResource
+        ------------
+        User-Defined Flask API Resource accepting GET\n
+        GET - returns {'message': "welcome Masakhane Web"}
+    """
     def __init__(self):
         super().__init__()
 
