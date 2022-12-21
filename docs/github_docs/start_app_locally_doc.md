@@ -69,7 +69,7 @@ The language code parameter `en-sw-JW300` represents {src-lang}-{tgt-lang}-{shor
 So `en-sw-JW300` represents English-Swahili using JW300 shortform  
 **Note** - A code parameter example without shortform is `en-tiv-`
 
-View all available languages [here](../../src/server/available_models.tsv) 
+Download available languages csv [here](https://zenodo.org/record/7417644/files/masakhane-mt-current-models.csv) 
 
 **Update Langugaes**
 ```bash
@@ -133,7 +133,7 @@ The language code parameter `en-sw-JW300` represents {src-lang}-{tgt-lang}-{shor
 So `en-sw-JW300` represents English-Swahili using JW300 shortform  
 **Note** - A code parameter example without shortform is `en-tiv-`
 
-View all available languages [here](../../src/server/available_models.tsv) 
+Download available languages csv [here](https://zenodo.org/record/7417644/files/masakhane-mt-current-models.csv) 
 
 **Update Langugaes**
 ```bash
