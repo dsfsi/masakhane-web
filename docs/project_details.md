@@ -46,7 +46,7 @@ The backend also makes use of [Flask](https://flask.palletsprojects.com/en/2.2.x
     Masakhane Web makes use of the Flask [application factory](https://flask.palletsprojects.com/en/2.2.x/patterns/appfactories/) pattern in `src/core/__init__.py` 
 
 - **API**  
-    The API uses[flask_restful](https://flask-restful.readthedocs.io/en/latest/quickstart.html#resourceful-routing) and is defined in `src/core/resources/translate.py`.  
+    The API uses [flask_restful](https://flask-restful.readthedocs.io/en/latest/quickstart.html#resourceful-routing) and is defined in `src/core/resources/translate.py`.  
     It is initialised along with the app in `src/core/__init__.py`.  
 
 - **Database**  

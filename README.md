@@ -23,8 +23,8 @@
 
 
 # Running The App 
-To run the app locally, see [here](/docs/github_docs/start_app_locally_doc.md#running-the-app-locally)  
-To run the app in a production, see [here](/docs/github_docs/start_app_prod_doc.md#running-the-app-in-production)
+To run the app locally, see [here](/docs/start_app_locally_doc.md#running-the-app-locally)  
+To run the app in a production, see [here](/docs/start_app_prod_doc.md#running-the-app-in-production)
 
 # Contributing
 

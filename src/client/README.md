@@ -4,9 +4,9 @@
 
 The client is running on http://localhost:3000  
 
-It consists of 
-    -   ReactJS
-    -   Webpack
+It consists of  
+-   ReactJS
+-   Webpack
 
 # Available npm scripts:
 

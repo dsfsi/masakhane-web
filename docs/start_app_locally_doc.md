@@ -51,7 +51,7 @@ docker-compose -f docker-compose.yml up -d --build
 ```
 
 Docker should create a container named 'masakhane-web' with the images 'db-1', 'server-1', and 'client-1'.  
-The server should be active on http://localhost:5000 and the client on http://localhost:3000
+The server should be active on http://localhost:5000 and the client on http://localhost:3000  
 Look [here](debugging_setup.md#checking-the-client-serverapi--database) for checking these services manually.
 
 ### **Shut down the app**
