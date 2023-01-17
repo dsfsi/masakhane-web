@@ -1,15 +1,13 @@
 # Common SetUp errors and Debugging
 
 ## Table of Contents
-- [Common SetUp errors and Debugging](#common-setup-errors-and-debugging)
-  - [Table of Contents](#table-of-contents)
-- [Errors during setup](#errors-during-setup)
+- [**Errors during setup**](#errors-during-setup)
   - [**Errors with Docker**](#errors-with-docker)
     - [**gcsfuse** - Noted on Mac M1 (Dec 2022)](#gcsfuse---noted-on-mac-m1-dec-2022)
     - [**failed to solve** - Noted on Mac M1 (Dec 2022)](#failed-to-solve---noted-on-mac-m1-dec-2022)
   - [**Errors with stand alone setup**](#errors-with-stand-alone-setup)
     - [**PyICU/Polyglot** - Noted on Linux/Ubuntu (Jun 2022)](#pyicupolyglot---noted-on-linuxubuntu-jun-2022)
-- [Checking the client, server/api \& database](#checking-the-client-serverapi--database)
+- [**Checking the client, server/api \& database**](#checking-the-client-serverapi--database)
   - [**Check the client**](#check-the-client)
   - [**Check the api**](#check-the-api)
     - [**Notable API endpoints to test using GET:**](#notable-api-endpoints-to-test-using-get)
@@ -19,7 +17,7 @@
     - [**With Stand alone backend**](#with-stand-alone-backend)
 
 
-# Errors during setup
+# **Errors during setup**
 
 ## **Errors with Docker**
 ### **gcsfuse** - Noted on Mac M1 (Dec 2022)
@@ -37,8 +35,9 @@ failed to solve: rpc error: code = Unknown desc = failed to solve with frontend 
 
 This is a ad-hoc error, possible solutions:
 - Sign in to docker hub and docker cli ```docker signin```  
-- Sign in to docker hub  
-- Within `Docker hub>Settings>Docker Engine`,set  `buildkit` to `false`   
+- Within `Docker hub>Settings>Docker Engine`,set  `buildkit` to `false`  
+- Instead of `docker-compose`, try `docker compose`
+- Lost all hope? Go make a cup of coffee, sometimes it works if you just give it a minute...
 
 [solution signin reference](https://stackoverflow.com/questions/65361083/docker-build-failed-to-fetch-oauth-token-for-openjdk) | [solution buildkit reference](https://stackoverflow.com/questions/64221861/an-error-failed-to-solve-with-frontend-dockerfile-v0)
 
@@ -68,7 +67,7 @@ apt-get install pkg-config libicu-dev
 pip install --no-binary=:pyicu: pyicu
 ```
 
-# Checking the client, server/api & database
+# **Checking the client, server/api & database**
 ## **Check the client**
 The client should be running on http://localhost:3000.
 

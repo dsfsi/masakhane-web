@@ -1,37 +1,28 @@
-from unittest import result
+#external imports
+import click, json, os, unittest
 from flask.cli import FlaskGroup
-
+# internal imports
 from core.extensions import db
-from core import masakhane, load_model
-
-from flask import current_app
+from core import masakhane
 from core.models.language import Language
 
-import click
-import json
-import os
-import unittest
-
-# import flask_unittest
 
 cli = FlaskGroup(masakhane)
 
-
 @cli.command("create_db")
 def create_db():
+    """User defined Flask CLI command
+    ---
+    This command will create and commit the available database tables"""
     db.create_all()
     db.session.commit()
 
 
-@cli.command("init_models")
-def init_models():
-    print(current_app.models)
-    print(masakhane.models)
-
-
 @cli.command("clean")
 def clean():
-    # Carefull this will delete the content of the databases
+    """User defined Flask CLI command
+    ---
+    This command will DELETE & re-create the database"""
     db.drop_all()
     db.create_all()
     db.session.commit()
@@ -39,6 +30,9 @@ def clean():
 
 @cli.command("all_languages")
 def all_languages():
+    """User defined Flask CLI command
+    ---
+    This command will list the translation model info in the database"""
     for lan in Language.query.all():
         print(lan.to_json())
 
@@ -46,6 +40,11 @@ def all_languages():
 @cli.command("add_language")
 @click.argument('name_tag')
 def add_language(name_tag):
+    """User defined Flask CLI command
+    ---
+    This command will add a language into the database\n
+    The parameter is of the form `src-trg-domain`, ie. `en-sw-JW300` || `en-tiv-`
+    """
     with open(os.environ.get('JSON',
                              "./languages.json"), 'r') as f:
         distros_dict = json.load(f)
@@ -70,8 +69,11 @@ def add_language(name_tag):
 @cli.command("remove_language")
 @click.argument('name_tag')
 def remove_language(name_tag):
-    source, target, domain = name_tag.split('-')
-    # Be carefull
+    """User defined Flask CLI command
+    ---
+    This command will remove a language from the database\n
+    The parameter is of the form `src-trg-domain`, ie. `en-sw-JW300` || `en-tiv-`
+    """
     try:
         language = Language.query.filter_by(
             src_tgt_dmn=name_tag).first_or_404()
@@ -85,7 +87,9 @@ def remove_language(name_tag):
 
 @cli.command("tests")
 def tests():
-    """ Runs the tests without code coverage """
+    """User defined Flask CLI command
+    --- 
+    Runs the tests without code coverage """
 
     loader = unittest.defaultTestLoader
     suite = unittest.TestSuite()
