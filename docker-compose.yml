@@ -10,6 +10,7 @@ services:
     command: python manage.py run -h 0.0.0.0
     volumes:
       - './src/server:/usr/src/app'
+      - './models/joeynmt:/usr/src/app/models/joeynmt'
     ports:
       - 5000:5000
 

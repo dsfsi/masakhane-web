@@ -11,6 +11,8 @@ from core.models.feedback import Feedback
 from core.models.language import Language
 from core.models.translation import Translation
 
+from pathlib import Path
+
 
 class TranslateResource(Resource):
     """ TranslateResource
@@ -62,7 +64,7 @@ class TranslateResource(Resource):
         """
         # Get req body
         data = request.get_json()
-
+        print("I have received a request with the following data: ", data)
         source_language = data['src_lang'].lower()
         target_language = data['tgt_lang'].lower()
 
@@ -170,7 +172,8 @@ class AddResource(Resource):
         model_loader = MasakhaneModelLoader(available_models_file=os.environ.get('MODEL_ALL_FILE',
                                              './available_models.tsv'))
         db_pairs = []
-        downloaded_models = os.listdir('./models/joeynmt')
+        model_directory = Path.cwd().joinpath('models', 'joeynmt')
+        downloaded_models = list(model_directory.iterdir())
         #loads model info from the Language table
         for lan in Language.query.all():
             language_pair = lan.to_json()

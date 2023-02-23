@@ -16,6 +16,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = 'super-secret-key'    
     basedir = os.path.abspath(os.path.dirname(__file__))
+    FLASK_DEBUG=1
 
 class StagingConfig(Config):
     """
