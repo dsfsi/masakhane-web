@@ -1,0 +1,13 @@
+{
+ "model_name": "masakhane/m2m100_418M_en_swa_rel_news",
+ "mode": "text_generation",
+ "do_lower_case":false,
+ "num_labels":"0",
+ "save_mode":"pretrained",
+ "max_length":"150",
+ "captum_explanation":true,
+ "embedding_name": "bert",
+ "FasterTransformer":false,
+ "BetterTransformer":false,
+ "model_parallel":false
+}

@@ -108,3 +108,5 @@ src/server/core/models/joeynmt
 
 onnx/
 *.onnx
+model_store/
+logs/
