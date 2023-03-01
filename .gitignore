@@ -103,3 +103,8 @@ src/server/core/models/joeynmt
 .env.prod
 
 *.sqlite
+
+### ignore model export
+
+onnx/
+*.onnx
