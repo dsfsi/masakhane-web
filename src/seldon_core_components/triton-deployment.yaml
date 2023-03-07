@@ -1,0 +1,19 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: triton-masakhane
+  namespace: masakhane
+spec:
+  name: default
+  predictors:
+  - graph:
+      implementation: TRITON_SERVER
+      logger:
+        mode: all
+      modelUri: s3://language-models/onnx-m2m100/1
+      envSecretRefName: masakhane-container-secret
+      name: triston-masakhane-predictor
+      type: MODEL
+    name: default
+    replicas: 1
+  protocol: kfserving

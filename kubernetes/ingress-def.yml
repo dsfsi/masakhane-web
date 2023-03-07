@@ -12,6 +12,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: iris-model-sklearn-iris-predictor-sklearn-iris-classifier
+            name: iris-model-sklearn-iris-predictor
             port:
-              number: 9000
+              number: 8000

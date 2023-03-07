@@ -12,4 +12,4 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: /Users/es.py/models_data # remove in production environment
+    path: /models_datastore # the host on the minikube vm
