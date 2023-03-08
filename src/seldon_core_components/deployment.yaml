@@ -1,7 +1,7 @@
 apiVersion: machinelearning.seldon.io/v1
 kind: SeldonDeployment
 metadata:
-  name: translation-pod
+  name: translation-deployment
   namespace: masakhane
 spec:
   name: translation-worker
@@ -16,9 +16,9 @@ spec:
           - name: TRANSFORMERS_CACHE
             value: "/models_datastore/.cache"
           - name: GUNICORN_WORKERS
-            value: '2'
+            value: '1'
           - name: GRPC_WORKERS
-            value: '2'
+            value: '0'
           - name: SELDON_LOG_LEVEL
             value: DEBUG
           - name: SELDON_DEBUG
@@ -30,11 +30,11 @@ spec:
               name: translation-volume-storage
           resources:
             requests:
-              memory: 2048Mi
-              cpu: 2048m
+              memory: 8Gi
+              cpu: 3
             limits:
-              memory: 3048Mi
-              cpu: 3048m
+              memory: 9Gi
+              cpu: 4
         terminationGracePeriodSeconds: 1
         volumes:
         - name: translation-volume-storage
@@ -61,6 +61,3 @@ spec:
       version: v1
     name: translation-predictor
     replicas: 1
-
-
-
