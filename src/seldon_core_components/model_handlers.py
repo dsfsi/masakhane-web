@@ -3,11 +3,11 @@ from optimum.onnxruntime import ORTModelForSeq2SeqLM
 from optimum.pipelines import pipeline
 from pathlib import Path
 
-MODEL_PATH = Path(__file__).parent.parent.parent.joinpath("onnx", "m2m100_418M_en_swa_rel_news_quantized")
-
 
 class OptimizedM100Model:
-    def __init__(self, model_path=MODEL_PATH, src_lang="en", tgt_lang="sw"):
+    def __init__(self, model_path, src_lang, tgt_lang):
+        model_path = Path(model_path)
+        assert model_path.exists(), "Model path does not exist"
         print("start loading the model........")
         self._model = ORTModelForSeq2SeqLM.from_pretrained(model_path)
         print("Model loaded successfully!")

@@ -64,7 +64,6 @@ class TranslateResource(Resource):
         """
         # Get req body
         data = request.get_json()
-        print("I have received a request with the following data: ", data)
         source_language = data['src_lang'].lower()
         target_language = data['tgt_lang'].lower()
 
