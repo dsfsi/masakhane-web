@@ -1,0 +1,30 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: iris-model
+  namespace: seldon
+spec:
+  name: iris
+  annotations:
+    prometheus.io/scrape: "false"
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+            - env:
+              - name: SELDON_LOG_LEVEL
+                value: DEBUG
+              - name: SELDON_DEBUG
+                value: 'True'
+              - name: FLASK_DEBUG
+                value: 'True'
+              image: seldonio/sklearn-iris:0.3
+              imagePullPolicy: IfNotPresent
+              name: sklearn-iris-classifier
+    graph:
+        endpoint:
+          type: REST
+        name: sklearn-iris-classifier
+        type: MODEL
+    name: sklearn-iris-predictor
+    replicas: 1

@@ -33,6 +33,7 @@ COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 # add app
 COPY . /usr/src/app
 
+
 # run server (https://github.com/testdrivenio/testdriven-app/issues/25)
 CMD ["sh","-c","chmod 777 /usr/src/app/entrypoint.sh"]
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: seldon-ingress
+  namespace: seldon
+spec:
+  rules:
+  - host: seldon-ingress.com
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: iris-model-sklearn-iris-predictor
+            port:
+              number: 8000

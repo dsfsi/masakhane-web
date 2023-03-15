@@ -1,0 +1,63 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: translation-deployment
+  namespace: masakhane
+spec:
+  name: translation-worker
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+        - image: masakhane/translation:alpha 
+          name: translation-container
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: TRANSFORMERS_CACHE
+            value: "/models_datastore/.cache"
+          - name: GUNICORN_WORKERS
+            value: '1'
+          - name: GRPC_WORKERS
+            value: '0'
+          - name: SELDON_LOG_LEVEL
+            value: DEBUG
+          - name: SELDON_DEBUG
+            value: 'True'
+          - name: FLASK_DEBUG
+            value: 'True'
+          volumeMounts:
+            - mountPath: "/models_datastore/" # mount the cache volume here
+              name: translation-volume-storage
+          resources:
+            requests:
+              memory: 8Gi
+              cpu: 3
+            limits:
+              memory: 9Gi
+              cpu: 4
+        terminationGracePeriodSeconds: 1
+        volumes:
+        - name: translation-volume-storage
+          persistentVolumeClaim:
+            claimName: masakhane-model-cache-volume-claim
+    graph:
+      envSecretRefName: masakhane-container-secret
+      children: []
+      endpoint:
+        type: REST
+      name: translation-container
+      type: MODEL
+      parameters: 
+      - name: model_path
+        type: STRING
+        value: "/models_datastore/" # this should come form volume.
+      - name: src_lang
+        type: STRING
+        value: "en"
+      - name: tgt_lang
+        type: STRING
+        value: "sw"
+    labels:
+      version: v1
+    name: translation-predictor
+    replicas: 1

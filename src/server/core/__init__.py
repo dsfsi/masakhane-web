@@ -10,7 +10,6 @@ from core.extensions import db
 from core.config import Config, DevelopmentConfig, ProductionConfig, StagingConfig
 
 
-
 #application factory
 def create_app(saved_models):
     """Flask application factory to config and init app"""
@@ -32,9 +31,11 @@ def create_app(saved_models):
 
     return app
 
+
 def register_extensions(app):
     db.init_app(app)
     migrate = Migrate(app, db)
+
 
 def register_resources(app, saved_models):
     api = Api(app)
@@ -43,7 +44,8 @@ def register_resources(app, saved_models):
     # TODO need to find a better way to updte the current app information whithout exposing to the public
     api.add_resource(AddResource, '/update', resource_class_kwargs={'saved_models': saved_models})
     api.add_resource(SaveResource, '/save')
-  
+
+
 models = {}
 masakhane = create_app(models)
 masakhane.models = models

@@ -2,6 +2,7 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///masakhane.db")
@@ -12,10 +13,13 @@ class Config:
     MODEL_ALL_FILE = "./available_models.tsv"
     JSON = "./languages.json"
     
+  
 class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = 'super-secret-key'    
     basedir = os.path.abspath(os.path.dirname(__file__))
+    FLASK_DEBUG=1
+
 
 class StagingConfig(Config):
     """
@@ -26,6 +30,7 @@ class StagingConfig(Config):
     TESTING = True
     SECRET_KEY = os.getenv('SECRET_KEY', "key_testing")
     # MODEL = os.getenv('MODEL', "./")
+
 
 class ProductionConfig(Config):
     SECRET_KEY = os.getenv('SECRET_KEY', "key_production")

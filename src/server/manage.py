@@ -1,4 +1,5 @@
 #external imports
+
 import click, json, os, unittest
 from flask.cli import FlaskGroup
 # internal imports
@@ -8,6 +9,7 @@ from core.models.language import Language
 
 
 cli = FlaskGroup(masakhane)
+
 
 @cli.command("create_db")
 def create_db():
