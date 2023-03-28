@@ -26,7 +26,9 @@ module.exports = {
     proxy: {
       '/': {
         // target: 'http://[::1]:5000',
-        target: 'http://localhost:5000',
+        // todo: make the ip a configuration environment variable
+        target: 'http://45.147.99.147:5000',
+        changeOrigin: true,
         // target: 'http://127.0.0.1:5000',
         bypass: function (req, res, proxyOptions) {
           if (req.headers.accept.indexOf('html') !== -1) {
@@ -48,7 +50,7 @@ module.exports = {
           options: {
             presets: [
               ['@babel/preset-env', {
-                "targets": "defaults" 
+                "targets": "defaults"
               }],
               '@babel/preset-react'
             ]
@@ -61,16 +63,16 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'url-loader',
         options: {
-        limit: 25000,
-        performance: {
-          hints: false,
-          maxEntrypointSize: 512000,
-          maxAssetSize: 512000
+          limit: 25000,
+          performance: {
+            hints: false,
+            maxEntrypointSize: 512000,
+            maxAssetSize: 512000
+          }
+        },
+
       }
-      },
-      
-    }
-    
+
     ]
   }
 }

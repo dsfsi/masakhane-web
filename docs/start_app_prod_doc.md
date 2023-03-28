@@ -8,7 +8,7 @@ To run the app locally, see [here](start_app_locally_doc.md)
     - [**Shut down the app**](#shut-down-the-app)
     - [**Add, Update, \& Delete Languages**](#add-update--delete-languages)
     - [**Running tests**](#running-tests)
-
+ 
 
 ## **Docker Setup**
 
