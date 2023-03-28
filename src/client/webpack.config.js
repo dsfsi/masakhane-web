@@ -27,9 +27,9 @@ module.exports = {
       '/': {
         // target: 'http://[::1]:5000',
         // todo: make the ip a configuration environment variable
-        target: 'http://45.147.99.147:5000',
+        // target: 'http://45.147.99.147:5000',
         changeOrigin: true,
-        // target: 'http://127.0.0.1:5000',
+        target: 'http://127.0.0.1:5000',
         bypass: function (req, res, proxyOptions) {
           if (req.headers.accept.indexOf('html') !== -1) {
             console.log('Skipping proxy for browser request.');
