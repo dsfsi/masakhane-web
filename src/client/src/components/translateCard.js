@@ -184,8 +184,8 @@ export default function TranslateCard() {
           .then(data => {
               console.log({ data})
             // do something here
-            setSrcLanguages(data)
-            if (data[0].targets == null) {
+            if (data[0].targets != null) {
+                setSrcLanguages(data)
                 setTgtLanguages(data[0].targets)
             }
         
