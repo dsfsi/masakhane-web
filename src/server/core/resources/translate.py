@@ -170,7 +170,7 @@ class AddResource(Resource):
         model_loader = MasakhaneModelLoader(available_models_file=os.environ.get('MODEL_ALL_FILE',
                                              './available_models.tsv'))
         db_pairs = []
-        if not os.path.exists(filePath):
+        if not os.path.exists('./models/joeynmt'):
             os.makedirs('./models/joeynmt')
         downloaded_models = os.listdir('./models/joeynmt')
         #loads model info from the Language table
