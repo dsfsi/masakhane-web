@@ -4,6 +4,7 @@ services:
 
   server:
     # container_name: flask-api
+    platform: linux/amd64
     build :
       context: ./src/server
       dockerfile: Dockerfile
@@ -32,7 +33,7 @@ services:
     build :
       context: ./src/client
       dockerfile: Dockerfile
-    # command: curl --location --request GET 'http://0.0.0.0:5000/update' --data-raw ''
+    # command: ["curl --connect-timeout 1800 --max-time 1800 --request GET", "http://127.0.0.1:5000/update"]
     volumes:
       - './src/client:/usr/src/app'
     ports:

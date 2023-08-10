@@ -19,13 +19,11 @@ def upload():
     archive = io.BytesIO()
     with ZipFile(archive, 'w') as zip_archive:
         for file_path in source_dir.iterdir():
-            # ipdb.set_trace()
             with open(file_path, 'r') as file:
                 zip_entry_name = file_path.name
                 zip_file = ZipInfo(zip_entry_name)
                 zip_archive.writestr(zip_file, file.read())
             
-    ipdb.set_trace()
     archive.seek(0)
 
     object_name = 'super-important-data-v1'

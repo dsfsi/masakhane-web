@@ -1,4 +1,4 @@
-import os, yaml, logging, re
+import os, yaml, logging, re, ipdb
 # external imports
 import torch
 from joeynmt.helpers import load_config
@@ -56,9 +56,12 @@ class MasakhaneModelLoader():
         """ Download model for given trg language. """
         model_dir = f"{self._model_dir_prefix}{src_language}-{tgt_language}-{domain}"
 
+        print("Inside download")
         if not os.path.exists(model_dir):
+            print(f"{model_dir} doesn't exist")
             os.system(f'mkdir -p {model_dir}')
-
+        print(f"{model_dir} exist")
+        
         model_files = self.models[f"{src_language}-{tgt_language}-{domain}"]
 
         # Check if files exist
@@ -66,6 +69,7 @@ class MasakhaneModelLoader():
         src_vocab_path = os.path.join(model_dir, 'src_vocab.txt')
         trg_vocab_path = os.path.join(model_dir, 'trg_vocab.txt')
         config_path = os.path.join(model_dir, 'config_orig.yaml')
+        # config_path = os.path.join(model_dir, 'config.yaml')
         src_bpe_path = os.path.join(model_dir, 'src.bpe.model')
         trg_bpe_path = os.path.join(model_dir, 'trg.bpe.model')
 
@@ -102,7 +106,7 @@ class MasakhaneModelLoader():
         src_vocab_path = os.path.join(model_dir, 'src_vocab.txt')
         trg_vocab_path = os.path.join(model_dir, 'trg_vocab.txt')
         config_path = os.path.join(model_dir, 'config_orig.yaml')
-
+        # config_path = os.path.join(model_dir, 'config.yaml')
         # Adjust config.
         config = load_config(config_path)
         new_config_file = os.path.join(model_dir, 'config.yaml')

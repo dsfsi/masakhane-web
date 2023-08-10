@@ -129,7 +129,6 @@ class Predicter():
       :param use_cuda: Using CUDA or not.
       :return:
       """
-      # ipdb.set_trace()
       sentence = message_text.strip()
       # remove emojis
       emoji_pattern = re.compile("\:[a-zA-Z]+\:")
