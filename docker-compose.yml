@@ -17,13 +17,6 @@ services:
     env_file:
       - ./src/server/.env.dev
 
-    healthcheck:
-      test: ["CMD", "curl", "--connect-timeout 1800", "--max-time 1800", "-f", "http://127.0.0.1:5000/update"]
-      interval: 1800s
-      timeout: 1800s
-      retries: 3
-      start_period: 500s
-
     depends_on: 
       - db
 
