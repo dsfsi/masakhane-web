@@ -14,8 +14,17 @@ RUN npm install --legacy-peer-deps
 RUN npm i webpack webpack-cli --legacy-peer-deps
 RUN npm i @babel/core @babel/preset-env @babel/preset-react babel-loader --legacy-peer-deps
 
+# add entrypoint.sh
+COPY ./entrypoint.sh /app/entrypoint.sh
+
 # add app
 COPY . ./
 
+RUN chmod +x /app/entrypoint.sh
+
+# CMD ["sh","-c","chmod +x /app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
+
 # RUN npm command 
-CMD ["npm", "run", "develop"]
+# CMD ["npm", "run", "develop"]
+

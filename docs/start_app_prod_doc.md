@@ -46,7 +46,10 @@ Download available languages csv [here](https://zenodo.org/record/7417644/files/
 
 **Update Langugaes**
 ```bash
-curl --request GET 'http://127.0.0.1:5000/update'
+# waiting for 30 min
+# curl --connect-timeout 1800 --max-time 1800 --request GET 'http://127.0.0.1:5000/update'
+curl --connect-timeout 0 --max-time 0 --request GET 'http://127.0.0.1:5000/update'
+
 ```
 
 **Check available languages**
