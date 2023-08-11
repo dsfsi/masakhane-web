@@ -115,7 +115,7 @@ class MasakhaneModelLoader():
         with open(new_config_file, 'w') as cfile:
             yaml.dump(config, cfile)
 
-        print('Loaded model for {}-{}.'.format(src_language, tgt_language))
+        print('Loading model {}-{} ...'.format(src_language, tgt_language))
 
         conf = {}
 
